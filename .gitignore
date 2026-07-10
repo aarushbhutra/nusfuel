@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+.expo/
+.env
+.env.*
+*.pem
+*.key
+*.log
+tmp/
+.agents/
+skills-lock.json
