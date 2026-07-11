@@ -18,14 +18,14 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 - [x] Task 1: Create the project command scaffold
 - [x] Task 2: Define menu, goal, meal-log, and recommendation contracts
 - [x] Task 3: Add Techno Edge seed data format and importer checks
-- [ ] Task 4: Implement backend domain rules with tests
+- [x] Task 4: Implement backend domain rules with tests
 
 ### Checkpoint: Foundation
 
-- [ ] `go test ./...` passes for backend domain code
-- [ ] `npm run mobile:test` exists, even if only smoke-level tests exist initially
-- [ ] Seed data validates required nutrition, source, confidence, and allergen fields
-- [ ] No implementation depends on AI-generated nutrition facts
+- [x] `go test ./...` passes for backend domain code
+- [x] `npm run mobile:test` exists, even if only smoke-level tests exist initially
+- [x] Seed data validates required nutrition, source, confidence, and allergen fields
+- [x] No implementation depends on AI-generated nutrition facts
 
 ### Phase 2: Core User Loop
 

@@ -74,12 +74,12 @@
 **Description:** Implement pure Go domain logic for serving scaling, goal validation, preset selection, allergen filtering, and deterministic recommendation ranking.
 
 **Acceptance criteria:**
-- [ ] Invalid serving values are rejected.
-- [ ] Preset and custom goals validate correctly.
-- [ ] Recommendation ranking follows filters, calorie/protein fit, optional macro fit, outlet relevance, then variety.
+- [x] Invalid serving values are rejected.
+- [x] Preset and custom goals validate correctly.
+- [x] Recommendation ranking follows filters, calorie/protein fit, optional macro fit, outlet relevance, then variety.
 
 **Verification:**
-- [ ] Run `go test ./...`.
+- [x] Run `go test ./...`.
 
 **Dependencies:** Tasks 2, 3
 
