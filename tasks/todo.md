@@ -52,13 +52,13 @@
 **Description:** Add the initial seed-data shape for Techno Edge stalls and menu items. Include validation so incomplete nutrition or missing source/confidence metadata fails fast.
 
 **Acceptance criteria:**
-- [ ] Seed entries are one serving by default.
-- [ ] Required nutrition fields, source, confidence, stall, and allergen status are validated.
-- [ ] Missing allergen data is represented as incomplete, not safe.
+- [x] Seed entries are one serving by default.
+- [x] Required nutrition fields, source, confidence, stall, and allergen status are validated.
+- [x] Missing allergen data is represented as incomplete, not safe.
 
 **Verification:**
-- [ ] Run seed validation test or command.
-- [ ] Run `go test ./...`.
+- [x] Run seed validation test or command.
+- [x] Run `go test ./...`.
 
 **Dependencies:** Task 2
 

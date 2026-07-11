@@ -47,7 +47,7 @@ structured dietary/allergen filters
 - Authentication: Amazon Cognito
 - Primary database: Amazon DynamoDB
 - AI: Amazon Bedrock through a backend-only Lambda integration
-- Menu seed/source files: Amazon S3 or repository seed data during MVP
+- Menu seed/source files: one repository JSON file per Techno Edge stall during MVP, uploaded to AWS later
 - Observability: Amazon CloudWatch
 - Infrastructure: Terraform
 - Testing: Go `testing`, Vitest, React Native Testing Library, and optional Playwright/device smoke tests
@@ -111,6 +111,7 @@ Conventions:
 - Go: standard `gofmt`, short packages, errors wrapped with context.
 - API fields: JSON `camelCase`; prices and nutrition values use explicit units in names or schemas.
 - No AI call may bypass the menu repository or structured validation.
+- Initial menu import uses `data/techno-edge/*.json`; backend seed checks validate each stall file before it can feed app storage.
 
 ## Testing Strategy
 
@@ -165,4 +166,4 @@ Conventions:
 - Should optional targets affect ranking immediately or only progress display?
 - What minimum nutrition/allergen confidence is required before a meal can be recommended?
 - Which Bedrock model and AWS region fit the budget and latency target?
-- What is the initial menu data import format and update process?
+- What is the menu update process after the initial repository seed files?

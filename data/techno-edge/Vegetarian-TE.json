@@ -1,0 +1,469 @@
+{
+    "source_url":  "https://uci.nus.edu.sg/wp-content/uploads/2024/03/Vegetarian-TE.pdf",
+    "pdf":  {
+                "filename":  "Vegetarian-TE.pdf",
+                "page_count":  2
+            },
+    "canteen":  {
+                    "name":  "Techno Edge",
+                    "stall_number":  3,
+                    "food_type":  "Vegetarian",
+                    "operator":  "Soh Hoe Ann"
+                },
+    "nutrition_columns":  {
+                              "energy_kcal":  "Energy (Kcal)",
+                              "protein_g":  "Protein (g)",
+                              "total_fat_g":  "Total Fat (g)",
+                              "carbohydrate_g":  "Carbohyrate (g)",
+                              "sugar_g":  "Sugar (g)"
+                          },
+    "dishes":  [
+                   {
+                       "number":  1,
+                       "name":  "Stir Fried Broccolli",
+                       "energy_kcal":  23,
+                       "protein_g":  2.6,
+                       "total_fat_g":  0.4,
+                       "carbohydrate_g":  2.4,
+                       "sugar_g":  2.1,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  2,
+                       "name":  "Stir Fried Beansprouts",
+                       "energy_kcal":  20,
+                       "protein_g":  1.7,
+                       "total_fat_g":  0.7,
+                       "carbohydrate_g":  1.6,
+                       "sugar_g":  1.2,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  3,
+                       "name":  "Stir Fried Bittergourd",
+                       "energy_kcal":  15,
+                       "protein_g":  0.5,
+                       "total_fat_g":  0.5,
+                       "carbohydrate_g":  2.1,
+                       "sugar_g":  2.1,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  4,
+                       "name":  "Stir Fried Cabbage",
+                       "energy_kcal":  24,
+                       "protein_g":  1.3,
+                       "total_fat_g":  0.7,
+                       "carbohydrate_g":  3.2,
+                       "sugar_g":  3.0,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  5,
+                       "name":  "Stir Fried Lotus Root",
+                       "energy_kcal":  37,
+                       "protein_g":  1.0,
+                       "total_fat_g":  0.5,
+                       "carbohydrate_g":  7.1,
+                       "sugar_g":  0.6,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  6,
+                       "name":  "Stir Fried Seaweed",
+                       "energy_kcal":  45,
+                       "protein_g":  2.3,
+                       "total_fat_g":  1.3,
+                       "carbohydrate_g":  7.2,
+                       "sugar_g":  1.9,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  7,
+                       "name":  "Stir Fried Tau Kwa",
+                       "energy_kcal":  71,
+                       "protein_g":  7.0,
+                       "total_fat_g":  3.9,
+                       "carbohydrate_g":  2.6,
+                       "sugar_g":  1.3,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  8,
+                       "name":  "Stir Fried Golden Needle Vegetable",
+                       "energy_kcal":  42,
+                       "protein_g":  0.9,
+                       "total_fat_g":  2.3,
+                       "carbohydrate_g":  4.4,
+                       "sugar_g":  4.0,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  9,
+                       "name":  "Stir Fried King Oyster Mushroom",
+                       "energy_kcal":  54,
+                       "protein_g":  3.1,
+                       "total_fat_g":  1.9,
+                       "carbohydrate_g":  5.0,
+                       "sugar_g":  2.7,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  10,
+                       "name":  "Stir Fried Chinese Yam",
+                       "energy_kcal":  68,
+                       "protein_g":  1.5,
+                       "total_fat_g":  1.5,
+                       "carbohydrate_g":  10.8,
+                       "sugar_g":  3.0,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  11,
+                       "name":  "Stir Fried Brinjal",
+                       "energy_kcal":  29,
+                       "protein_g":  1.4,
+                       "total_fat_g":  0.4,
+                       "carbohydrate_g":  5.0,
+                       "sugar_g":  5.0,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  12,
+                       "name":  "Stir Fried Long Bean",
+                       "energy_kcal":  25,
+                       "protein_g":  1.4,
+                       "total_fat_g":  0.6,
+                       "carbohydrate_g":  3.5,
+                       "sugar_g":  3.1,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  13,
+                       "name":  "Stir Fried Green Amaranth",
+                       "energy_kcal":  19,
+                       "protein_g":  1.5,
+                       "total_fat_g":  0.6,
+                       "carbohydrate_g":  2.8,
+                       "sugar_g":  0.4,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  14,
+                       "name":  "Stir Fried Mushroom Mock Meat",
+                       "energy_kcal":  124,
+                       "protein_g":  9.5,
+                       "total_fat_g":  5.4,
+                       "carbohydrate_g":  9.1,
+                       "sugar_g":  3.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  15,
+                       "name":  "Stir Fried Tau Gee Tang Hoon",
+                       "energy_kcal":  85,
+                       "protein_g":  4.0,
+                       "total_fat_g":  3.0,
+                       "carbohydrate_g":  10.2,
+                       "sugar_g":  4.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  16,
+                       "name":  "Stir Fried Potato Fries",
+                       "energy_kcal":  110,
+                       "protein_g":  1.5,
+                       "total_fat_g":  4.0,
+                       "carbohydrate_g":  16.2,
+                       "sugar_g":  1.1,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  17,
+                       "name":  "Chilli Mock Meat Bits",
+                       "energy_kcal":  96,
+                       "protein_g":  6.5,
+                       "total_fat_g":  3.5,
+                       "carbohydrate_g":  9.2,
+                       "sugar_g":  7.1,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  18,
+                       "name":  "Sweet \u0026 Sour Mock Meat",
+                       "energy_kcal":  289,
+                       "protein_g":  13.9,
+                       "total_fat_g":  19.2,
+                       "carbohydrate_g":  15.1,
+                       "sugar_g":  9.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  19,
+                       "name":  "Stewed Mock Fish Balls",
+                       "energy_kcal":  96,
+                       "protein_g":  0.8,
+                       "total_fat_g":  5.0,
+                       "carbohydrate_g":  12.1,
+                       "sugar_g":  7.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  20,
+                       "name":  "Deep Fried Vegetable Fritter",
+                       "energy_kcal":  230,
+                       "protein_g":  5.2,
+                       "total_fat_g":  10.7,
+                       "carbohydrate_g":  28.1,
+                       "sugar_g":  1.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  21,
+                       "name":  "Fried Noodle",
+                       "energy_kcal":  472,
+                       "protein_g":  10.6,
+                       "total_fat_g":  17.3,
+                       "carbohydrate_g":  68.4,
+                       "sugar_g":  4.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  22,
+                       "name":  "Fried Kway Teow",
+                       "energy_kcal":  351,
+                       "protein_g":  4.4,
+                       "total_fat_g":  4.4,
+                       "carbohydrate_g":  73.2,
+                       "sugar_g":  1.6,
+                       "allergens":  [
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  23,
+                       "name":  "Fried Rice",
+                       "energy_kcal":  258,
+                       "protein_g":  4.9,
+                       "total_fat_g":  2.3,
+                       "carbohydrate_g":  54.5,
+                       "sugar_g":  1.6,
+                       "allergens":  [
+
+                                     ]
+                   },
+                   {
+                       "number":  24,
+                       "name":  "Fried Bee Hoon",
+                       "energy_kcal":  258,
+                       "protein_g":  4.0,
+                       "total_fat_g":  3.5,
+                       "carbohydrate_g":  52.6,
+                       "sugar_g":  0.3,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   }
+               ],
+    "sides":  [
+                  {
+                      "number":  1,
+                      "name":  "Boiled Chickpea",
+                      "energy_kcal":  95,
+                      "protein_g":  5.0,
+                      "total_fat_g":  1.6,
+                      "carbohydrate_g":  11.2,
+                      "sugar_g":  2.6,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  2,
+                      "name":  "Boiled Pumpkin",
+                      "energy_kcal":  43,
+                      "protein_g":  0.6,
+                      "total_fat_g":  0.1,
+                      "carbohydrate_g":  9.9,
+                      "sugar_g":  7.6,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  3,
+                      "name":  "Boiled Sweet Corn",
+                      "energy_kcal":  41,
+                      "protein_g":  1.4,
+                      "total_fat_g":  0.7,
+                      "carbohydrate_g":  7.6,
+                      "sugar_g":  2.7,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  4,
+                      "name":  "Mock Char Siew",
+                      "energy_kcal":  99,
+                      "protein_g":  13.3,
+                      "total_fat_g":  1.4,
+                      "carbohydrate_g":  8.6,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  5,
+                      "name":  "Deep Fried Egg",
+                      "energy_kcal":  114,
+                      "protein_g":  5.1,
+                      "total_fat_g":  10.2,
+                      "carbohydrate_g":  0.4,
+                      "sugar_g":  0.4,
+                      "allergens":  [
+                                        "Eggs and egg products"
+                                    ]
+                  },
+                  {
+                      "number":  6,
+                      "name":  "Deep Fried Spring Roll",
+                      "energy_kcal":  174,
+                      "protein_g":  3.7,
+                      "total_fat_g":  9.3,
+                      "carbohydrate_g":  19.1,
+                      "sugar_g":  3.1,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Peanuts, soybeans and their products"
+                                    ]
+                  },
+                  {
+                      "number":  7,
+                      "name":  "Deep Fried Mock Chicken Drumstick",
+                      "energy_kcal":  393,
+                      "protein_g":  16.7,
+                      "total_fat_g":  30.6,
+                      "carbohydrate_g":  12.8,
+                      "sugar_g":  4.3,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Peanuts, soybeans and their products"
+                                    ]
+                  },
+                  {
+                      "number":  8,
+                      "name":  "Deep Fried Mock Roast Duck",
+                      "energy_kcal":  300,
+                      "protein_g":  10.3,
+                      "total_fat_g":  27.3,
+                      "carbohydrate_g":  3.1,
+                      "sugar_g":  2.2,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  9,
+                      "name":  "Deep Fried Mock Chicken Bites",
+                      "energy_kcal":  180,
+                      "protein_g":  7.3,
+                      "total_fat_g":  14.6,
+                      "carbohydrate_g":  3.9,
+                      "sugar_g":  1.3,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Peanuts, soybeans and their products"
+                                    ]
+                  },
+                  {
+                      "number":  10,
+                      "name":  "Deep Fried Mock Goose",
+                      "energy_kcal":  115,
+                      "protein_g":  7.2,
+                      "total_fat_g":  7.2,
+                      "carbohydrate_g":  5.1,
+                      "sugar_g":  0.2,
+                      "allergens":  [
+                                        "Peanuts, soybeans and their products"
+                                    ]
+                  },
+                  {
+                      "number":  11,
+                      "name":  "White Rice",
+                      "energy_kcal":  351,
+                      "protein_g":  7.1,
+                      "total_fat_g":  0.5,
+                      "carbohydrate_g":  79.5,
+                      "sugar_g":  0.2,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  12,
+                      "name":  "Brown Rice",
+                      "energy_kcal":  276,
+                      "protein_g":  5.8,
+                      "total_fat_g":  1.3,
+                      "carbohydrate_g":  59.9,
+                      "sugar_g":  0.4,
+                      "allergens":  [
+
+                                    ]
+                  }
+              ],
+    "source_confidence":  "official_nus_pdf",
+    "source_last_verified":  "2026-07-12"
+}

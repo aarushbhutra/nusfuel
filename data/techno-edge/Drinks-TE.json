@@ -1,0 +1,781 @@
+{
+    "source_url":  "https://uci.nus.edu.sg/wp-content/uploads/2024/03/Drinks-TE.pdf",
+    "pdf":  {
+                "filename":  "Drinks-TE.pdf",
+                "page_count":  3
+            },
+    "canteen":  {
+                    "name":  "Techno Edge",
+                    "stall_number":  7,
+                    "food_type":  "Drinks",
+                    "operator":  "Jun Hang F\u0026B Pte Ltd"
+                },
+    "nutrition_columns":  {
+                              "energy_kcal":  "Energy (Kcal)",
+                              "protein_g":  "Protein (g)",
+                              "total_fat_g":  "Total Fat (g)",
+                              "carbohydrate_g":  "Carbohyrate (g)",
+                              "sugar_g":  "Sugar (g)"
+                          },
+    "dishes":  [
+                   {
+                       "number":  1,
+                       "name":  "Egg Mayonnaise Sandwich",
+                       "energy_kcal":  254,
+                       "protein_g":  8.5,
+                       "total_fat_g":  11.2,
+                       "carbohydrate_g":  30.9,
+                       "sugar_g":  0.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  2,
+                       "name":  "Ham \u0026 Cheese Sandwich",
+                       "energy_kcal":  261,
+                       "protein_g":  8.6,
+                       "total_fat_g":  12.0,
+                       "carbohydrate_g":  30.7,
+                       "sugar_g":  0.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  3,
+                       "name":  "Breakfast Set with Kopi",
+                       "energy_kcal":  588.1,
+                       "protein_g":  24.9,
+                       "total_fat_g":  26.2,
+                       "carbohydrate_g":  64.4,
+                       "sugar_g":  20.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  4,
+                       "name":  "Breakfast Set with Teh",
+                       "energy_kcal":  553.9,
+                       "protein_g":  24.2,
+                       "total_fat_g":  26.2,
+                       "carbohydrate_g":  56.1,
+                       "sugar_g":  21.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  5,
+                       "name":  "Breakfast Set with Milo",
+                       "energy_kcal":  591.9,
+                       "protein_g":  25.9,
+                       "total_fat_g":  27.1,
+                       "carbohydrate_g":  61.7,
+                       "sugar_g":  22.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Milk and milk products"
+                                     ]
+                   }
+               ],
+    "sides":  [
+                  {
+                      "number":  1,
+                      "name":  "Kopi",
+                      "energy_kcal":  141.4,
+                      "protein_g":  2.3,
+                      "total_fat_g":  2.8,
+                      "carbohydrate_g":  26.7,
+                      "sugar_g":  15.9,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  2,
+                      "name":  "Kopi Siew Dai",
+                      "energy_kcal":  88.5,
+                      "protein_g":  2.0,
+                      "total_fat_g":  1.2,
+                      "carbohydrate_g":  17.5,
+                      "sugar_g":  6.6,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  3,
+                      "name":  "Kopi C",
+                      "energy_kcal":  103.9,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  18.8,
+                      "sugar_g":  8.0,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  4,
+                      "name":  "Kopi C Kosong",
+                      "energy_kcal":  82.1,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  13.1,
+                      "sugar_g":  2.3,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  5,
+                      "name":  "Kopi C Siew Dai",
+                      "energy_kcal":  89.7,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  15.1,
+                      "sugar_g":  4.3,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  6,
+                      "name":  "Kopi O",
+                      "energy_kcal":  73.0,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  16.7,
+                      "sugar_g":  5.8,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  7,
+                      "name":  "Kopi O Kosong",
+                      "energy_kcal":  51.3,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  11.0,
+                      "sugar_g":  0.1,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  8,
+                      "name":  "Kopi O Siew Dai",
+                      "energy_kcal":  58.8,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  13.0,
+                      "sugar_g":  2.1,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  9,
+                      "name":  "Teh",
+                      "energy_kcal":  107.2,
+                      "protein_g":  1.6,
+                      "total_fat_g":  2.8,
+                      "carbohydrate_g":  18.5,
+                      "sugar_g":  16.1,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  10,
+                      "name":  "Teh Siew Dai",
+                      "energy_kcal":  54.4,
+                      "protein_g":  1.3,
+                      "total_fat_g":  1.2,
+                      "carbohydrate_g":  9.2,
+                      "sugar_g":  6.8,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  11,
+                      "name":  "Teh C",
+                      "energy_kcal":  69.7,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  10.6,
+                      "sugar_g":  8.2,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  12,
+                      "name":  "Teh C Kosong",
+                      "energy_kcal":  47.9,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  4.9,
+                      "sugar_g":  2.5,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  13,
+                      "name":  "Teh C Siew Dai",
+                      "energy_kcal":  55.6,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  6.9,
+                      "sugar_g":  4.5,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  14,
+                      "name":  "Teh O",
+                      "energy_kcal":  38.8,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  8.4,
+                      "sugar_g":  6.0,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  15,
+                      "name":  "Teh O Kosong",
+                      "energy_kcal":  17.0,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  2.7,
+                      "sugar_g":  0.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  16,
+                      "name":  "Teh O Siew Dai",
+                      "energy_kcal":  24.7,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  4.7,
+                      "sugar_g":  2.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  17,
+                      "name":  "Milo",
+                      "energy_kcal":  145.2,
+                      "protein_g":  3.3,
+                      "total_fat_g":  3.7,
+                      "carbohydrate_g":  24.0,
+                      "sugar_g":  17.1,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  18,
+                      "name":  "Milo Siew Dai",
+                      "energy_kcal":  107.8,
+                      "protein_g":  3.1,
+                      "total_fat_g":  2.6,
+                      "carbohydrate_g":  17.5,
+                      "sugar_g":  10.6,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  19,
+                      "name":  "Milo Kosong",
+                      "energy_kcal":  68.6,
+                      "protein_g":  1.9,
+                      "total_fat_g":  1.6,
+                      "carbohydrate_g":  11.1,
+                      "sugar_g":  6.7,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  20,
+                      "name":  "Kopi Ice",
+                      "energy_kcal":  141.4,
+                      "protein_g":  2.3,
+                      "total_fat_g":  2.8,
+                      "carbohydrate_g":  26.7,
+                      "sugar_g":  15.9,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  21,
+                      "name":  "Kopi Siew Dai Ice",
+                      "energy_kcal":  88.5,
+                      "protein_g":  2.0,
+                      "total_fat_g":  1.2,
+                      "carbohydrate_g":  17.5,
+                      "sugar_g":  6.6,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  22,
+                      "name":  "Kopi C Ice",
+                      "energy_kcal":  103.9,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  18.8,
+                      "sugar_g":  8.0,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  23,
+                      "name":  "Kopi C Kosong Ice",
+                      "energy_kcal":  82.1,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  13.1,
+                      "sugar_g":  2.3,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  24,
+                      "name":  "Kopi C Siew Dai Ice",
+                      "energy_kcal":  89.7,
+                      "protein_g":  3.4,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  15.1,
+                      "sugar_g":  4.3,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  25,
+                      "name":  "Kopi O Ice",
+                      "energy_kcal":  73.0,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  16.7,
+                      "sugar_g":  5.8,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  26,
+                      "name":  "Kopi O Kosong Ice",
+                      "energy_kcal":  51.2,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  11.0,
+                      "sugar_g":  0.1,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  27,
+                      "name":  "Kopi O Siew Dai Ice",
+                      "energy_kcal":  58.8,
+                      "protein_g":  1.8,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  13.0,
+                      "sugar_g":  2.1,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  28,
+                      "name":  "Teh Ice",
+                      "energy_kcal":  107.2,
+                      "protein_g":  1.6,
+                      "total_fat_g":  2.8,
+                      "carbohydrate_g":  18.5,
+                      "sugar_g":  16.1,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  29,
+                      "name":  "Teh Siew Dai Ice",
+                      "energy_kcal":  54.4,
+                      "protein_g":  1.3,
+                      "total_fat_g":  1.2,
+                      "carbohydrate_g":  9.2,
+                      "sugar_g":  6.8,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  30,
+                      "name":  "Teh C Ice",
+                      "energy_kcal":  69.7,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  10.6,
+                      "sugar_g":  8.2,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  31,
+                      "name":  "Teh C Kosong Ice",
+                      "energy_kcal":  47.9,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  4.9,
+                      "sugar_g":  2.5,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  32,
+                      "name":  "Teh C Siew Dai Ice",
+                      "energy_kcal":  55.6,
+                      "protein_g":  2.8,
+                      "total_fat_g":  1.8,
+                      "carbohydrate_g":  6.9,
+                      "sugar_g":  4.5,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  33,
+                      "name":  "Teh O Ice",
+                      "energy_kcal":  38.8,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  8.4,
+                      "sugar_g":  6.0,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  34,
+                      "name":  "Teh O Kosong Ice",
+                      "energy_kcal":  17.0,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  2.7,
+                      "sugar_g":  0.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  35,
+                      "name":  "Teh O Siew Dai Ice",
+                      "energy_kcal":  24.7,
+                      "protein_g":  1.1,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  4.7,
+                      "sugar_g":  2.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  36,
+                      "name":  "Milo Ice",
+                      "energy_kcal":  145.2,
+                      "protein_g":  3.3,
+                      "total_fat_g":  3.7,
+                      "carbohydrate_g":  24.0,
+                      "sugar_g":  17.1,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  37,
+                      "name":  "Milo Siew Dai Ice",
+                      "energy_kcal":  107.8,
+                      "protein_g":  3.1,
+                      "total_fat_g":  2.6,
+                      "carbohydrate_g":  17.5,
+                      "sugar_g":  10.6,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  38,
+                      "name":  "Milo Kosong Ice",
+                      "energy_kcal":  68.6,
+                      "protein_g":  1.9,
+                      "total_fat_g":  1.6,
+                      "carbohydrate_g":  11.1,
+                      "sugar_g":  6.7,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  39,
+                      "name":  "Chinese Tea",
+                      "energy_kcal":  0.0,
+                      "protein_g":  0.0,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  0.0,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  40,
+                      "name":  "Chrysanthemum Tea",
+                      "energy_kcal":  41.0,
+                      "protein_g":  0.0,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  10.3,
+                      "sugar_g":  10.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  41,
+                      "name":  "Ginger Tea",
+                      "energy_kcal":  79.8,
+                      "protein_g":  0.0,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  14.8,
+                      "sugar_g":  8.0,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  42,
+                      "name":  "Green Tea",
+                      "energy_kcal":  3.1,
+                      "protein_g":  0.6,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  0.9,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  43,
+                      "name":  "Soya Bean Milk",
+                      "energy_kcal":  198.7,
+                      "protein_g":  9.4,
+                      "total_fat_g":  5.8,
+                      "carbohydrate_g":  27.8,
+                      "sugar_g":  27.5,
+                      "allergens":  [
+                                        "Peanuts, soybeans and their products",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  44,
+                      "name":  "Honey Lemon",
+                      "energy_kcal":  89.7,
+                      "protein_g":  0.0,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  22.4,
+                      "sugar_g":  18.7,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  45,
+                      "name":  "Homemade Barley",
+                      "energy_kcal":  38.4,
+                      "protein_g":  0.2,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  9.4,
+                      "sugar_g":  9.1,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  46,
+                      "name":  "Ice Lemon Tea",
+                      "energy_kcal":  81.1,
+                      "protein_g":  0.2,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  19.4,
+                      "sugar_g":  18.8,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  47,
+                      "name":  "Ribena",
+                      "energy_kcal":  84.6,
+                      "protein_g":  0.0,
+                      "total_fat_g":  0.0,
+                      "carbohydrate_g":  20.7,
+                      "sugar_g":  20.3,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  48,
+                      "name":  "Chicken Big Bao",
+                      "energy_kcal":  312.0,
+                      "protein_g":  12.1,
+                      "total_fat_g":  15.4,
+                      "carbohydrate_g":  34.0,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  49,
+                      "name":  "BBQ Chicken Bao",
+                      "energy_kcal":  257.0,
+                      "protein_g":  9.0,
+                      "total_fat_g":  2.0,
+                      "carbohydrate_g":  49.0,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  50,
+                      "name":  "Lotus Paste Bao",
+                      "energy_kcal":  210.3,
+                      "protein_g":  4.3,
+                      "total_fat_g":  5.5,
+                      "carbohydrate_g":  35.9,
+                      "sugar_g":  17.1,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  51,
+                      "name":  "Red Bean Bao",
+                      "energy_kcal":  209.9,
+                      "protein_g":  4.1,
+                      "total_fat_g":  6.5,
+                      "carbohydrate_g":  33.8,
+                      "sugar_g":  15.6,
+                      "allergens":  [
+                                        "Cereals containing gluten"
+                                    ]
+                  },
+                  {
+                      "number":  52,
+                      "name":  "Lo Mai Kai",
+                      "energy_kcal":  390.5,
+                      "protein_g":  10.8,
+                      "total_fat_g":  8.9,
+                      "carbohydrate_g":  66.9,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Peanuts, soybeans and their products"
+                                    ]
+                  },
+                  {
+                      "number":  53,
+                      "name":  "Fan Choy",
+                      "energy_kcal":  267.0,
+                      "protein_g":  9.5,
+                      "total_fat_g":  11.4,
+                      "carbohydrate_g":  32.4,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Peanuts, soybeans and their products",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  54,
+                      "name":  "Siew Mai",
+                      "energy_kcal":  82.3,
+                      "protein_g":  4.0,
+                      "total_fat_g":  3.8,
+                      "carbohydrate_g":  8.1,
+                      "sugar_g":  3.5,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Crustacean and crustacean products",
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  55,
+                      "name":  "Hard Boiled Eggs 2 Pieces",
+                      "energy_kcal":  193.7,
+                      "protein_g":  16.1,
+                      "total_fat_g":  13.9,
+                      "carbohydrate_g":  1.1,
+                      "sugar_g":  1.1,
+                      "allergens":  [
+                                        "Eggs and egg products"
+                                    ]
+                  },
+                  {
+                      "number":  56,
+                      "name":  "Kaya Toast 2 Pieces",
+                      "energy_kcal":  253.0,
+                      "protein_g":  6.5,
+                      "total_fat_g":  9.5,
+                      "carbohydrate_g":  36.5,
+                      "sugar_g":  3.8,
+                      "allergens":  [
+                                        "Cereals containing gluten",
+                                        "Eggs and egg products",
+                                        "Eggs and egg products"
+                                    ]
+                  }
+              ],
+    "source_confidence":  "official_nus_pdf",
+    "source_last_verified":  "2026-07-12"
+}

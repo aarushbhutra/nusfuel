@@ -1,0 +1,736 @@
+{
+    "source_url":  "https://uci.nus.edu.sg/wp-content/uploads/2024/03/Taiwanese-TE.pdf",
+    "pdf":  {
+                "filename":  "Taiwanese-TE.pdf",
+                "page_count":  3
+            },
+    "canteen":  {
+                    "name":  "Techno Edge",
+                    "stall_number":  9,
+                    "food_type":  "Taiwanese Cuisine",
+                    "operator":  "Taiwan Ichiban"
+                },
+    "nutrition_columns":  {
+                              "energy_kcal":  "Energy (Kcal)",
+                              "protein_g":  "Protein (g)",
+                              "total_fat_g":  "Total Fat (g)",
+                              "carbohydrate_g":  "Carbohyrate (g)",
+                              "sugar_g":  "Sugar (g)"
+                          },
+    "dishes":  [
+                   {
+                       "number":  1,
+                       "name":  "Sunrise Sandwich (Half)",
+                       "energy_kcal":  225,
+                       "protein_g":  11.1,
+                       "total_fat_g":  9.1,
+                       "carbohydrate_g":  24.7,
+                       "sugar_g":  2.9,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  2,
+                       "name":  "Sunrise Sandwich (Full)",
+                       "energy_kcal":  449,
+                       "protein_g":  22.2,
+                       "total_fat_g":  18.2,
+                       "carbohydrate_g":  49.3,
+                       "sugar_g":  5.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  3,
+                       "name":  "Tuna \u0026 Egg Sandwich (Half)",
+                       "energy_kcal":  188,
+                       "protein_g":  11.0,
+                       "total_fat_g":  7.3,
+                       "carbohydrate_g":  16.9,
+                       "sugar_g":  1.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  4,
+                       "name":  "Tuna \u0026 Egg Sandwich (Full)",
+                       "energy_kcal":  375,
+                       "protein_g":  22.0,
+                       "total_fat_g":  14.6,
+                       "carbohydrate_g":  33.8,
+                       "sugar_g":  3.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  5,
+                       "name":  "Ham \u0026 Egg Sandwich (Half)",
+                       "energy_kcal":  192,
+                       "protein_g":  9.9,
+                       "total_fat_g":  6.7,
+                       "carbohydrate_g":  23.2,
+                       "sugar_g":  1.7,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  6,
+                       "name":  "Ham \u0026 Egg Sandwich (Full)",
+                       "energy_kcal":  384,
+                       "protein_g":  19.8,
+                       "total_fat_g":  13.3,
+                       "carbohydrate_g":  46.4,
+                       "sugar_g":  3.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  7,
+                       "name":  "Pork Floss \u0026 Egg Sandwich (Half)",
+                       "energy_kcal":  202,
+                       "protein_g":  10.3,
+                       "total_fat_g":  6.5,
+                       "carbohydrate_g":  25.5,
+                       "sugar_g":  4.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  8,
+                       "name":  "Pork Floss \u0026 Egg Sandwich (Full)",
+                       "energy_kcal":  403,
+                       "protein_g":  20.6,
+                       "total_fat_g":  13.1,
+                       "carbohydrate_g":  51.1,
+                       "sugar_g":  8.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  9,
+                       "name":  "Honey Glazed Chicken Sandwich (Half)",
+                       "energy_kcal":  291,
+                       "protein_g":  13.7,
+                       "total_fat_g":  15.7,
+                       "carbohydrate_g":  24.1,
+                       "sugar_g":  2.3,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  10,
+                       "name":  "Honey Glazed Chicken Sandwich (Full)",
+                       "energy_kcal":  291,
+                       "protein_g":  13.7,
+                       "total_fat_g":  15.7,
+                       "carbohydrate_g":  24.1,
+                       "sugar_g":  2.3,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  11,
+                       "name":  "Plain Egg Crepe",
+                       "energy_kcal":  218,
+                       "protein_g":  9.1,
+                       "total_fat_g":  11.3,
+                       "carbohydrate_g":  20.1,
+                       "sugar_g":  3.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  12,
+                       "name":  "Pork Floss Crepe",
+                       "energy_kcal":  169,
+                       "protein_g":  5.0,
+                       "total_fat_g":  6.7,
+                       "carbohydrate_g":  22.2,
+                       "sugar_g":  5.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  13,
+                       "name":  "Hot Dog Crepe",
+                       "energy_kcal":  266,
+                       "protein_g":  8.8,
+                       "total_fat_g":  16.3,
+                       "carbohydrate_g":  21.2,
+                       "sugar_g":  3.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  14,
+                       "name":  "Ham Crepe",
+                       "energy_kcal":  169,
+                       "protein_g":  5.8,
+                       "total_fat_g":  7.3,
+                       "carbohydrate_g":  19.9,
+                       "sugar_g":  3.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  15,
+                       "name":  "Original Scallion Pancake",
+                       "energy_kcal":  324,
+                       "protein_g":  8.5,
+                       "total_fat_g":  18.6,
+                       "carbohydrate_g":  30.9,
+                       "sugar_g":  0.5,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  16,
+                       "name":  "Egg \u0026 Scallion Pancake",
+                       "energy_kcal":  393,
+                       "protein_g":  14.2,
+                       "total_fat_g":  23.5,
+                       "carbohydrate_g":  31.3,
+                       "sugar_g":  0.9,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  17,
+                       "name":  "Hot Dog \u0026 Scallion Pancake",
+                       "energy_kcal":  441,
+                       "protein_g":  13.9,
+                       "total_fat_g":  28.6,
+                       "carbohydrate_g":  32.3,
+                       "sugar_g":  0.5,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  18,
+                       "name":  "Cheese \u0026 Scallion Pancake",
+                       "energy_kcal":  364,
+                       "protein_g":  11.2,
+                       "total_fat_g":  21.8,
+                       "carbohydrate_g":  30.9,
+                       "sugar_g":  0.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  19,
+                       "name":  "Cheese \u0026 Hot Dog Scallion Pancake",
+                       "energy_kcal":  480,
+                       "protein_g":  16.5,
+                       "total_fat_g":  31.8,
+                       "carbohydrate_g":  32.3,
+                       "sugar_g":  0.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products",
+                                         "Milk and milk products"
+                                     ]
+                   },
+                   {
+                       "number":  20,
+                       "name":  "Taiwanese Scallion Pancake",
+                       "energy_kcal":  480,
+                       "protein_g":  16.5,
+                       "total_fat_g":  31.8,
+                       "carbohydrate_g":  32.3,
+                       "sugar_g":  0.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  21,
+                       "name":  "Honey Glazed Chicken Chop",
+                       "energy_kcal":  635,
+                       "protein_g":  28.9,
+                       "total_fat_g":  55.2,
+                       "carbohydrate_g":  5.7,
+                       "sugar_g":  3.7,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  22,
+                       "name":  "X-Large Chicken Chop",
+                       "energy_kcal":  703,
+                       "protein_g":  31.6,
+                       "total_fat_g":  60.5,
+                       "carbohydrate_g":  7.9,
+                       "sugar_g":  4.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  23,
+                       "name":  "Mala Chicken Chop",
+                       "energy_kcal":  636,
+                       "protein_g":  29.0,
+                       "total_fat_g":  55.2,
+                       "carbohydrate_g":  5.7,
+                       "sugar_g":  3.7,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  24,
+                       "name":  "Salted Crispy Chicken (Small)",
+                       "energy_kcal":  472,
+                       "protein_g":  21.2,
+                       "total_fat_g":  40.6,
+                       "carbohydrate_g":  5.3,
+                       "sugar_g":  2.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  25,
+                       "name":  "Salted Crispy Chicken Medium)",
+                       "energy_kcal":  569,
+                       "protein_g":  25.6,
+                       "total_fat_g":  49.0,
+                       "carbohydrate_g":  6.4,
+                       "sugar_g":  3.3,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  26,
+                       "name":  "Salted Crispy Chicken (Large)",
+                       "energy_kcal":  711,
+                       "protein_g":  32.0,
+                       "total_fat_g":  61.2,
+                       "carbohydrate_g":  8.0,
+                       "sugar_g":  4.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  27,
+                       "name":  "Seasame Seed Crispy Chicken (Small)",
+                       "energy_kcal":  377,
+                       "protein_g":  16.9,
+                       "total_fat_g":  32.9,
+                       "carbohydrate_g":  3.3,
+                       "sugar_g":  2.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  28,
+                       "name":  "Seasame Seed Crispy Chicken (Medium)",
+                       "energy_kcal":  509,
+                       "protein_g":  22.8,
+                       "total_fat_g":  44.4,
+                       "carbohydrate_g":  4.4,
+                       "sugar_g":  2.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  29,
+                       "name":  "Seasame Seed Crispy Chicken (Large)",
+                       "energy_kcal":  654,
+                       "protein_g":  29.3,
+                       "total_fat_g":  57.1,
+                       "carbohydrate_g":  5.7,
+                       "sugar_g":  3.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  30,
+                       "name":  "Honey Glazed Chicken Chop Rice (Normal)",
+                       "energy_kcal":  669,
+                       "protein_g":  25.3,
+                       "total_fat_g":  41.0,
+                       "carbohydrate_g":  47.4,
+                       "sugar_g":  5.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  31,
+                       "name":  "Honey Glazed Chicken Chop Rice (Large)",
+                       "energy_kcal":  893,
+                       "protein_g":  35.5,
+                       "total_fat_g":  60.5,
+                       "carbohydrate_g":  49.4,
+                       "sugar_g":  6.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  32,
+                       "name":  "X-Large Chicken Chop Rice (Normal)",
+                       "energy_kcal":  672,
+                       "protein_g":  25.2,
+                       "total_fat_g":  41.0,
+                       "carbohydrate_g":  48.3,
+                       "sugar_g":  5.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  33,
+                       "name":  "X-Large Chicken Chop Rice (Large)",
+                       "energy_kcal":  961,
+                       "protein_g":  38.2,
+                       "total_fat_g":  65.9,
+                       "carbohydrate_g":  51.6,
+                       "sugar_g":  6.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  34,
+                       "name":  "Mala Chicken Chop Rice (Normal)",
+                       "energy_kcal":  669,
+                       "protein_g":  25.3,
+                       "total_fat_g":  41.1,
+                       "carbohydrate_g":  47.4,
+                       "sugar_g":  5.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  35,
+                       "name":  "Mala Chicken Chop Rice (Large)",
+                       "energy_kcal":  894,
+                       "protein_g":  35.5,
+                       "total_fat_g":  60.5,
+                       "carbohydrate_g":  49.4,
+                       "sugar_g":  6.4,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  36,
+                       "name":  "Salted Crispy Chicken Rice (Normal)",
+                       "energy_kcal":  634,
+                       "protein_g":  23.5,
+                       "total_fat_g":  37.7,
+                       "carbohydrate_g":  47.9,
+                       "sugar_g":  4.9,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  37,
+                       "name":  "Salted Crispy Chicken Rice (Large)",
+                       "energy_kcal":  826,
+                       "protein_g":  32.2,
+                       "total_fat_g":  54.3,
+                       "carbohydrate_g":  50.1,
+                       "sugar_g":  6.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  38,
+                       "name":  "Sesame Seed Crispy Chicken Rice (Normal)",
+                       "energy_kcal":  634,
+                       "protein_g":  23.5,
+                       "total_fat_g":  38.2,
+                       "carbohydrate_g":  46.9,
+                       "sugar_g":  4.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  39,
+                       "name":  "Sesame Seed Crispy Chicken Rice (Large)",
+                       "energy_kcal":  839,
+                       "protein_g":  32.6,
+                       "total_fat_g":  56.1,
+                       "carbohydrate_g":  48.7,
+                       "sugar_g":  6.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  40,
+                       "name":  "Taiwanese Pork Chop Rice (Normal)",
+                       "energy_kcal":  1022,
+                       "protein_g":  32.3,
+                       "total_fat_g":  77.5,
+                       "carbohydrate_g":  48.2,
+                       "sugar_g":  5.9,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  41,
+                       "name":  "Taiwanese Pork Chop Rice (Large)",
+                       "energy_kcal":  1115,
+                       "protein_g":  35.4,
+                       "total_fat_g":  86.3,
+                       "carbohydrate_g":  48.7,
+                       "sugar_g":  6.3,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  42,
+                       "name":  "Sweet \u0026 Sour Chicken Rice (Normal)",
+                       "energy_kcal":  697,
+                       "protein_g":  26.0,
+                       "total_fat_g":  42.8,
+                       "carbohydrate_g":  49.8,
+                       "sugar_g":  7.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  43,
+                       "name":  "Sweet \u0026 Sour Chicken Rice (Large)",
+                       "energy_kcal":  937,
+                       "protein_g":  36.6,
+                       "total_fat_g":  63.1,
+                       "carbohydrate_g":  53.2,
+                       "sugar_g":  9.6,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  44,
+                       "name":  "Teriyaki Chicken Rice (Normal)",
+                       "energy_kcal":  703,
+                       "protein_g":  26.3,
+                       "total_fat_g":  43.2,
+                       "carbohydrate_g":  50.1,
+                       "sugar_g":  6.8,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  45,
+                       "name":  "Teriyaki Chicken Rice (Large)",
+                       "energy_kcal":  946,
+                       "protein_g":  37.0,
+                       "total_fat_g":  63.8,
+                       "carbohydrate_g":  53.7,
+                       "sugar_g":  9.0,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products",
+                                         "Fish and fish products"
+                                     ]
+                   },
+                   {
+                       "number":  46,
+                       "name":  "Taiwanese Braised Pork Rice (Normal)",
+                       "energy_kcal":  654,
+                       "protein_g":  16.3,
+                       "total_fat_g":  42.8,
+                       "carbohydrate_g":  47.3,
+                       "sugar_g":  4.5,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  47,
+                       "name":  "Taiwanese Braised Pork Rice (Large)",
+                       "energy_kcal":  741,
+                       "protein_g":  18.0,
+                       "total_fat_g":  51.1,
+                       "carbohydrate_g":  48.4,
+                       "sugar_g":  5.1,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   },
+                   {
+                       "number":  48,
+                       "name":  "Taiwanese Chicken Drumstick Rice",
+                       "energy_kcal":  625,
+                       "protein_g":  46.1,
+                       "total_fat_g":  25.9,
+                       "carbohydrate_g":  49.4,
+                       "sugar_g":  7.2,
+                       "allergens":  [
+                                         "Cereals containing gluten",
+                                         "Eggs and egg products",
+                                         "Peanuts, soybeans and their products"
+                                     ]
+                   }
+               ],
+    "sides":  [
+                  {
+                      "number":  1,
+                      "name":  "Cheese",
+                      "energy_kcal":  39,
+                      "protein_g":  2.7,
+                      "total_fat_g":  3.2,
+                      "carbohydrate_g":  0.0,
+                      "sugar_g":  0.0,
+                      "allergens":  [
+                                        "Milk and milk products"
+                                    ]
+                  },
+                  {
+                      "number":  2,
+                      "name":  "Corn",
+                      "energy_kcal":  13,
+                      "protein_g":  0.5,
+                      "total_fat_g":  0.2,
+                      "carbohydrate_g":  2.5,
+                      "sugar_g":  0.9,
+                      "allergens":  [
+
+                                    ]
+                  },
+                  {
+                      "number":  3,
+                      "name":  "Egg",
+                      "energy_kcal":  36,
+                      "protein_g":  3.0,
+                      "total_fat_g":  2.6,
+                      "carbohydrate_g":  0.2,
+                      "sugar_g":  0.2,
+                      "allergens":  [
+                                        "Eggs and egg products"
+                                    ]
+                  }
+              ],
+    "source_confidence":  "official_nus_pdf",
+    "source_last_verified":  "2026-07-12"
+}
