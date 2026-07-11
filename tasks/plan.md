@@ -15,7 +15,7 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 
 ### Phase 1: Foundation
 
-- [ ] Task 1: Create the project command scaffold
+- [x] Task 1: Create the project command scaffold
 - [ ] Task 2: Define menu, goal, meal-log, and recommendation contracts
 - [ ] Task 3: Add Techno Edge seed data format and importer checks
 - [ ] Task 4: Implement backend domain rules with tests

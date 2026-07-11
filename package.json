@@ -1,0 +1,9 @@
+{
+  "name": "nusfuel",
+  "private": true,
+  "scripts": {
+    "mobile:dev": "npm --prefix mobile run dev",
+    "mobile:test": "npm --prefix mobile test",
+    "mobile:lint": "npm --prefix mobile run lint"
+  }
+}

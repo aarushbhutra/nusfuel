@@ -5,14 +5,14 @@
 **Description:** Create the minimum repo structure and scripts for mobile, backend, infrastructure, data, and task execution. This task establishes the commands from the spec without implementing product behavior.
 
 **Acceptance criteria:**
-- [ ] `mobile/`, `backend/`, `infra/`, and `data/` exist.
-- [ ] Root scripts expose `mobile:dev`, `mobile:test`, and `mobile:lint`.
-- [ ] Backend Go module runs `go test ./...`.
+- [x] `mobile/`, `backend/`, `infra/`, and `data/` exist.
+- [x] Root scripts expose `mobile:dev`, `mobile:test`, and `mobile:lint`.
+- [x] Backend Go module runs `go test ./...`.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Run `go test ./...`.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Run `go test ./...`.
 
 **Dependencies:** None
 
