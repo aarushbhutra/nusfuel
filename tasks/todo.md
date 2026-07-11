@@ -94,14 +94,14 @@
 **Description:** Define Terraform resources for Cognito, API Gateway, Lambda, DynamoDB, IAM, and CloudWatch logs. Keep it minimal and environment-variable driven.
 
 **Acceptance criteria:**
-- [ ] Terraform can plan Cognito, API Gateway, Lambda, DynamoDB, IAM, and logs.
-- [ ] Lambdas receive table names and configuration through environment variables.
-- [ ] No secrets or credentials are committed.
+- [x] Terraform can plan Cognito, API Gateway, Lambda, DynamoDB, IAM, and logs.
+- [x] Lambdas receive table names and configuration through environment variables.
+- [x] No secrets or credentials are committed.
 
 **Verification:**
-- [ ] Run `terraform -chdir=infra fmt`.
-- [ ] Run `terraform -chdir=infra validate`.
-- [ ] Run `terraform -chdir=infra plan`.
+- [x] Run `terraform -chdir=infra fmt`.
+- [x] Run `terraform -chdir=infra validate`.
+- [x] Run `terraform -chdir=infra plan`.
 
 **Dependencies:** Task 1
 

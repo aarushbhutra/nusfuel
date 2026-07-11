@@ -29,7 +29,7 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 
 ### Phase 2: Core User Loop
 
-- [ ] Task 5: Add AWS auth and API infrastructure baseline
+- [x] Task 5: Add AWS auth and API infrastructure baseline
 - [ ] Task 6: Implement authenticated goal setup API
 - [ ] Task 7: Implement mobile onboarding and goal setup
 - [ ] Task 8: Implement menu browse and meal detail API
