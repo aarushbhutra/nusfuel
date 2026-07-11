@@ -10,3 +10,7 @@ build/
 tmp/
 .agents/
 skills-lock.json
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
