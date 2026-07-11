@@ -1,0 +1,28 @@
+{
+  "id": "techno-edge-chicken-rice",
+  "stall": "Chicken Rice",
+  "name": "Roasted Chicken Rice",
+  "serving": {
+    "quantity": 1,
+    "unit": "plate"
+  },
+  "nutrition": {
+    "energyKcal": 620,
+    "proteinG": 35,
+    "totalFatG": 21,
+    "carbohydrateG": 70,
+    "sugarG": 4
+  },
+  "allergens": {
+    "contains": ["soy"],
+    "mayContain": [],
+    "unknown": ["sesame"],
+    "incomplete": true
+  },
+  "source": {
+    "name": "NUSFuel manual estimate",
+    "url": "https://nus.edu.sg",
+    "lastVerified": "2026-07-11",
+    "confidence": "medium"
+  }
+}

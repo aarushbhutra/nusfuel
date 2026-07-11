@@ -1,0 +1,13 @@
+{
+  "id": "log-001",
+  "menuItemId": "techno-edge-chicken-rice",
+  "loggedAt": "2026-07-11T12:30:00Z",
+  "servingQuantity": 1.5,
+  "nutritionTotal": {
+    "energyKcal": 930,
+    "proteinG": 52.5,
+    "totalFatG": 31.5,
+    "carbohydrateG": 105,
+    "sugarG": 6
+  }
+}

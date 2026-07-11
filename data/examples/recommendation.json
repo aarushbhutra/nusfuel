@@ -1,0 +1,13 @@
+{
+  "rank": 1,
+  "menuItemId": "techno-edge-chicken-rice",
+  "fitReason": "High protein fit for remaining daily target",
+  "nutritionImpact": {
+    "energyKcal": 620,
+    "proteinG": 35,
+    "totalFatG": 21,
+    "carbohydrateG": 70,
+    "sugarG": 4
+  },
+  "allergenWarnings": ["Allergen data incomplete: sesame unknown"]
+}

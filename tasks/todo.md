@@ -29,13 +29,13 @@
 **Description:** Define the JSON contracts used between mobile, backend, seed data, and tests. Contracts must include nutrition units, source metadata, confidence, serving quantity, allergens, and optional macro targets.
 
 **Acceptance criteria:**
-- [ ] Menu item contract includes Energy (kcal), Protein (g), Total Fat (g), Carbohydrate (g), and Sugar (g).
-- [ ] Goal contract supports preset and custom calorie/protein goals plus optional More Options macros.
-- [ ] Meal log contract stores serving quantity and scaled nutrition totals.
+- [x] Menu item contract includes Energy (kcal), Protein (g), Total Fat (g), Carbohydrate (g), and Sugar (g).
+- [x] Goal contract supports preset and custom calorie/protein goals plus optional More Options macros.
+- [x] Meal log contract stores serving quantity and scaled nutrition totals.
 
 **Verification:**
-- [ ] Contract examples validate in backend tests.
-- [ ] Mobile-facing TypeScript types match the API JSON fields.
+- [x] Contract examples validate in backend tests.
+- [x] Mobile-facing TypeScript types match the API JSON fields.
 
 **Dependencies:** Task 1
 

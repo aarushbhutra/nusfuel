@@ -1,0 +1,11 @@
+{
+  "mode": "preset",
+  "preset": "cutting",
+  "caloriesKcal": 2100,
+  "proteinG": 140,
+  "moreOptions": {
+    "totalFatG": 65,
+    "carbohydrateG": 230,
+    "sugarG": 45
+  }
+}
