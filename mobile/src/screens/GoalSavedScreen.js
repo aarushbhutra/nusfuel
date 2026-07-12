@@ -1,6 +1,6 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import { colors, radius } from "../theme.js";
+import { colors, radius, spacing } from "../theme.js";
 
 export default function GoalSavedScreen({ goal, onEdit }) {
   return (
@@ -13,11 +13,11 @@ export default function GoalSavedScreen({ goal, onEdit }) {
         <Text style={styles.copy}>Your daily target is ready for the meals ahead.</Text>
 
         <View style={styles.summary}>
-          <View>
+          <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Daily calories</Text>
             <Text style={styles.summaryValue}>{goal.caloriesKcal.toLocaleString()} kcal</Text>
           </View>
-          <View>
+          <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Daily protein</Text>
             <Text style={styles.summaryValue}>{goal.proteinG} g</Text>
           </View>
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "800",
     letterSpacing: -1.5,
-    marginTop: 28,
+    marginTop: spacing.xl,
   },
   copy: {
     color: colors.muted,
     fontSize: 17,
     lineHeight: 25,
-    marginTop: 12,
+    marginTop: spacing.md,
     maxWidth: 320,
   },
   summary: {
@@ -82,8 +82,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 38,
-    padding: 18,
+    marginTop: spacing.section,
+    padding: spacing.lg,
+  },
+  summaryItem: {
+    flex: 1,
   },
   summaryLabel: {
     color: colors.muted,
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 18,
     fontWeight: "800",
-    marginTop: 7,
+    marginTop: spacing.sm,
   },
   footer: {
     paddingBottom: 18,
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
   disclaimer: {
     color: colors.muted,
     fontSize: 13,
-    marginBottom: 12,
+    marginBottom: spacing.md,
     textAlign: "center",
   },
   button: {

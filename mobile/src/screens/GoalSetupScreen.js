@@ -19,7 +19,7 @@ import {
   PRESET_KEYS,
   validateGoal,
 } from "../lib/goalSetup.js";
-import { colors, radius } from "../theme.js";
+import { colors, radius, spacing } from "../theme.js";
 
 const OPTIONAL_FIELDS = [
   { key: "totalFatG", label: "Fat", suffix: "g" },
@@ -248,9 +248,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingBottom: 32,
+    paddingBottom: spacing.xxl,
     paddingHorizontal: 20,
-    paddingTop: 12,
+    paddingTop: spacing.md,
   },
   topBar: {
     alignItems: "center",
@@ -272,30 +272,30 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     letterSpacing: -1.1,
     lineHeight: 40,
-    marginTop: 38,
+    marginTop: spacing.xxl,
     maxWidth: 330,
   },
   copy: {
     color: colors.muted,
     fontSize: 16,
     lineHeight: 24,
-    marginTop: 12,
+    marginTop: spacing.md,
     maxWidth: 340,
   },
   sectionTitle: {
     color: colors.text,
     fontSize: 19,
     fontWeight: "800",
-    marginTop: 36,
+    marginTop: spacing.section,
   },
   sectionCopy: {
     color: colors.muted,
     fontSize: 14,
     lineHeight: 20,
-    marginTop: 6,
+    marginTop: spacing.sm,
   },
   presetList: {
-    marginTop: 14,
+    marginTop: spacing.lg,
   },
   presetRow: {
     alignItems: "center",
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: spacing.sm,
     minHeight: 82,
     paddingHorizontal: 16,
     paddingVertical: 14,
@@ -349,8 +349,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom: 17,
-    paddingTop: 12,
+    marginTop: spacing.xs,
+    paddingBottom: spacing.lg,
+    paddingTop: spacing.md,
   },
   customChoiceSelected: {
     borderBottomColor: colors.accent,
@@ -371,11 +372,11 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   formBlock: {
-    gap: 16,
-    marginTop: 18,
+    gap: spacing.lg,
+    marginTop: spacing.lg,
   },
   field: {
-    gap: 7,
+    gap: spacing.sm,
   },
   fieldLabelRow: {
     alignItems: "center",
@@ -426,8 +427,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 30,
-    paddingBottom: 17,
+    marginTop: spacing.section,
+    paddingBottom: spacing.lg,
   },
   moreTitle: {
     color: colors.text,
@@ -448,20 +449,20 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 12,
     lineHeight: 17,
-    marginTop: 28,
+    marginTop: spacing.xl,
   },
   saveError: {
     color: colors.danger,
     fontSize: 13,
     lineHeight: 19,
-    marginTop: 22,
+    marginTop: spacing.xl,
   },
   saveButton: {
     alignItems: "center",
     backgroundColor: colors.accent,
     borderRadius: radius,
     justifyContent: "center",
-    marginTop: 12,
+    marginTop: spacing.md,
     minHeight: 58,
   },
   saveButtonText: {
