@@ -13,4 +13,5 @@ skills-lock.json
 .terraform/
 *.tfstate
 *.tfstate.*
+.playwright-mcp/
 *.tfplan
