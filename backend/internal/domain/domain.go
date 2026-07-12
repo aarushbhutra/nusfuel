@@ -64,6 +64,19 @@ func ValidateGoal(goal contracts.Goal) error {
 	return goal.Validate()
 }
 
+func ValidateTechnoEdgeMenuItem(item contracts.MenuItem) error {
+	if err := item.Validate(); err != nil {
+		return err
+	}
+	if !strings.HasPrefix(normalize(item.Stall), "techno edge") {
+		return fmt.Errorf("stall must be Techno Edge")
+	}
+	if !item.Allergens.Incomplete && len(item.Allergens.Contains) == 0 && len(item.Allergens.MayContain) == 0 && len(item.Allergens.Unknown) == 0 {
+		return fmt.Errorf("allergen status must be provided or marked incomplete")
+	}
+	return nil
+}
+
 func FilterAllergens(items []contracts.MenuItem, excluded []string) []contracts.MenuItem {
 	if len(excluded) == 0 {
 		return append([]contracts.MenuItem(nil), items...)
