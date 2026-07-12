@@ -140,13 +140,13 @@
 **Description:** Add the mobile auth entry point and goal setup screen. Users can choose cutting, maintenance, gaining, or custom targets, with fat/carbohydrate/sugar hidden under More Options.
 
 **Acceptance criteria:**
-- [ ] User can sign in or reach authenticated app state.
-- [ ] User can choose one of three presets.
-- [ ] User can enter custom calorie/protein goals and optional macros.
+- [x] User can sign in or reach authenticated app state.
+- [x] User can choose one of three presets.
+- [x] User can enter custom calorie/protein goals and optional macros.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
 - [ ] Manual check in Expo dev server.
 
 **Dependencies:** Task 6
