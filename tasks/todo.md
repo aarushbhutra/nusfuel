@@ -117,9 +117,9 @@
 **Description:** Add backend endpoints for reading and writing the signed-in user's macro goal. Persist goals in DynamoDB keyed by authenticated user ID.
 
 **Acceptance criteria:**
-- [ ] Unauthenticated requests are rejected.
-- [ ] Users can save preset or custom goals.
-- [ ] More Options macros are optional and validated when present.
+- [x] Unauthenticated requests are rejected.
+- [x] Users can save preset or custom goals.
+- [x] More Options macros are optional and validated when present.
 
 **Verification:**
 - [ ] Run `go test ./...`.

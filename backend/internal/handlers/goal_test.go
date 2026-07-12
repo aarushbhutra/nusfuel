@@ -75,6 +75,22 @@ func TestGoalHandlerSavesAndReadsGoalForAuthenticatedUser(t *testing.T) {
 	}
 }
 
+func TestGoalHandlerSavesPresetGoal(t *testing.T) {
+	store := &fakeGoalStore{goals: map[string]contracts.Goal{}}
+	request := authenticatedRequest("PUT", `{"mode":"preset","preset":"maintenance","caloriesKcal":2200,"proteinG":140}`, "user-1")
+
+	got, err := (GoalHandler{Store: store}).Handle(context.Background(), request)
+	if err != nil {
+		t.Fatalf("handle request: %v", err)
+	}
+	if got.StatusCode != 200 {
+		t.Fatalf("status = %d, want 200", got.StatusCode)
+	}
+	if store.goals["user-1"].Preset != "maintenance" {
+		t.Fatalf("stored preset = %q, want maintenance", store.goals["user-1"].Preset)
+	}
+}
+
 func TestGoalHandlerValidatesMoreOptions(t *testing.T) {
 	store := &fakeGoalStore{goals: map[string]contracts.Goal{}}
 	request := authenticatedRequest("PUT", `{"mode":"custom","caloriesKcal":2400,"proteinG":150,"moreOptions":{"totalFatG":-1}}`, "user-1")
