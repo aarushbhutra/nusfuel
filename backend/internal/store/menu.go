@@ -10,11 +10,6 @@ import (
 	"github.com/aarushbhutra/nusfuel/backend/internal/domain"
 )
 
-type MenuStore interface {
-	List(context.Context) ([]contracts.MenuItem, error)
-	Get(context.Context, string) (contracts.MenuItem, bool, error)
-}
-
 type SeedMenuStore struct {
 	itemsByID map[string]contracts.MenuItem
 	items     []contracts.MenuItem
@@ -66,8 +61,15 @@ func (s *SeedMenuStore) Get(_ context.Context, id string) (contracts.MenuItem, b
 }
 
 func cloneMenuItem(item contracts.MenuItem) contracts.MenuItem {
-	item.Allergens.Contains = append([]string(nil), item.Allergens.Contains...)
-	item.Allergens.MayContain = append([]string(nil), item.Allergens.MayContain...)
-	item.Allergens.Unknown = append([]string(nil), item.Allergens.Unknown...)
+	item.Allergens.Contains = cloneStrings(item.Allergens.Contains)
+	item.Allergens.MayContain = cloneStrings(item.Allergens.MayContain)
+	item.Allergens.Unknown = cloneStrings(item.Allergens.Unknown)
 	return item
+}
+
+func cloneStrings(values []string) []string {
+	if values == nil {
+		return []string{}
+	}
+	return append([]string{}, values...)
 }

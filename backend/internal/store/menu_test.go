@@ -29,6 +29,9 @@ func TestSeedMenuStoreListsValidatedTechnoEdgeItemsInStableOrder(t *testing.T) {
 	if got[1].Name != "B Dish" {
 		t.Fatalf("store retained caller mutation: %+v", got[1])
 	}
+	if got[0].Allergens.Contains == nil || got[0].Allergens.MayContain == nil || got[0].Allergens.Unknown == nil {
+		t.Fatalf("allergen lists should be JSON arrays, got %+v", got[0].Allergens)
+	}
 }
 
 func TestSeedMenuStoreGetsStoredItemByID(t *testing.T) {
