@@ -1,0 +1,124 @@
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+
+import { colors, radius } from "../theme.js";
+
+export default function GoalSavedScreen({ goal, onEdit }) {
+  return (
+    <SafeAreaView style={styles.screen}>
+      <View style={styles.content}>
+        <View style={styles.confirmation}>
+          <Text style={styles.confirmationMark}>✓</Text>
+        </View>
+        <Text style={styles.title}>You’re set.</Text>
+        <Text style={styles.copy}>Your daily target is ready for the meals ahead.</Text>
+
+        <View style={styles.summary}>
+          <View>
+            <Text style={styles.summaryLabel}>Daily calories</Text>
+            <Text style={styles.summaryValue}>{goal.caloriesKcal.toLocaleString()} kcal</Text>
+          </View>
+          <View>
+            <Text style={styles.summaryLabel}>Daily protein</Text>
+            <Text style={styles.summaryValue}>{goal.proteinG} g</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.disclaimer}>You can edit this target any time.</Text>
+        <Pressable
+          accessibilityRole="button"
+          onPress={onEdit}
+          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+        >
+          <Text style={styles.buttonText}>Edit target</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.background,
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  confirmation: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: 30,
+    height: 60,
+    justifyContent: "center",
+    width: 60,
+  },
+  confirmationMark: {
+    color: colors.accentText,
+    fontSize: 28,
+    fontWeight: "800",
+  },
+  title: {
+    color: colors.text,
+    fontSize: 42,
+    fontWeight: "800",
+    letterSpacing: -1.5,
+    marginTop: 28,
+  },
+  copy: {
+    color: colors.muted,
+    fontSize: 17,
+    lineHeight: 25,
+    marginTop: 12,
+    maxWidth: 320,
+  },
+  summary: {
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: radius,
+    borderWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 38,
+    padding: 18,
+  },
+  summaryLabel: {
+    color: colors.muted,
+    fontSize: 12,
+  },
+  summaryValue: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: "800",
+    marginTop: 7,
+  },
+  footer: {
+    paddingBottom: 18,
+  },
+  disclaimer: {
+    color: colors.muted,
+    fontSize: 13,
+    marginBottom: 12,
+    textAlign: "center",
+  },
+  button: {
+    alignItems: "center",
+    borderColor: colors.line,
+    borderRadius: radius,
+    borderWidth: 1,
+    justifyContent: "center",
+    minHeight: 56,
+  },
+  buttonText: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  pressed: {
+    opacity: 0.82,
+    transform: [{ scale: 0.985 }],
+  },
+});
