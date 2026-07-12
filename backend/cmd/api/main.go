@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/aarushbhutra/nusfuel/backend/internal/handlers"
+	"github.com/aarushbhutra/nusfuel/backend/internal/seed"
 	"github.com/aarushbhutra/nusfuel/backend/internal/store"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -25,5 +26,18 @@ func main() {
 	}
 
 	goalStore := store.NewDynamoDBGoalStore(dynamodb.NewFromConfig(awsConfig), tableName)
-	lambda.Start((handlers.GoalHandler{Store: goalStore}).Handle)
+	menuSeedDir := strings.TrimSpace(os.Getenv("MENU_SEED_DIR"))
+	if menuSeedDir == "" {
+		menuSeedDir = "../data/techno-edge"
+	}
+	menuItems, err := seed.LoadTechnoEdgeDir(menuSeedDir)
+	if err != nil {
+		log.Fatalf("load menu seed data: %v", err)
+	}
+	menuStore, err := store.NewSeedMenuStore(menuItems)
+	if err != nil {
+		log.Fatalf("create menu store: %v", err)
+	}
+
+	lambda.Start(handlers.NewAPIHandler(goalStore, menuStore).Handle)
 }
