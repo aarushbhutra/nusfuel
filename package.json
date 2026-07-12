@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "mobile:dev": "npm --prefix mobile run dev",
+    "mobile:web": "npm --prefix mobile run web",
     "mobile:test": "npm --prefix mobile test",
     "mobile:lint": "npm --prefix mobile run lint"
   }

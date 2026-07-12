@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "expo start",
+    "web": "expo start --web",
     "test": "node --test",
     "lint": "node --check src/index.js"
   },
