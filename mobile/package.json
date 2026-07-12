@@ -2,9 +2,15 @@
   "name": "nusfuel-mobile",
   "private": true,
   "type": "module",
+  "main": "index.js",
   "scripts": {
-    "dev": "node src/index.js",
+    "dev": "expo start",
     "test": "node --test",
     "lint": "node --check src/index.js"
+  },
+  "dependencies": {
+    "expo": "57.0.4",
+    "react": "19.2.3",
+    "react-native": "0.86.0"
   }
 }
