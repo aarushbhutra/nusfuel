@@ -122,8 +122,8 @@
 - [x] More Options macros are optional and validated when present.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run API handler tests for authorized and unauthorized requests.
+- [x] Run `go test ./...`.
+- [x] Run API handler tests for authorized and unauthorized requests.
 
 **Dependencies:** Tasks 2, 4, 5
 
