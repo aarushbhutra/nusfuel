@@ -20,19 +20,30 @@ export default function AuthEntryScreen({ onContinue }) {
         </View>
         <Text style={styles.title}>Plan the next meal.</Text>
         <Text style={styles.copy}>
-          Set a target once. Keep the rest of your day clear and grounded in
-          Techno Edge meals.
+          Set a calorie and protein target in under a minute, then use it to
+          choose Techno Edge meals that fit your day.
         </Text>
+        <View style={styles.journey}>
+          <View style={styles.journeyStep}>
+            <Text style={styles.journeyNumber}>1</Text>
+            <Text style={styles.journeyLabel}>Set a target</Text>
+          </View>
+          <View style={styles.journeyLine} />
+          <View style={styles.journeyStep}>
+            <Text style={styles.journeyNumber}>2</Text>
+            <Text style={styles.journeyLabel}>Choose a meal</Text>
+          </View>
+        </View>
       </View>
 
       <View style={styles.footer}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Enter NUSFuel preview"
+          accessibilityLabel="Start setting a target in NUSFuel preview"
           onPress={onContinue}
           style={({ pressed }) => [styles.button, pressed && styles.pressed]}
         >
-          <Text style={styles.buttonText}>Enter preview</Text>
+          <Text style={styles.buttonText}>Set my target</Text>
           <Text style={styles.buttonArrow}>→</Text>
         </Pressable>
         <Text style={styles.helper}>Local preview session</Text>
@@ -89,6 +100,46 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     marginTop: spacing.lg,
     maxWidth: 330,
+  },
+  journey: {
+    alignItems: "center",
+    borderBottomColor: colors.line,
+    borderBottomWidth: 1,
+    borderTopColor: colors.line,
+    borderTopWidth: 1,
+    flexDirection: "row",
+    marginTop: spacing.xxl,
+    paddingVertical: spacing.lg,
+  },
+  journeyStep: {
+    alignItems: "center",
+    flex: 1,
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
+  journeyNumber: {
+    alignItems: "center",
+    backgroundColor: colors.surfaceRaised,
+    borderRadius: 14,
+    color: colors.accent,
+    fontSize: 13,
+    fontWeight: "800",
+    height: 28,
+    lineHeight: 28,
+    textAlign: "center",
+    width: 28,
+  },
+  journeyLabel: {
+    color: colors.text,
+    flexShrink: 1,
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  journeyLine: {
+    backgroundColor: colors.line,
+    height: 1,
+    marginHorizontal: spacing.sm,
+    width: spacing.lg,
   },
   footer: {
     paddingBottom: spacing.lg,

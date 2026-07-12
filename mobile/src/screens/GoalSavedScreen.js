@@ -6,11 +6,14 @@ export default function GoalSavedScreen({ goal, onEdit }) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
+        <Text style={styles.progress}>Step 1 of 2 complete</Text>
         <View style={styles.confirmation}>
           <Text style={styles.confirmationMark}>✓</Text>
         </View>
         <Text style={styles.title}>You’re set.</Text>
-        <Text style={styles.copy}>Your daily target is ready for the meals ahead.</Text>
+        <Text style={styles.copy}>
+          Your target is ready. Next, choose a Techno Edge meal and see how it fits your day.
+        </Text>
 
         <View style={styles.summary}>
           <View style={styles.summaryItem}>
@@ -47,6 +50,13 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: "center",
+  },
+  progress: {
+    alignSelf: "flex-start",
+    color: colors.accent,
+    fontSize: 13,
+    fontWeight: "800",
+    marginBottom: spacing.xl,
   },
   confirmation: {
     alignItems: "center",

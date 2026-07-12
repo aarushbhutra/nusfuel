@@ -84,12 +84,15 @@ export default function GoalSetupScreen({ onSave }) {
         >
           <View style={styles.topBar}>
             <Text style={styles.brand}>NUSFuel</Text>
-            <Text style={styles.topBarText}>Goal setup</Text>
+            <Text style={styles.topBarText}>Step 1 of 2</Text>
+          </View>
+          <View accessibilityLabel="Onboarding progress: step 1 of 2" style={styles.progressTrack}>
+            <View style={styles.progressFill} />
           </View>
 
           <Text style={styles.title}>Set your daily targets.</Text>
           <Text style={styles.copy}>
-            Start with a clear calorie and protein target. You can change it any time.
+            Choose a preset or set your own. This takes about a minute, and you can change it later.
           </Text>
 
           <Text style={styles.sectionTitle}>Choose a starting point</Text>
@@ -189,7 +192,7 @@ export default function GoalSetupScreen({ onSave }) {
             {saving ? (
               <ActivityIndicator color={colors.accentText} />
             ) : (
-              <Text style={styles.saveButtonText}>Save target</Text>
+              <Text style={styles.saveButtonText}>Save and continue</Text>
             )}
           </Pressable>
         </ScrollView>
@@ -266,13 +269,25 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 13,
   },
+  progressTrack: {
+    backgroundColor: colors.line,
+    borderRadius: 2,
+    height: 4,
+    marginTop: spacing.lg,
+    overflow: "hidden",
+  },
+  progressFill: {
+    backgroundColor: colors.accent,
+    height: "100%",
+    width: "50%",
+  },
   title: {
     color: colors.text,
     fontSize: 36,
     fontWeight: "800",
     letterSpacing: -1.1,
     lineHeight: 40,
-    marginTop: spacing.xxl,
+    marginTop: spacing.xl,
     maxWidth: 330,
   },
   copy: {
