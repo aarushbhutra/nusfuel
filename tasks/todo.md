@@ -164,13 +164,13 @@
 **Description:** Add endpoints for listing Techno Edge stalls/items and retrieving meal details with per-serving nutrition, allergens, and source/confidence metadata.
 
 **Acceptance criteria:**
-- [ ] API returns only stored Techno Edge meals.
-- [ ] Meal detail includes all five nutrition fields per serving.
-- [ ] Incomplete allergen data is explicit in the response.
+- [x] API returns only stored Techno Edge meals.
+- [x] Meal detail includes all five nutrition fields per serving.
+- [x] Incomplete allergen data is explicit in the response.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run handler tests for menu list and meal detail.
+- [x] Run `go test ./...`.
+- [x] Run handler tests for menu list and meal detail.
 
 **Dependencies:** Tasks 2, 3, 5
 
