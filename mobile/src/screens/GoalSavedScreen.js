@@ -2,7 +2,7 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { colors, radius, spacing } from "../theme.js";
 
-export default function GoalSavedScreen({ goal, onEdit }) {
+export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
@@ -29,10 +29,19 @@ export default function GoalSavedScreen({ goal, onEdit }) {
 
       <View style={styles.footer}>
         <Text style={styles.disclaimer}>You can edit this target any time.</Text>
+        {onBrowse ? (
+          <Pressable
+            accessibilityRole="button"
+            onPress={onBrowse}
+            style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+          >
+            <Text style={styles.primaryButtonText}>Browse Techno Edge</Text>
+          </Pressable>
+        ) : null}
         <Pressable
           accessibilityRole="button"
           onPress={onEdit}
-          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+          style={({ pressed }) => [styles.button, onBrowse && styles.secondaryButton, pressed && styles.pressed]}
         >
           <Text style={styles.buttonText}>Edit target</Text>
         </Pressable>
@@ -124,6 +133,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     minHeight: 56,
+  },
+  primaryButton: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: radius,
+    justifyContent: "center",
+    minHeight: 56,
+    marginBottom: spacing.sm,
+  },
+  primaryButtonText: {
+    color: colors.accentText,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  secondaryButton: {
+    minHeight: 48,
   },
   buttonText: {
     color: colors.text,
