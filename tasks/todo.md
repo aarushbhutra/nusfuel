@@ -187,14 +187,14 @@
 **Description:** Add Techno Edge browse and meal detail screens. Show one-serving nutrition by default and recalculate all five nutrition fields when serving quantity changes.
 
 **Acceptance criteria:**
-- [ ] User can browse Techno Edge stalls and meals.
-- [ ] Meal detail shows Energy, Protein, Total Fat, Carbohydrate, and Sugar.
-- [ ] Serving quantity updates displayed nutrition totals.
+- [x] User can browse Techno Edge stalls and meals.
+- [x] Meal detail shows Energy, Protein, Total Fat, Carbohydrate, and Sugar.
+- [x] Serving quantity updates displayed nutrition totals.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Manual check in Expo dev server.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Manual check in Expo dev server.
 
 **Dependencies:** Task 8
 

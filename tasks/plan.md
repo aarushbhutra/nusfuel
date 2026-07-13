@@ -33,7 +33,7 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 - [x] Task 6: Implement authenticated goal setup API
 - [x] Task 7: Implement mobile onboarding and goal setup
 - [x] Task 8: Implement menu browse and meal detail API
-- [ ] Task 9: Implement mobile menu browse, serving adjustment, and nutrition display
+- [x] Task 9: Implement mobile menu browse, serving adjustment, and nutrition display
 - [ ] Task 10: Implement meal logging and progress API
 - [ ] Task 11: Implement mobile meal logging and daily/weekly progress
 
