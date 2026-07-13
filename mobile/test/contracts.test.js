@@ -14,6 +14,9 @@ test("mobile TypeScript contracts expose API JSON fields", () => {
     "servingQuantity",
     "nutritionTotal",
     "moreOptions",
+    "profile",
+    "weightKg",
+    "gender",
     "confidence",
     "allergenWarnings",
   ]) {

@@ -17,6 +17,8 @@ import {
   goalFromPreset,
   PRESETS,
   PRESET_KEYS,
+  profileFromValues,
+  validateProfile,
   validateGoal,
 } from "../lib/goalSetup.js";
 import { radius, spacing, useTheme } from "../theme.js";
@@ -25,6 +27,12 @@ const OPTIONAL_FIELDS = [
   { key: "totalFatG", label: "Fat", suffix: "g" },
   { key: "carbohydrateG", label: "Carbohydrates", suffix: "g" },
   { key: "sugarG", label: "Sugar", suffix: "g" },
+];
+
+const GENDER_OPTIONS = [
+  { value: "female", label: "Female" },
+  { value: "male", label: "Male" },
+  { value: "other", label: "Other / prefer not to say" },
 ];
 
 export default function GoalSetupScreen({ onSave }) {
@@ -38,20 +46,27 @@ export default function GoalSetupScreen({ onSave }) {
     carbohydrateG: "",
     sugarG: "",
   });
+  const [profileValues, setProfileValues] = useState({ age: "", weightKg: "", gender: "" });
   const [moreOpen, setMoreOpen] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
 
+  const profile = useMemo(() => profileFromValues(profileValues), [profileValues]);
   const goal = useMemo(() => {
-    const base = mode === "preset" ? goalFromPreset(preset) : goalFromCustom(values);
+    const base = mode === "preset" ? goalFromPreset(preset, profile) : goalFromCustom(values);
     const optional = goalFromCustom(values).moreOptions;
-    return optional ? { ...base, moreOptions: optional } : base;
-  }, [mode, preset, values]);
-  const errors = validateGoal(goal);
+    return { ...(optional ? { ...base, moreOptions: optional } : base), profile };
+  }, [mode, preset, profile, values]);
+  const errors = { ...validateProfile(profile), ...validateGoal(goal) };
 
   const updateValue = (key, value) => {
     setValues((current) => ({ ...current, [key]: value }));
+    setSaveError("");
+  };
+
+  const updateProfileValue = (key, value) => {
+    setProfileValues((current) => ({ ...current, [key]: value }));
     setSaveError("");
   };
 
@@ -96,6 +111,47 @@ export default function GoalSetupScreen({ onSave }) {
             Choose a preset or set your own. This takes about a minute, and you can change it later.
           </Text>
 
+          <Text style={styles.sectionTitle}>About you</Text>
+          <Text style={styles.sectionCopy}>We use this to personalize your starting targets.</Text>
+          <View style={styles.formBlock}>
+            <InputField
+              keyboardType="number-pad"
+              label="Age"
+              suffix="years"
+              value={profileValues.age}
+              error={showErrors ? errors.age : ""}
+              onChangeText={(value) => updateProfileValue("age", value)}
+            />
+            <InputField
+              label="Weight"
+              suffix="kg"
+              value={profileValues.weightKg}
+              error={showErrors ? errors.weightKg : ""}
+              onChangeText={(value) => updateProfileValue("weightKg", value)}
+            />
+            <View style={styles.field}>
+              <Text style={styles.fieldLabel}>Gender</Text>
+              <View style={styles.genderOptions}>
+                {GENDER_OPTIONS.map((option) => (
+                  <Pressable
+                    key={option.value}
+                    accessibilityRole="radio"
+                    accessibilityState={{ selected: profileValues.gender === option.value }}
+                    onPress={() => updateProfileValue("gender", option.value)}
+                    style={({ pressed }) => [
+                      styles.genderOption,
+                      profileValues.gender === option.value && styles.genderOptionSelected,
+                      pressed && styles.pressed,
+                    ]}
+                  >
+                    <Text style={styles.genderOptionText}>{option.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+              {showErrors && errors.gender ? <Text style={styles.error}>{errors.gender}</Text> : null}
+            </View>
+          </View>
+
           <Text style={styles.sectionTitle}>Choose a starting point</Text>
           <Text style={styles.sectionCopy}>Pick a preset or build a target around your training.</Text>
 
@@ -104,7 +160,7 @@ export default function GoalSetupScreen({ onSave }) {
               <PresetRow
                 key={key}
                 selected={mode === "preset" && preset === key}
-                preset={PRESETS[key]}
+                preset={{ ...PRESETS[key], ...goalFromPreset(key, profile) }}
                 onPress={() => {
                   setMode("preset");
                   setPreset(key);
@@ -224,7 +280,7 @@ function PresetRow({ preset, selected, onPress }) {
   );
 }
 
-function InputField({ label, suffix, value, optional = false, error, onChangeText }) {
+function InputField({ label, suffix, value, optional = false, error, keyboardType = "decimal-pad", onChangeText }) {
   const { colors, styles } = useTheme(createStyles);
 
   return (
@@ -236,7 +292,7 @@ function InputField({ label, suffix, value, optional = false, error, onChangeTex
       <View style={[styles.inputShell, error && styles.inputShellError]}>
         <TextInput
           accessibilityLabel={label}
-          keyboardType="decimal-pad"
+          keyboardType={keyboardType}
           onChangeText={onChangeText}
           placeholder="0"
           placeholderTextColor={colors.muted}
@@ -394,6 +450,27 @@ const createStyles = (colors) => StyleSheet.create({
   formBlock: {
     gap: spacing.lg,
     marginTop: spacing.lg,
+  },
+  genderOptions: {
+    gap: spacing.sm,
+  },
+  genderOption: {
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: 12,
+    borderWidth: 1,
+    justifyContent: "center",
+    minHeight: 50,
+    paddingHorizontal: 14,
+  },
+  genderOptionSelected: {
+    backgroundColor: colors.surfaceRaised,
+    borderColor: colors.accent,
+  },
+  genderOptionText: {
+    color: colors.text,
+    fontSize: 15,
+    fontWeight: "700",
   },
   field: {
     gap: spacing.sm,

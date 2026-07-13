@@ -143,6 +143,7 @@
 - [x] User can sign in or reach authenticated app state.
 - [x] User can choose one of three presets.
 - [x] User can enter custom calorie/protein goals and optional macros.
+- [x] Onboarding collects age, weight, and gender for personalized preset targets.
 
 **Verification:**
 - [x] Run `npm run mobile:test`.
