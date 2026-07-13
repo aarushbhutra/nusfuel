@@ -2,9 +2,11 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  goalFromCustom,
-  goalFromPreset,
-  validateGoal,
+	goalFromCustom,
+	goalFromPreset,
+	profileFromValues,
+	validateProfile,
+	validateGoal,
 } from "../src/lib/goalSetup.js";
 
 test("preset goals use the shared product defaults", () => {
@@ -26,6 +28,27 @@ test("custom goals include only entered More Options macros", () => {
       moreOptions: { totalFatG: 70 },
     },
   );
+});
+
+test("preset goals use profile details to personalize calories and protein", () => {
+	assert.deepEqual(
+		goalFromPreset("cutting", { age: 30, weightKg: 80, gender: "male" }),
+		{
+			mode: "preset",
+			preset: "cutting",
+			caloriesKcal: 2030,
+			proteinG: 160,
+			profile: { age: 30, weightKg: 80, gender: "male" },
+		},
+	);
+});
+
+test("profile validation requires usable age, weight, and gender", () => {
+	assert.deepEqual(validateProfile(profileFromValues({ age: "12", weightKg: "0", gender: "" })), {
+		age: "Enter an age between 13 and 120.",
+		weightKg: "Enter a weight between 20 and 300 kg.",
+		gender: "Choose an option.",
+	});
 });
 
 test("goal validation catches invalid core and optional values", () => {

@@ -41,12 +41,19 @@ export type MacroTargets = {
   sugarG?: number;
 };
 
+export type UserProfile = {
+  age: number;
+  weightKg: number;
+  gender: "female" | "male" | "other";
+};
+
 export type Goal = {
   mode: "preset" | "custom";
   preset?: "cutting" | "maintenance" | "gaining";
   caloriesKcal: number;
   proteinG: number;
   moreOptions?: MacroTargets;
+  profile?: UserProfile;
 };
 
 export type MealLog = {
