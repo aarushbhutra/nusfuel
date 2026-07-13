@@ -44,6 +44,23 @@ resource "aws_dynamodb_table" "goals" {
   }
 }
 
+resource "aws_dynamodb_table" "meal_logs" {
+  name         = "${local.name_prefix}-meal-logs"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "userId"
+  range_key    = "loggedAt"
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "loggedAt"
+    type = "S"
+  }
+}
+
 resource "aws_cloudwatch_log_group" "api" {
   name              = "/aws/apigateway/${local.name_prefix}"
   retention_in_days = var.log_retention_days
@@ -94,6 +111,14 @@ resource "aws_iam_role_policy" "lambda" {
           "dynamodb:PutItem"
         ]
         Resource = aws_dynamodb_table.goals.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:Query"
+        ]
+        Resource = aws_dynamodb_table.meal_logs.arn
       }
     ]
   })
@@ -109,11 +134,12 @@ resource "aws_lambda_function" "api" {
 
   environment {
     variables = {
-      APP_ENV          = var.environment
-      AWS_REGION_NAME  = var.aws_region
-      GOALS_TABLE_NAME = aws_dynamodb_table.goals.name
-      USER_POOL_ID     = aws_cognito_user_pool.auth.id
-      LOG_LEVEL        = "INFO"
+      APP_ENV              = var.environment
+      AWS_REGION_NAME      = var.aws_region
+      GOALS_TABLE_NAME     = aws_dynamodb_table.goals.name
+      MEAL_LOGS_TABLE_NAME = aws_dynamodb_table.meal_logs.name
+      USER_POOL_ID         = aws_cognito_user_pool.auth.id
+      LOG_LEVEL            = "INFO"
     }
   }
 }

@@ -136,6 +136,23 @@ type MealLog struct {
 	NutritionTotal  Nutrition `json:"nutritionTotal"`
 }
 
+type ProgressNutrition struct {
+	EnergyKcal    float64  `json:"energyKcal"`
+	ProteinG      float64  `json:"proteinG"`
+	TotalFatG     *float64 `json:"totalFatG,omitempty"`
+	CarbohydrateG *float64 `json:"carbohydrateG,omitempty"`
+	SugarG        *float64 `json:"sugarG,omitempty"`
+}
+
+type Progress struct {
+	Period    string            `json:"period"`
+	StartDate string            `json:"startDate"`
+	EndDate   string            `json:"endDate"`
+	Goal      Goal              `json:"goal"`
+	Consumed  ProgressNutrition `json:"consumed"`
+	Remaining ProgressNutrition `json:"remaining"`
+}
+
 func (m MealLog) Validate() error {
 	if m.ID == "" || m.MenuItemID == "" || m.LoggedAt == "" {
 		return fmt.Errorf("meal log id, menuItemId, and loggedAt are required")

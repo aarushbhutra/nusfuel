@@ -37,6 +37,20 @@ func TestScaleNutritionScalesAllMacros(t *testing.T) {
 	}
 }
 
+func TestAggregateNutritionSumsMealLogs(t *testing.T) {
+	got, err := AggregateNutrition([]contracts.MealLog{
+		{ID: "log-1", MenuItemID: "meal-1", LoggedAt: "2026-07-13T08:00:00Z", ServingQuantity: 1, NutritionTotal: contracts.Nutrition{EnergyKcal: 500, ProteinG: 30, TotalFatG: 10, CarbohydrateG: 50, SugarG: 5}},
+		{ID: "log-2", MenuItemID: "meal-2", LoggedAt: "2026-07-13T12:00:00Z", ServingQuantity: 0.5, NutritionTotal: contracts.Nutrition{EnergyKcal: 250, ProteinG: 15, TotalFatG: 5, CarbohydrateG: 25, SugarG: 2.5}},
+	})
+	if err != nil {
+		t.Fatalf("aggregate nutrition: %v", err)
+	}
+	want := contracts.Nutrition{EnergyKcal: 750, ProteinG: 45, TotalFatG: 15, CarbohydrateG: 75, SugarG: 7.5}
+	if got != want {
+		t.Fatalf("aggregated nutrition = %+v, want %+v", got, want)
+	}
+}
+
 func TestPresetAndCustomGoalsValidate(t *testing.T) {
 	preset, err := PresetGoal(PresetCutting)
 	if err != nil {

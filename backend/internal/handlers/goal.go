@@ -18,6 +18,7 @@ type GoalStore interface {
 
 type Request struct {
 	RawPath        string         `json:"rawPath"`
+	RawQueryString string         `json:"rawQueryString"`
 	Body           string         `json:"body"`
 	RequestContext requestContext `json:"requestContext"`
 }

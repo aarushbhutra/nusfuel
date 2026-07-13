@@ -44,6 +44,21 @@ func ScaleNutrition(n contracts.Nutrition, servings float64) (contracts.Nutritio
 	}, nil
 }
 
+func AggregateNutrition(logs []contracts.MealLog) (contracts.Nutrition, error) {
+	var total contracts.Nutrition
+	for _, log := range logs {
+		if err := log.Validate(); err != nil {
+			return contracts.Nutrition{}, fmt.Errorf("invalid meal log: %w", err)
+		}
+		total.EnergyKcal += log.NutritionTotal.EnergyKcal
+		total.ProteinG += log.NutritionTotal.ProteinG
+		total.TotalFatG += log.NutritionTotal.TotalFatG
+		total.CarbohydrateG += log.NutritionTotal.CarbohydrateG
+		total.SugarG += log.NutritionTotal.SugarG
+	}
+	return total, nil
+}
+
 func PresetGoal(preset string) (contracts.Goal, error) {
 	goal, ok := presetGoals[preset]
 	if !ok {

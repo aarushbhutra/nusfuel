@@ -211,13 +211,13 @@
 **Description:** Add endpoints to log a meal with serving quantity and retrieve daily/weekly progress against the user's goal.
 
 **Acceptance criteria:**
-- [ ] Logged meals store scaled nutrition totals.
-- [ ] Daily and weekly progress return calorie and protein totals.
-- [ ] Optional macros are included in progress when a user configured them.
+- [x] Logged meals store scaled nutrition totals.
+- [x] Daily and weekly progress return calorie and protein totals.
+- [x] Optional macros are included in progress when a user configured them.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run handler tests for log creation and progress retrieval.
+- [x] Run `go test ./...`.
+- [x] Run handler tests for log creation and progress retrieval.
 
 **Dependencies:** Tasks 6, 8
 

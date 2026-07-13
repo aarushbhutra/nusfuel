@@ -19,6 +19,10 @@ func main() {
 	if tableName == "" {
 		log.Fatal("GOALS_TABLE_NAME is required")
 	}
+	mealLogsTableName := strings.TrimSpace(os.Getenv("MEAL_LOGS_TABLE_NAME"))
+	if mealLogsTableName == "" {
+		log.Fatal("MEAL_LOGS_TABLE_NAME is required")
+	}
 
 	awsConfig, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
@@ -26,6 +30,7 @@ func main() {
 	}
 
 	goalStore := store.NewDynamoDBGoalStore(dynamodb.NewFromConfig(awsConfig), tableName)
+	mealLogStore := store.NewDynamoDBMealLogStore(dynamodb.NewFromConfig(awsConfig), mealLogsTableName)
 	menuSeedDir := strings.TrimSpace(os.Getenv("MENU_SEED_DIR"))
 	if menuSeedDir == "" {
 		menuSeedDir = "../data/techno-edge"
@@ -39,5 +44,5 @@ func main() {
 		log.Fatalf("create menu store: %v", err)
 	}
 
-	lambda.Start(handlers.NewAPIHandler(goalStore, menuStore).Handle)
+	lambda.Start(handlers.NewAPIHandler(goalStore, menuStore, mealLogStore).Handle)
 }
