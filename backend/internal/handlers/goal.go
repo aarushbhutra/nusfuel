@@ -78,6 +78,15 @@ func (h GoalHandler) Handle(ctx context.Context, request Request) (Response, err
 		if err := domain.ValidateGoal(goal); err != nil {
 			return response(400, map[string]string{"error": err.Error()})
 		}
+		if goal.Mode == "preset" && goal.Profile != nil {
+			moreOptions := goal.MoreOptions
+			personalized, err := domain.PresetGoalForProfile(goal.Preset, *goal.Profile)
+			if err != nil {
+				return response(400, map[string]string{"error": err.Error()})
+			}
+			personalized.MoreOptions = moreOptions
+			goal = personalized
+		}
 		if err := h.Store.Put(ctx, userID, goal); err != nil {
 			return response(500, map[string]string{"error": "internal server error"})
 		}

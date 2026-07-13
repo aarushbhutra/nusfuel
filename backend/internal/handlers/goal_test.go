@@ -91,6 +91,23 @@ func TestGoalHandlerSavesPresetGoal(t *testing.T) {
 	}
 }
 
+func TestGoalHandlerPersonalizesPresetFromProfile(t *testing.T) {
+	store := &fakeGoalStore{goals: map[string]contracts.Goal{}}
+	request := authenticatedRequest("PUT", `{"mode":"preset","preset":"cutting","caloriesKcal":1800,"proteinG":120,"profile":{"age":30,"weightKg":80,"gender":"male"}}`, "user-1")
+
+	got, err := (GoalHandler{Store: store}).Handle(context.Background(), request)
+	if err != nil {
+		t.Fatalf("handle request: %v", err)
+	}
+	if got.StatusCode != 200 {
+		t.Fatalf("status = %d, want 200", got.StatusCode)
+	}
+	goal := store.goals["user-1"]
+	if goal.CaloriesKcal != 2030 || goal.ProteinG != 160 || goal.Profile == nil || goal.Profile.WeightKg != 80 {
+		t.Fatalf("stored goal = %+v, want personalized profile goal", goal)
+	}
+}
+
 func TestGoalHandlerValidatesMoreOptions(t *testing.T) {
 	store := &fakeGoalStore{goals: map[string]contracts.Goal{}}
 	request := authenticatedRequest("PUT", `{"mode":"custom","caloriesKcal":2400,"proteinG":150,"moreOptions":{"totalFatG":-1}}`, "user-1")

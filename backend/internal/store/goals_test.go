@@ -35,6 +35,7 @@ func TestDynamoDBGoalStoreRoundTripsGoalByUserID(t *testing.T) {
 		CaloriesKcal: 2400,
 		ProteinG:     150,
 		MoreOptions:  &contracts.MacroTargets{TotalFatG: &fat},
+		Profile:      &contracts.UserProfile{Age: 24, WeightKg: 68.5, Gender: contracts.GenderFemale},
 	}
 
 	if err := goals.Put(context.Background(), "user-1", goal); err != nil {
@@ -48,7 +49,7 @@ func TestDynamoDBGoalStoreRoundTripsGoalByUserID(t *testing.T) {
 	if userID := client.getKey["userId"].(*types.AttributeValueMemberS).Value; userID != "user-1" {
 		t.Fatalf("get key = %q, want user-1", userID)
 	}
-	if !found || got.Mode != goal.Mode || got.CaloriesKcal != goal.CaloriesKcal || got.MoreOptions == nil || got.MoreOptions.TotalFatG == nil || *got.MoreOptions.TotalFatG != fat {
+	if !found || got.Mode != goal.Mode || got.CaloriesKcal != goal.CaloriesKcal || got.MoreOptions == nil || got.MoreOptions.TotalFatG == nil || *got.MoreOptions.TotalFatG != fat || got.Profile == nil || *got.Profile != *goal.Profile {
 		t.Fatalf("goal = %+v, found = %v, want %+v", got, found, goal)
 	}
 }

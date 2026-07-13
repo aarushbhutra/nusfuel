@@ -22,6 +22,44 @@ var presetGoals = map[string]contracts.Goal{
 	PresetGaining:     {Mode: "preset", Preset: PresetGaining, CaloriesKcal: 2600, ProteinG: 160},
 }
 
+// ponytail: weight-based estimate until onboarding collects height and activity level.
+func PresetGoalForProfile(preset string, profile contracts.UserProfile) (contracts.Goal, error) {
+	goal, err := PresetGoal(preset)
+	if err != nil {
+		return contracts.Goal{}, err
+	}
+	if err := profile.Validate(); err != nil {
+		return contracts.Goal{}, err
+	}
+
+	calorieRate := 30.0
+	switch profile.Gender {
+	case contracts.GenderFemale:
+		calorieRate = 29
+	case contracts.GenderMale:
+		calorieRate = 32
+	}
+	maintenance := profile.WeightKg * calorieRate
+	if profile.Age > 25 {
+		maintenance -= float64(profile.Age-25) * 5
+	}
+	if maintenance < 1200 {
+		maintenance = 1200
+	}
+
+	calorieMultiplier, proteinPerKg := 1.0, 1.6
+	switch preset {
+	case PresetCutting:
+		calorieMultiplier, proteinPerKg = 0.8, 2.0
+	case PresetGaining:
+		calorieMultiplier, proteinPerKg = 1.1, 1.8
+	}
+	goal.CaloriesKcal = math.Round(maintenance*calorieMultiplier/10) * 10
+	goal.ProteinG = math.Round(profile.WeightKg * proteinPerKg)
+	goal.Profile = &profile
+	return goal, nil
+}
+
 type RecommendationRequest struct {
 	Goal              contracts.Goal
 	Consumed          contracts.Nutrition

@@ -86,6 +86,9 @@ type goalItem struct {
 	TotalFatG     *float64 `dynamodbav:"totalFatG,omitempty"`
 	CarbohydrateG *float64 `dynamodbav:"carbohydrateG,omitempty"`
 	SugarG        *float64 `dynamodbav:"sugarG,omitempty"`
+	ProfileAge    int      `dynamodbav:"profileAge,omitempty"`
+	ProfileWeight float64  `dynamodbav:"profileWeightKg,omitempty"`
+	ProfileGender string   `dynamodbav:"profileGender,omitempty"`
 }
 
 func newGoalItem(userID string, goal contracts.Goal) goalItem {
@@ -101,6 +104,11 @@ func newGoalItem(userID string, goal contracts.Goal) goalItem {
 		item.CarbohydrateG = goal.MoreOptions.CarbohydrateG
 		item.SugarG = goal.MoreOptions.SugarG
 	}
+	if goal.Profile != nil {
+		item.ProfileAge = goal.Profile.Age
+		item.ProfileWeight = goal.Profile.WeightKg
+		item.ProfileGender = goal.Profile.Gender
+	}
 	return item
 }
 
@@ -113,13 +121,17 @@ func (i goalItem) goal() contracts.Goal {
 			SugarG:        i.SugarG,
 		}
 	}
-	return contracts.Goal{
+	goal := contracts.Goal{
 		Mode:         i.Mode,
 		Preset:       i.Preset,
 		CaloriesKcal: i.CaloriesKcal,
 		ProteinG:     i.ProteinG,
 		MoreOptions:  moreOptions,
 	}
+	if i.ProfileAge != 0 || i.ProfileWeight != 0 || i.ProfileGender != "" {
+		goal.Profile = &contracts.UserProfile{Age: i.ProfileAge, WeightKg: i.ProfileWeight, Gender: i.ProfileGender}
+	}
+	return goal
 }
 
 func validateUserID(userID string) error {

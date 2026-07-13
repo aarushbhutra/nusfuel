@@ -74,6 +74,16 @@ func TestPresetAndCustomGoalsValidate(t *testing.T) {
 	}
 }
 
+func TestPresetGoalForProfileUsesAgeWeightAndGender(t *testing.T) {
+	goal, err := PresetGoalForProfile(PresetCutting, contracts.UserProfile{Age: 30, WeightKg: 80, Gender: contracts.GenderMale})
+	if err != nil {
+		t.Fatalf("personalized preset: %v", err)
+	}
+	if goal.CaloriesKcal != 2030 || goal.ProteinG != 160 || goal.Profile == nil {
+		t.Fatalf("personalized goal = %+v, want 2030 kcal, 160g, and profile", goal)
+	}
+}
+
 func TestFilterAllergensExcludesKnownAndIncompleteItems(t *testing.T) {
 	items := []contracts.MenuItem{
 		menuItem("safe", 400, 30, "Techno Edge 1 Western"),

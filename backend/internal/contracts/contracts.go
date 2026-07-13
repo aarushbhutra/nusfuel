@@ -1,6 +1,15 @@
 package contracts
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
+
+const (
+	GenderFemale = "female"
+	GenderMale   = "male"
+	GenderOther  = "other"
+)
 
 type Nutrition struct {
 	EnergyKcal    float64 `json:"energyKcal"`
@@ -91,6 +100,25 @@ type MacroTargets struct {
 	SugarG        *float64 `json:"sugarG,omitempty"`
 }
 
+type UserProfile struct {
+	Age      int     `json:"age"`
+	WeightKg float64 `json:"weightKg"`
+	Gender   string  `json:"gender"`
+}
+
+func (p UserProfile) Validate() error {
+	if p.Age < 13 || p.Age > 120 {
+		return fmt.Errorf("age must be between 13 and 120")
+	}
+	if p.WeightKg < 20 || p.WeightKg > 300 || math.IsNaN(p.WeightKg) || math.IsInf(p.WeightKg, 0) {
+		return fmt.Errorf("weightKg must be between 20 and 300")
+	}
+	if p.Gender != GenderFemale && p.Gender != GenderMale && p.Gender != GenderOther {
+		return fmt.Errorf("gender must be female, male, or other")
+	}
+	return nil
+}
+
 func (m MacroTargets) Validate() error {
 	for name, value := range map[string]*float64{
 		"totalFatG":     m.TotalFatG,
@@ -110,6 +138,7 @@ type Goal struct {
 	CaloriesKcal float64       `json:"caloriesKcal"`
 	ProteinG     float64       `json:"proteinG"`
 	MoreOptions  *MacroTargets `json:"moreOptions,omitempty"`
+	Profile      *UserProfile  `json:"profile,omitempty"`
 }
 
 func (g Goal) Validate() error {
@@ -123,7 +152,12 @@ func (g Goal) Validate() error {
 		return fmt.Errorf("caloriesKcal and proteinG must be greater than zero")
 	}
 	if g.MoreOptions != nil {
-		return g.MoreOptions.Validate()
+		if err := g.MoreOptions.Validate(); err != nil {
+			return err
+		}
+	}
+	if g.Profile != nil {
+		return g.Profile.Validate()
 	}
 	return nil
 }
