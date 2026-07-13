@@ -7,59 +7,61 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.content}>
-        <View style={styles.topBar}>
-          <Text style={styles.brand}>NUSFuel</Text>
-          <Text style={styles.fieldNote}>FIELD NOTE 02 / 02</Text>
-        </View>
-
-        <View style={styles.hero}>
-          <Text style={styles.eyebrow}>TARGET SAVED</Text>
-          <Text style={styles.title}>Your baseline is ready.</Text>
-          <Text style={styles.copy}>
-            Keep this close while you choose a Techno Edge meal. You can edit it whenever your training changes.
-          </Text>
-        </View>
-
-        <View style={styles.summaryCard}>
-          <View style={styles.summaryHeader}>
-            <Text style={styles.summaryLabel}>{goal.mode === "custom" ? "CUSTOM TARGET" : "DAILY TARGET"}</Text>
-            <View style={styles.savedDot} />
+      <View style={styles.page}>
+        <View style={styles.content}>
+          <View style={styles.topBar}>
+            <Text style={styles.brand}>NUSFuel</Text>
+            <Text style={styles.fieldNote}>FIELD NOTE 02 / 02</Text>
           </View>
-          <View style={styles.metricRow}>
-            <View style={styles.metricBlock}>
-              <Text style={styles.metricLabel}>Energy</Text>
-              <Text style={styles.metricValue}>{goal.caloriesKcal.toLocaleString()}</Text>
-              <Text style={styles.metricUnit}>kcal</Text>
+
+          <View style={styles.hero}>
+            <Text style={styles.eyebrow}>TARGET SAVED</Text>
+            <Text style={styles.title}>Your baseline is ready.</Text>
+            <Text style={styles.copy}>
+              Keep this close while you choose a Techno Edge meal. You can edit it whenever your training changes.
+            </Text>
+          </View>
+
+          <View style={styles.summaryCard}>
+            <View style={styles.summaryHeader}>
+              <Text style={styles.summaryLabel}>{goal.mode === "custom" ? "CUSTOM TARGET" : "DAILY TARGET"}</Text>
+              <View style={styles.savedDot} />
             </View>
-            <View style={styles.divider} />
-            <View style={styles.metricBlock}>
-              <Text style={styles.metricLabel}>Protein</Text>
-              <Text style={styles.metricValue}>{goal.proteinG}</Text>
-              <Text style={styles.metricUnit}>g</Text>
+            <View style={styles.metricRow}>
+              <View style={styles.metricBlock}>
+                <Text style={styles.metricLabel}>Energy</Text>
+                <Text style={styles.metricValue}>{goal.caloriesKcal.toLocaleString()}</Text>
+                <Text style={styles.metricUnit}>kcal</Text>
+              </View>
+              <View style={styles.divider} />
+              <View style={styles.metricBlock}>
+                <Text style={styles.metricLabel}>Protein</Text>
+                <Text style={styles.metricValue}>{goal.proteinG}</Text>
+                <Text style={styles.metricUnit}>g</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.disclaimer}>General nutrition guidance, not medical advice.</Text>
-        {onBrowse ? (
+        <View style={styles.footer}>
+          <Text style={styles.disclaimer}>General nutrition guidance, not medical advice.</Text>
+          {onBrowse ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={onBrowse}
+              style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.primaryButtonText}>Browse Techno Edge</Text>
+            </Pressable>
+          ) : null}
           <Pressable
             accessibilityRole="button"
-            onPress={onBrowse}
-            style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+            onPress={onEdit}
+            style={({ pressed }) => [styles.editButton, pressed && styles.pressed]}
           >
-            <Text style={styles.primaryButtonText}>Browse Techno Edge</Text>
+            <Text style={styles.editButtonText}>Edit target</Text>
           </Pressable>
-        ) : null}
-        <Pressable
-          accessibilityRole="button"
-          onPress={onEdit}
-          style={({ pressed }) => [styles.editButton, pressed && styles.pressed]}
-        >
-          <Text style={styles.editButtonText}>Edit target</Text>
-        </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -68,6 +70,9 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
 const createStyles = (colors) => StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
+    flex: 1,
+  },
+  page: {
     flex: 1,
     paddingHorizontal: 24,
   },

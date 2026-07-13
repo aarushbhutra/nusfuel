@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Platform, StyleSheet, useColorScheme } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 const lightColors = Object.freeze({
   background: "#F5F0E8",
@@ -17,29 +17,11 @@ const lightColors = Object.freeze({
   warningText: "#6D4A26",
 });
 
-const darkColors = Object.freeze({
-  background: "#1B1D1B",
-  surface: "#252925",
-  surfaceRaised: "#30362F",
-  text: "#FAF6EE",
-  muted: "#B4B9AF",
-  line: "#4A5149",
-  accent: "#E08351",
-  accentText: "#1D201D",
-  danger: "#F08C82",
-  warningBackground: "#3A3024",
-  warningBorder: "#9C7445",
-  warningTitle: "#FFD39A",
-  warningText: "#E9C692",
-});
-
 export const colors = lightColors;
 
 export function useTheme(createStyles) {
-  const scheme = useColorScheme();
-  const activeColors = scheme === "dark" ? darkColors : lightColors;
-  const styles = useMemo(() => createStyles(activeColors), [activeColors, createStyles]);
-  return { colors: activeColors, styles, scheme: scheme === "dark" ? "dark" : "light" };
+  const styles = useMemo(() => createStyles(lightColors), [createStyles]);
+  return { colors: lightColors, styles, scheme: "light" };
 }
 
 export const radius = 16;

@@ -13,58 +13,60 @@ export default function AuthEntryScreen({ onContinue }) {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.content}>
-        <View style={styles.topBar}>
-          <View style={styles.brandLockup}>
-            <View style={styles.brandMark}>
-              <View style={styles.brandDot} />
+      <View style={styles.page}>
+        <View style={styles.content}>
+          <View style={styles.topBar}>
+            <View style={styles.brandLockup}>
+              <View style={styles.brandMark}>
+                <View style={styles.brandDot} />
+              </View>
+              <Text style={styles.brand}>NUSFuel</Text>
             </View>
-            <Text style={styles.brand}>NUSFuel</Text>
+            <Text style={styles.fieldNote}>FIELD NOTE 01</Text>
           </View>
-          <Text style={styles.fieldNote}>FIELD NOTE 01</Text>
-        </View>
 
-        <View style={styles.hero}>
-          <Text style={styles.eyebrow}>NUS / TECHNO EDGE</Text>
-          <Text style={styles.title}>Eat with a plan.</Text>
-          <Text style={styles.copy}>
-            Set a daily target, then choose a stored Techno Edge meal that fits the way you train.
-          </Text>
-          <View style={styles.editorialMark}>
-            <View style={styles.editorialDot} />
-            <View style={styles.editorialRule} />
-          </View>
-        </View>
-
-        <View style={styles.previewCard}>
-          <Text style={styles.previewLabel}>TODAY&apos;S STARTING POINT</Text>
-          <View style={styles.metricRow}>
-            <View>
-              <Text style={styles.metricLabel}>Energy</Text>
-              <Text style={styles.metricValue}>2,200 kcal</Text>
-            </View>
-            <View style={styles.metricRight}>
-              <Text style={styles.metricLabel}>Protein</Text>
-              <Text style={styles.metricValue}>140 g</Text>
+          <View style={styles.hero}>
+            <Text style={styles.eyebrow}>NUS / TECHNO EDGE</Text>
+            <Text style={styles.title}>Eat with a plan.</Text>
+            <Text style={styles.copy}>
+              Set a daily target, then choose a stored Techno Edge meal that fits the way you train.
+            </Text>
+            <View style={styles.editorialMark}>
+              <View style={styles.editorialDot} />
+              <View style={styles.editorialRule} />
             </View>
           </View>
-          <View style={styles.progressTrack}>
-            <View style={styles.progressFill} />
-          </View>
-          <Text style={styles.previewHint}>A clearer starting point for the next meal.</Text>
-        </View>
-      </View>
 
-      <View style={styles.footer}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Start setting a target in NUSFuel preview"
-          onPress={onContinue}
-          style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-        >
-          <Text style={styles.buttonText}>Set my target</Text>
-        </Pressable>
-        <Text style={styles.helper}>Local preview session</Text>
+          <View style={styles.previewCard}>
+            <Text style={styles.previewLabel}>TODAY&apos;S STARTING POINT</Text>
+            <View style={styles.metricRow}>
+              <View>
+                <Text style={styles.metricLabel}>Energy</Text>
+                <Text style={styles.metricValue}>2,200 kcal</Text>
+              </View>
+              <View style={styles.metricRight}>
+                <Text style={styles.metricLabel}>Protein</Text>
+                <Text style={styles.metricValue}>140 g</Text>
+              </View>
+            </View>
+            <View style={styles.progressTrack}>
+              <View style={styles.progressFill} />
+            </View>
+            <Text style={styles.previewHint}>A clearer starting point for the next meal.</Text>
+          </View>
+        </View>
+
+        <View style={styles.footer}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Start setting a target in NUSFuel preview"
+            onPress={onContinue}
+            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+          >
+            <Text style={styles.buttonText}>Set my target</Text>
+          </Pressable>
+          <Text style={styles.helper}>Local preview session</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -73,6 +75,9 @@ export default function AuthEntryScreen({ onContinue }) {
 const createStyles = (colors) => StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
+    flex: 1,
+  },
+  page: {
     flex: 1,
     paddingHorizontal: 24,
   },
