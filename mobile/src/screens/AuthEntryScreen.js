@@ -6,9 +6,11 @@ import {
   View,
 } from "react-native";
 
-import { colors, radius, spacing } from "../theme.js";
+import { radius, spacing, useTheme } from "../theme.js";
 
 export default function AuthEntryScreen({ onContinue }) {
+  const { styles } = useTheme(createStyles);
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
@@ -52,7 +54,7 @@ export default function AuthEntryScreen({ onContinue }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors) => StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.background,

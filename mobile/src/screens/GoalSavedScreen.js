@@ -1,8 +1,10 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import { colors, radius, spacing } from "../theme.js";
+import { radius, spacing, useTheme } from "../theme.js";
 
 export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
+  const { styles } = useTheme(createStyles);
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
@@ -50,7 +52,7 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors) => StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,

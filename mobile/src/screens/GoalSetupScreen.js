@@ -19,7 +19,7 @@ import {
   PRESET_KEYS,
   validateGoal,
 } from "../lib/goalSetup.js";
-import { colors, radius, spacing } from "../theme.js";
+import { radius, spacing, useTheme } from "../theme.js";
 
 const OPTIONAL_FIELDS = [
   { key: "totalFatG", label: "Fat", suffix: "g" },
@@ -28,6 +28,7 @@ const OPTIONAL_FIELDS = [
 ];
 
 export default function GoalSetupScreen({ onSave }) {
+  const { colors, styles } = useTheme(createStyles);
   const [mode, setMode] = useState("preset");
   const [preset, setPreset] = useState("maintenance");
   const [values, setValues] = useState({
@@ -202,6 +203,8 @@ export default function GoalSetupScreen({ onSave }) {
 }
 
 function PresetRow({ preset, selected, onPress }) {
+  const { styles } = useTheme(createStyles);
+
   return (
     <Pressable
       accessibilityRole="radio"
@@ -222,6 +225,8 @@ function PresetRow({ preset, selected, onPress }) {
 }
 
 function InputField({ label, suffix, value, optional = false, error, onChangeText }) {
+  const { colors, styles } = useTheme(createStyles);
+
   return (
     <View style={styles.field}>
       <View style={styles.fieldLabelRow}>
@@ -245,7 +250,7 @@ function InputField({ label, suffix, value, optional = false, error, onChangeTex
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors) => StyleSheet.create({
   screen: {
     backgroundColor: colors.background,
     flex: 1,

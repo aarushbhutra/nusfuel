@@ -9,12 +9,13 @@ import {
 } from "react-native";
 
 import { scaleNutrition } from "../lib/nutrition.js";
-import { colors, radius, spacing } from "../theme.js";
+import { radius, spacing, useTheme } from "../theme.js";
 
 const SERVING_STEP = 0.5;
 const MIN_SERVINGS = 0.5;
 
 export default function MealDetailScreen({ item, onBack }) {
+  const { colors, styles } = useTheme(createStyles);
   const [servings, setServings] = useState(1);
   const nutrition = useMemo(() => scaleNutrition(item.nutrition, servings), [item.nutrition, servings]);
 
@@ -90,6 +91,8 @@ export default function MealDetailScreen({ item, onBack }) {
 }
 
 function NutritionRow({ label, value, prominent, last }) {
+  const { styles } = useTheme(createStyles);
+
   return (
     <View style={[styles.nutritionRow, last && styles.nutritionRowLast]}>
       <Text style={[styles.nutritionLabel, prominent && styles.nutritionLabelProminent]}>{label}</Text>
@@ -102,7 +105,7 @@ function formatNumber(value) {
   return Number.isInteger(value) ? value.toLocaleString() : value.toFixed(1);
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors) => StyleSheet.create({
   screen: { backgroundColor: colors.background, flex: 1 },
   content: { paddingBottom: spacing.xxl, paddingHorizontal: 20, paddingTop: spacing.md },
   backButton: { alignSelf: "flex-start", minHeight: 48, justifyContent: "center", paddingRight: spacing.lg },
@@ -125,9 +128,9 @@ const styles = StyleSheet.create({
   nutritionLabelProminent: { color: colors.text, fontWeight: "800" },
   nutritionValue: { color: colors.text, fontSize: 15, fontWeight: "700" },
   nutritionValueProminent: { color: colors.accent, fontSize: 20, fontWeight: "800" },
-  warning: { backgroundColor: "#2A2420", borderColor: "#765444", borderRadius: radius, borderWidth: 1, marginTop: spacing.lg, padding: spacing.lg },
-  warningTitle: { color: "#FFD1A8", fontSize: 14, fontWeight: "800" },
-  warningText: { color: "#E8C4A7", fontSize: 13, lineHeight: 19, marginTop: spacing.xs },
+  warning: { backgroundColor: colors.warningBackground, borderColor: colors.warningBorder, borderRadius: radius, borderWidth: 1, marginTop: spacing.lg, padding: spacing.lg },
+  warningTitle: { color: colors.warningTitle, fontSize: 14, fontWeight: "800" },
+  warningText: { color: colors.warningText, fontSize: 13, lineHeight: 19, marginTop: spacing.xs },
   sourceBlock: { borderTopColor: colors.line, borderTopWidth: 1, marginTop: spacing.xxl, paddingTop: spacing.lg },
   sourceLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", letterSpacing: 1.2 },
   sourceName: { color: colors.text, fontSize: 14, fontWeight: "700", marginTop: spacing.sm },

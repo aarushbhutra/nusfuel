@@ -11,7 +11,7 @@ import {
 
 import { getMenu } from "../lib/api/menu.js";
 import { PREVIEW_MENU } from "../lib/menuPreview.js";
-import { colors, radius, spacing } from "../theme.js";
+import { radius, spacing, useTheme } from "../theme.js";
 
 export default function MenuBrowseScreen({
   apiBaseUrl,
@@ -19,6 +19,7 @@ export default function MenuBrowseScreen({
   onSelect,
   onBack,
 }) {
+  const { colors, styles } = useTheme(createStyles);
   const preview = !apiBaseUrl || !authSession?.accessToken;
   const [items, setItems] = useState(preview ? PREVIEW_MENU : []);
   const [loading, setLoading] = useState(!preview);
@@ -124,6 +125,8 @@ export default function MenuBrowseScreen({
 }
 
 function MealRow({ item, onPress }) {
+  const { styles } = useTheme(createStyles);
+
   return (
     <Pressable
       accessibilityLabel={`View ${item.name}, ${item.nutrition.energyKcal} kilocalories`}
@@ -143,7 +146,7 @@ function MealRow({ item, onPress }) {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors) => StyleSheet.create({
   screen: { backgroundColor: colors.background, flex: 1 },
   content: { paddingBottom: spacing.xxl, paddingHorizontal: 20, paddingTop: spacing.md },
   headerRow: { alignItems: "flex-start", flexDirection: "row", justifyContent: "space-between" },
