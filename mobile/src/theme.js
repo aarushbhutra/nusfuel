@@ -1,36 +1,36 @@
 import { useMemo } from "react";
-import { StyleSheet, useColorScheme } from "react-native";
+import { Platform, StyleSheet, useColorScheme } from "react-native";
 
 const lightColors = Object.freeze({
-  background: "#F7FCF8",
-  surface: "#FFFFFF",
-  surfaceRaised: "#EAF7EC",
-  text: "#173A26",
-  muted: "#557363",
-  line: "#CDE5D2",
-  accent: "#58CC02",
-  accentText: "#14310F",
-  danger: "#C83F35",
-  warningBackground: "#FFF5E6",
-  warningBorder: "#E8B36B",
-  warningTitle: "#86500E",
-  warningText: "#6E4A1B",
+  background: "#F5F0E8",
+  surface: "#FFFDF8",
+  surfaceRaised: "#E9E2D7",
+  text: "#1F2521",
+  muted: "#667068",
+  line: "#D7CEC2",
+  accent: "#D26A3A",
+  accentText: "#FFF9F2",
+  danger: "#B33C32",
+  warningBackground: "#FBEDD6",
+  warningBorder: "#D8A36B",
+  warningTitle: "#7C4818",
+  warningText: "#6D4A26",
 });
 
 const darkColors = Object.freeze({
-  background: "#0F1D14",
-  surface: "#17291D",
-  surfaceRaised: "#203A27",
-  text: "#F3FFF4",
-  muted: "#A9C5B0",
-  line: "#31553B",
-  accent: "#78D84A",
-  accentText: "#10260E",
-  danger: "#FF9B91",
-  warningBackground: "#352A1C",
-  warningBorder: "#896333",
-  warningTitle: "#FFD89A",
-  warningText: "#F0C98F",
+  background: "#1B1D1B",
+  surface: "#252925",
+  surfaceRaised: "#30362F",
+  text: "#FAF6EE",
+  muted: "#B4B9AF",
+  line: "#4A5149",
+  accent: "#E08351",
+  accentText: "#1D201D",
+  danger: "#F08C82",
+  warningBackground: "#3A3024",
+  warningBorder: "#9C7445",
+  warningTitle: "#FFD39A",
+  warningText: "#E9C692",
 });
 
 export const colors = lightColors;
@@ -43,6 +43,13 @@ export function useTheme(createStyles) {
 }
 
 export const radius = 16;
+export const radiusLarge = 20;
+export const radiusPill = 999;
+export const fontFamily = Platform.select({
+  ios: "Avenir Next",
+  android: "sans-serif",
+  default: "sans-serif",
+});
 
 export const spacing = Object.freeze({
   xs: 4,

@@ -71,6 +71,19 @@ export function validateProfile(profile) {
   return errors;
 }
 
+export function onboardingStepError(step, profile, goal) {
+  if (step === 0) {
+    return validateProfile({ ...profile, weightKg: 60, gender: "other" }).age || "";
+  }
+  if (step === 1) {
+    return validateProfile({ ...profile, age: 20, gender: "other" }).weightKg || "";
+  }
+  if (step === 2) {
+    return validateProfile({ ...profile, age: 20, weightKg: 60 }).gender || "";
+  }
+  return Object.values(validateGoal(goal))[0] || "";
+}
+
 export function goalFromCustom(values) {
   const goal = {
     mode: "custom",

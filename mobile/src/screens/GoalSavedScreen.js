@@ -1,6 +1,6 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import { radius, spacing, useTheme } from "../theme.js";
+import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
 export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
   const { styles } = useTheme(createStyles);
@@ -8,29 +8,42 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
-        <Text style={styles.progress}>Step 1 of 2 complete</Text>
-        <View style={styles.confirmation}>
-          <Text style={styles.confirmationMark}>✓</Text>
+        <View style={styles.topBar}>
+          <Text style={styles.brand}>NUSFuel</Text>
+          <Text style={styles.fieldNote}>FIELD NOTE 02 / 02</Text>
         </View>
-        <Text style={styles.title}>You’re set.</Text>
-        <Text style={styles.copy}>
-          Your target is ready. Next, choose a Techno Edge meal and see how it fits your day.
-        </Text>
 
-        <View style={styles.summary}>
-          <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Daily calories</Text>
-            <Text style={styles.summaryValue}>{goal.caloriesKcal.toLocaleString()} kcal</Text>
+        <View style={styles.hero}>
+          <Text style={styles.eyebrow}>TARGET SAVED</Text>
+          <Text style={styles.title}>Your baseline is ready.</Text>
+          <Text style={styles.copy}>
+            Keep this close while you choose a Techno Edge meal. You can edit it whenever your training changes.
+          </Text>
+        </View>
+
+        <View style={styles.summaryCard}>
+          <View style={styles.summaryHeader}>
+            <Text style={styles.summaryLabel}>{goal.mode === "custom" ? "CUSTOM TARGET" : "DAILY TARGET"}</Text>
+            <View style={styles.savedDot} />
           </View>
-          <View style={styles.summaryItem}>
-            <Text style={styles.summaryLabel}>Daily protein</Text>
-            <Text style={styles.summaryValue}>{goal.proteinG} g</Text>
+          <View style={styles.metricRow}>
+            <View style={styles.metricBlock}>
+              <Text style={styles.metricLabel}>Energy</Text>
+              <Text style={styles.metricValue}>{goal.caloriesKcal.toLocaleString()}</Text>
+              <Text style={styles.metricUnit}>kcal</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.metricBlock}>
+              <Text style={styles.metricLabel}>Protein</Text>
+              <Text style={styles.metricValue}>{goal.proteinG}</Text>
+              <Text style={styles.metricUnit}>g</Text>
+            </View>
           </View>
         </View>
       </View>
 
       <View style={styles.footer}>
-        <Text style={styles.disclaimer}>You can edit this target any time.</Text>
+        <Text style={styles.disclaimer}>General nutrition guidance, not medical advice.</Text>
         {onBrowse ? (
           <Pressable
             accessibilityRole="button"
@@ -43,9 +56,9 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
         <Pressable
           accessibilityRole="button"
           onPress={onEdit}
-          style={({ pressed }) => [styles.button, onBrowse && styles.secondaryButton, pressed && styles.pressed]}
+          style={({ pressed }) => [styles.editButton, pressed && styles.pressed]}
         >
-          <Text style={styles.buttonText}>Edit target</Text>
+          <Text style={styles.editButtonText}>Edit target</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -60,102 +73,148 @@ const createStyles = (colors) => StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: "center",
+    paddingTop: spacing.md,
   },
-  progress: {
-    alignSelf: "flex-start",
-    color: colors.accent,
-    fontSize: 13,
-    fontWeight: "800",
-    marginBottom: spacing.xl,
-  },
-  confirmation: {
+  topBar: {
     alignItems: "center",
-    backgroundColor: colors.accent,
-    borderRadius: 30,
-    height: 60,
-    justifyContent: "center",
-    width: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  confirmationMark: {
-    color: colors.accentText,
-    fontSize: 28,
+  brand: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  fieldNote: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 1.1,
+  },
+  hero: {
+    marginTop: 88,
+  },
+  eyebrow: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 11,
     fontWeight: "800",
+    letterSpacing: 1.4,
   },
   title: {
     color: colors.text,
-    fontSize: 42,
+    fontFamily,
+    fontSize: 36,
     fontWeight: "800",
-    letterSpacing: -1.5,
-    marginTop: spacing.xl,
+    letterSpacing: -1.2,
+    lineHeight: 41,
+    marginTop: spacing.md,
+    maxWidth: 310,
   },
   copy: {
     color: colors.muted,
-    fontSize: 17,
-    lineHeight: 25,
-    marginTop: spacing.md,
-    maxWidth: 320,
+    fontFamily,
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: spacing.lg,
+    maxWidth: 330,
   },
-  summary: {
+  summaryCard: {
     backgroundColor: colors.surface,
     borderColor: colors.line,
-    borderRadius: radius,
+    borderRadius: radiusLarge,
     borderWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: spacing.section,
+    marginTop: 56,
     padding: spacing.lg,
   },
-  summaryItem: {
-    flex: 1,
+  summaryHeader: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   summaryLabel: {
     color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.1,
+  },
+  savedDot: {
+    backgroundColor: colors.accent,
+    borderRadius: 5,
+    height: 10,
+    width: 10,
+  },
+  metricRow: {
+    alignItems: "stretch",
+    flexDirection: "row",
+    marginTop: spacing.xl,
+  },
+  metricBlock: {
+    flex: 1,
+  },
+  metricLabel: {
+    color: colors.muted,
+    fontFamily,
     fontSize: 12,
   },
-  summaryValue: {
+  metricValue: {
     color: colors.text,
-    fontSize: 18,
+    fontFamily,
+    fontSize: 28,
     fontWeight: "800",
+    letterSpacing: -0.8,
     marginTop: spacing.sm,
   },
+  metricUnit: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "800",
+    marginTop: 2,
+  },
+  divider: {
+    backgroundColor: colors.line,
+    marginHorizontal: spacing.lg,
+    width: 1,
+  },
   footer: {
-    paddingBottom: 18,
+    paddingBottom: spacing.lg,
   },
   disclaimer: {
     color: colors.muted,
-    fontSize: 13,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
     marginBottom: spacing.md,
     textAlign: "center",
-  },
-  button: {
-    alignItems: "center",
-    borderColor: colors.line,
-    borderRadius: radius,
-    borderWidth: 1,
-    justifyContent: "center",
-    minHeight: 56,
   },
   primaryButton: {
     alignItems: "center",
     backgroundColor: colors.accent,
-    borderRadius: radius,
+    borderRadius: radiusLarge,
     justifyContent: "center",
     minHeight: 56,
-    marginBottom: spacing.sm,
   },
   primaryButtonText: {
     color: colors.accentText,
-    fontSize: 16,
+    fontFamily,
+    fontSize: 15,
     fontWeight: "800",
   },
-  secondaryButton: {
+  editButton: {
+    alignItems: "center",
+    justifyContent: "center",
     minHeight: 48,
+    marginTop: spacing.sm,
   },
-  buttonText: {
+  editButtonText: {
     color: colors.text,
-    fontSize: 16,
-    fontWeight: "800",
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "700",
   },
   pressed: {
     opacity: 0.82,

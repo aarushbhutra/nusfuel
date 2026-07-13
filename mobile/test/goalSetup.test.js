@@ -4,6 +4,7 @@ import test from "node:test";
 import {
 	goalFromCustom,
 	goalFromPreset,
+	onboardingStepError,
 	profileFromValues,
 	validateProfile,
 	validateGoal,
@@ -49,6 +50,16 @@ test("profile validation requires usable age, weight, and gender", () => {
 		weightKg: "Enter a weight between 20 and 300 kg.",
 		gender: "Choose an option.",
 	});
+});
+
+test("onboarding validates only the answer on the active step", () => {
+	const profile = profileFromValues({ age: "", weightKg: "", gender: "" });
+	const goal = goalFromPreset("maintenance", profile);
+
+	assert.equal(onboardingStepError(0, profile, goal), "Enter an age between 13 and 120.");
+	assert.equal(onboardingStepError(1, profile, goal), "Enter a weight between 20 and 300 kg.");
+	assert.equal(onboardingStepError(2, profile, goal), "Choose an option.");
+	assert.equal(onboardingStepError(3, { age: 20, weightKg: 60, gender: "other" }, goalFromPreset("maintenance")), "");
 });
 
 test("goal validation catches invalid core and optional values", () => {

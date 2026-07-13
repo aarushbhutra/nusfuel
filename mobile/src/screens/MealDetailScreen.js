@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { scaleNutrition } from "../lib/nutrition.js";
-import { radius, spacing, useTheme } from "../theme.js";
+import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
 const SERVING_STEP = 0.5;
 const MIN_SERVINGS = 0.5;
@@ -22,21 +22,38 @@ export default function MealDetailScreen({ item, onBack }) {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Pressable
-          accessibilityLabel="Back to Techno Edge menu"
-          accessibilityRole="button"
-          onPress={onBack}
-          style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
-        >
-          <Text style={styles.backText}>‹  Techno Edge menu</Text>
-        </Pressable>
+        <View style={styles.topBar}>
+          <Text style={styles.brand}>NUSFuel</Text>
+          <Pressable
+            accessibilityLabel="Back to Techno Edge menu"
+            accessibilityRole="button"
+            onPress={onBack}
+            style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
+          >
+            <Text style={styles.backText}>Back to menu</Text>
+          </Pressable>
+        </View>
 
-        <Text style={styles.stall}>{item.stall}</Text>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.servingNote}>Nutrition is listed per {item.serving.unit}.</Text>
+        <View style={styles.hero}>
+          <Text style={styles.eyebrow}>{item.stall}</Text>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.servingNote}>Nutrition recalculates as you adjust the serving quantity.</Text>
+        </View>
+
+        <View style={styles.energyCard}>
+          <View>
+            <Text style={styles.cardLabel}>CURRENT SERVING</Text>
+            <Text style={styles.energyValue}>{formatNumber(nutrition.energyKcal)}</Text>
+            <Text style={styles.energyUnit}>kcal</Text>
+          </View>
+          <View style={styles.proteinBadge}>
+            <Text style={styles.proteinLabel}>PROTEIN</Text>
+            <Text style={styles.proteinValue}>{formatNumber(nutrition.proteinG)} g</Text>
+          </View>
+        </View>
 
         <View style={styles.quantityBlock}>
-          <View>
+          <View style={styles.quantityCopy}>
             <Text style={styles.quantityLabel}>Serving quantity</Text>
             <Text style={styles.quantityHint}>Adjust to match what you ordered.</Text>
           </View>
@@ -48,7 +65,7 @@ export default function MealDetailScreen({ item, onBack }) {
               onPress={() => setServings((value) => Math.max(MIN_SERVINGS, value - SERVING_STEP))}
               style={({ pressed }) => [styles.stepButton, servings <= MIN_SERVINGS && styles.disabled, pressed && styles.pressed]}
             >
-              <Text style={styles.stepText}>−</Text>
+              <Text style={styles.stepText}>-</Text>
             </Pressable>
             <Text accessibilityLabel={`${servings} servings`} style={styles.quantityValue}>{servings}</Text>
             <Pressable
@@ -62,10 +79,11 @@ export default function MealDetailScreen({ item, onBack }) {
           </View>
         </View>
 
+        <Text style={styles.sectionTitle}>Nutrition at this quantity</Text>
         <View style={styles.nutritionCard}>
           <NutritionRow label="Energy" value={`${formatNumber(nutrition.energyKcal)} kcal`} prominent />
           <NutritionRow label="Protein" value={`${formatNumber(nutrition.proteinG)} g`} />
-          <NutritionRow label="Total Fat" value={`${formatNumber(nutrition.totalFatG)} g`} />
+          <NutritionRow label="Total fat" value={`${formatNumber(nutrition.totalFatG)} g`} />
           <NutritionRow label="Carbohydrate" value={`${formatNumber(nutrition.carbohydrateG)} g`} />
           <NutritionRow label="Sugar" value={`${formatNumber(nutrition.sugarG)} g`} last />
         </View>
@@ -80,9 +98,9 @@ export default function MealDetailScreen({ item, onBack }) {
         ) : null}
 
         <View style={styles.sourceBlock}>
-          <Text style={styles.sourceLabel}>SOURCE</Text>
+          <Text style={styles.sourceLabel}>SOURCE RECORD</Text>
           <Text style={styles.sourceName}>{item.source.name}</Text>
-          <Text style={styles.sourceMeta}>Confidence: {item.source.confidence} · Verified {item.source.lastVerified}</Text>
+          <Text style={styles.sourceMeta}>Confidence: {item.source.confidence} / Verified {item.source.lastVerified}</Text>
         </View>
         <Text style={styles.disclaimer}>General nutrition guidance, not medical advice.</Text>
       </ScrollView>
@@ -106,35 +124,278 @@ function formatNumber(value) {
 }
 
 const createStyles = (colors) => StyleSheet.create({
-  screen: { backgroundColor: colors.background, flex: 1 },
-  content: { paddingBottom: spacing.xxl, paddingHorizontal: 20, paddingTop: spacing.md },
-  backButton: { alignSelf: "flex-start", minHeight: 48, justifyContent: "center", paddingRight: spacing.lg },
-  backText: { color: colors.muted, fontSize: 14, fontWeight: "700" },
-  stall: { color: colors.accent, fontSize: 13, fontWeight: "800", marginTop: spacing.xl, textTransform: "uppercase" },
-  title: { color: colors.text, fontSize: 34, fontWeight: "800", letterSpacing: -1, lineHeight: 40, marginTop: spacing.sm },
-  servingNote: { color: colors.muted, fontSize: 14, lineHeight: 20, marginTop: spacing.md },
-  quantityBlock: { alignItems: "center", backgroundColor: colors.surface, borderColor: colors.line, borderRadius: radius, borderWidth: 1, flexDirection: "row", justifyContent: "space-between", marginTop: spacing.xxl, padding: spacing.lg },
-  quantityLabel: { color: colors.text, fontSize: 15, fontWeight: "800" },
-  quantityHint: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: spacing.xs },
-  stepper: { alignItems: "center", flexDirection: "row", gap: spacing.sm },
-  stepButton: { alignItems: "center", backgroundColor: colors.surfaceRaised, borderRadius: 14, height: 48, justifyContent: "center", width: 48 },
-  stepText: { color: colors.accent, fontSize: 25, fontWeight: "500", lineHeight: 28 },
-  quantityValue: { color: colors.text, fontSize: 17, fontWeight: "800", minWidth: 34, textAlign: "center" },
-  disabled: { opacity: 0.35 },
-  nutritionCard: { backgroundColor: colors.surfaceRaised, borderRadius: radius, marginTop: spacing.lg, paddingHorizontal: spacing.lg },
-  nutritionRow: { alignItems: "center", borderBottomColor: colors.line, borderBottomWidth: 1, flexDirection: "row", justifyContent: "space-between", minHeight: 56 },
-  nutritionRowLast: { borderBottomWidth: 0 },
-  nutritionLabel: { color: colors.muted, fontSize: 14 },
-  nutritionLabelProminent: { color: colors.text, fontWeight: "800" },
-  nutritionValue: { color: colors.text, fontSize: 15, fontWeight: "700" },
-  nutritionValueProminent: { color: colors.accent, fontSize: 20, fontWeight: "800" },
-  warning: { backgroundColor: colors.warningBackground, borderColor: colors.warningBorder, borderRadius: radius, borderWidth: 1, marginTop: spacing.lg, padding: spacing.lg },
-  warningTitle: { color: colors.warningTitle, fontSize: 14, fontWeight: "800" },
-  warningText: { color: colors.warningText, fontSize: 13, lineHeight: 19, marginTop: spacing.xs },
-  sourceBlock: { borderTopColor: colors.line, borderTopWidth: 1, marginTop: spacing.xxl, paddingTop: spacing.lg },
-  sourceLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", letterSpacing: 1.2 },
-  sourceName: { color: colors.text, fontSize: 14, fontWeight: "700", marginTop: spacing.sm },
-  sourceMeta: { color: colors.muted, fontSize: 12, lineHeight: 18, marginTop: spacing.xs },
-  disclaimer: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: spacing.xl },
-  pressed: { opacity: 0.78, transform: [{ scale: 0.985 }] },
+  screen: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+  content: {
+    paddingBottom: spacing.xxl,
+    paddingHorizontal: 24,
+    paddingTop: spacing.md,
+  },
+  topBar: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  brand: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  backButton: {
+    justifyContent: "center",
+    minHeight: 44,
+    paddingLeft: spacing.md,
+  },
+  backText: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  hero: {
+    marginTop: 58,
+  },
+  eyebrow: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 11,
+    fontWeight: "800",
+    letterSpacing: 0.8,
+  },
+  title: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 34,
+    fontWeight: "800",
+    letterSpacing: -1.1,
+    lineHeight: 39,
+    marginTop: spacing.md,
+  },
+  servingNote: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 14,
+    lineHeight: 21,
+    marginTop: spacing.md,
+  },
+  energyCard: {
+    alignItems: "flex-end",
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: spacing.xxl,
+    padding: spacing.lg,
+  },
+  cardLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.1,
+  },
+  energyValue: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 36,
+    fontWeight: "800",
+    letterSpacing: -1,
+    marginTop: spacing.sm,
+  },
+  energyUnit: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "800",
+    marginTop: 2,
+  },
+  proteinBadge: {
+    alignItems: "flex-end",
+    backgroundColor: colors.surfaceRaised,
+    borderRadius: 14,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  proteinLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 9,
+    fontWeight: "800",
+    letterSpacing: 1,
+  },
+  proteinValue: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "800",
+    marginTop: spacing.xs,
+  },
+  quantityBlock: {
+    alignItems: "center",
+    borderBottomColor: colors.line,
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: spacing.lg,
+    minHeight: 80,
+    paddingBottom: spacing.lg,
+  },
+  quantityCopy: {
+    flex: 1,
+    paddingRight: spacing.md,
+  },
+  quantityLabel: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "800",
+  },
+  quantityHint: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 17,
+    marginTop: spacing.xs,
+  },
+  stepper: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
+  stepButton: {
+    alignItems: "center",
+    backgroundColor: colors.surfaceRaised,
+    borderRadius: 14,
+    height: 46,
+    justifyContent: "center",
+    width: 46,
+  },
+  stepText: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 22,
+    fontWeight: "600",
+    lineHeight: 25,
+  },
+  quantityValue: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 16,
+    fontWeight: "800",
+    minWidth: 34,
+    textAlign: "center",
+  },
+  disabled: {
+    opacity: 0.35,
+  },
+  sectionTitle: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 18,
+    fontWeight: "800",
+    marginTop: spacing.xl,
+  },
+  nutritionCard: {
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    marginTop: spacing.md,
+    paddingHorizontal: spacing.lg,
+  },
+  nutritionRow: {
+    alignItems: "center",
+    borderBottomColor: colors.line,
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    minHeight: 54,
+  },
+  nutritionRowLast: {
+    borderBottomWidth: 0,
+  },
+  nutritionLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 14,
+  },
+  nutritionLabelProminent: {
+    color: colors.text,
+    fontWeight: "800",
+  },
+  nutritionValue: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  nutritionValueProminent: {
+    color: colors.accent,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  warning: {
+    backgroundColor: colors.warningBackground,
+    borderColor: colors.warningBorder,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    marginTop: spacing.lg,
+    padding: spacing.lg,
+  },
+  warningTitle: {
+    color: colors.warningTitle,
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "800",
+  },
+  warningText: {
+    color: colors.warningText,
+    fontFamily,
+    fontSize: 13,
+    lineHeight: 19,
+    marginTop: spacing.xs,
+  },
+  sourceBlock: {
+    borderTopColor: colors.line,
+    borderTopWidth: 1,
+    marginTop: spacing.xxl,
+    paddingTop: spacing.lg,
+  },
+  sourceLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.1,
+  },
+  sourceName: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "700",
+    marginTop: spacing.sm,
+  },
+  sourceMeta: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.xs,
+  },
+  disclaimer: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.xl,
+  },
+  pressed: {
+    opacity: 0.82,
+    transform: [{ scale: 0.985 }],
+  },
 });

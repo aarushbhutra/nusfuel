@@ -11,14 +11,9 @@ import {
 
 import { getMenu } from "../lib/api/menu.js";
 import { PREVIEW_MENU } from "../lib/menuPreview.js";
-import { radius, spacing, useTheme } from "../theme.js";
+import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
-export default function MenuBrowseScreen({
-  apiBaseUrl,
-  authSession,
-  onSelect,
-  onBack,
-}) {
+export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, onBack }) {
   const { colors, styles } = useTheme(createStyles);
   const preview = !apiBaseUrl || !authSession?.accessToken;
   const [items, setItems] = useState(preview ? PREVIEW_MENU : []);
@@ -69,11 +64,11 @@ export default function MenuBrowseScreen({
           loading ? (
             <View style={styles.state}>
               <ActivityIndicator color={colors.accent} />
-              <Text style={styles.stateText}>Loading Techno Edge menu…</Text>
+              <Text style={styles.stateText}>Reading the Techno Edge menu.</Text>
             </View>
           ) : error ? (
             <View style={styles.state}>
-              <Text style={styles.stateTitle}>Menu unavailable</Text>
+              <Text style={styles.stateTitle}>The menu is out of reach.</Text>
               <Text style={styles.stateText}>{error}</Text>
               <Pressable
                 accessibilityRole="button"
@@ -85,18 +80,15 @@ export default function MenuBrowseScreen({
             </View>
           ) : (
             <View style={styles.state}>
-              <Text style={styles.stateTitle}>No meals yet</Text>
+              <Text style={styles.stateTitle}>No meals yet.</Text>
               <Text style={styles.stateText}>There are no stored Techno Edge meals to show.</Text>
             </View>
           )
         }
         ListHeaderComponent={
           <View>
-            <View style={styles.headerRow}>
-              <View>
-                <Text style={styles.eyebrow}>STEP 2 OF 2</Text>
-                <Text style={styles.title}>Choose a meal.</Text>
-              </View>
+            <View style={styles.topBar}>
+              <Text style={styles.brand}>NUSFuel</Text>
               {onBack ? (
                 <Pressable
                   accessibilityLabel="Back to saved target"
@@ -104,18 +96,27 @@ export default function MenuBrowseScreen({
                   onPress={onBack}
                   style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
                 >
-                  <Text style={styles.backText}>Back</Text>
+                  <Text style={styles.backText}>Back to target</Text>
                 </Pressable>
               ) : null}
             </View>
-            <Text style={styles.copy}>
-              Browse the stored Techno Edge menu by stall. Tap a meal to view its full nutrition.
-            </Text>
-            {preview ? <Text style={styles.previewNote}>Preview menu · connected data appears here when signed in</Text> : null}
+            <View style={styles.hero}>
+              <Text style={styles.eyebrow}>TECHNO EDGE / MENU</Text>
+              <Text style={styles.title}>The menu, in view.</Text>
+              <Text style={styles.copy}>
+                Browse stored meals by stall. Open one to see the full nutrition record and adjust servings.
+              </Text>
+            </View>
+            {preview ? <Text style={styles.previewNote}>Preview menu. Connected data appears here when signed in.</Text> : null}
           </View>
         }
         renderItem={({ item }) => <MealRow item={item} onPress={() => onSelect(item)} />}
-        renderSectionHeader={({ section }) => <Text style={styles.sectionTitle}>{section.title}</Text>}
+        renderSectionHeader={({ section }) => (
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>{section.title}</Text>
+            <View style={styles.sectionRule} />
+          </View>
+        )}
         sections={sections}
         showsVerticalScrollIndicator={false}
         stickySectionHeadersEnabled={false}
@@ -134,9 +135,10 @@ function MealRow({ item, onPress }) {
       onPress={onPress}
       style={({ pressed }) => [styles.mealRow, pressed && styles.pressed]}
     >
+      <View style={styles.mealAccent} />
       <View style={styles.mealCopy}>
         <Text style={styles.mealName}>{item.name}</Text>
-        <Text style={styles.mealMeta}>{item.serving.quantity} {item.serving.unit} · {item.nutrition.proteinG} g protein</Text>
+        <Text style={styles.mealMeta}>{item.serving.quantity} {item.serving.unit} / {item.nutrition.proteinG} g protein</Text>
       </View>
       <View style={styles.mealEnergy}>
         <Text style={styles.energyValue}>{item.nutrition.energyKcal}</Text>
@@ -147,27 +149,180 @@ function MealRow({ item, onPress }) {
 }
 
 const createStyles = (colors) => StyleSheet.create({
-  screen: { backgroundColor: colors.background, flex: 1 },
-  content: { paddingBottom: spacing.xxl, paddingHorizontal: 20, paddingTop: spacing.md },
-  headerRow: { alignItems: "flex-start", flexDirection: "row", justifyContent: "space-between" },
-  eyebrow: { color: colors.accent, fontSize: 12, fontWeight: "800", letterSpacing: 1.2 },
-  title: { color: colors.text, fontSize: 34, fontWeight: "800", letterSpacing: -1, marginTop: spacing.sm },
-  copy: { color: colors.muted, fontSize: 15, lineHeight: 22, marginTop: spacing.md, maxWidth: 350 },
-  previewNote: { color: colors.muted, fontSize: 12, lineHeight: 18, marginTop: spacing.md },
-  backButton: { alignItems: "center", borderColor: colors.line, borderRadius: 12, borderWidth: 1, justifyContent: "center", minHeight: 48, minWidth: 64, paddingHorizontal: 12 },
-  backText: { color: colors.text, fontSize: 13, fontWeight: "800" },
-  sectionTitle: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0.4, marginBottom: spacing.sm, marginTop: spacing.section, textTransform: "uppercase" },
-  mealRow: { alignItems: "center", backgroundColor: colors.surface, borderColor: colors.line, borderRadius: radius, borderWidth: 1, flexDirection: "row", justifyContent: "space-between", marginBottom: spacing.sm, minHeight: 78, paddingHorizontal: spacing.lg, paddingVertical: spacing.md },
-  mealCopy: { flex: 1, paddingRight: spacing.md },
-  mealName: { color: colors.text, fontSize: 16, fontWeight: "800", lineHeight: 21 },
-  mealMeta: { color: colors.muted, fontSize: 12, lineHeight: 18, marginTop: spacing.xs },
-  mealEnergy: { alignItems: "flex-end" },
-  energyValue: { color: colors.accent, fontSize: 17, fontWeight: "800" },
-  energyLabel: { color: colors.muted, fontSize: 11, marginTop: 2 },
-  state: { alignItems: "center", paddingHorizontal: spacing.lg, paddingTop: spacing.section, textAlign: "center" },
-  stateTitle: { color: colors.text, fontSize: 18, fontWeight: "800" },
-  stateText: { color: colors.muted, fontSize: 14, lineHeight: 20, marginTop: spacing.sm, textAlign: "center" },
-  retryButton: { alignItems: "center", borderColor: colors.line, borderRadius: 12, borderWidth: 1, marginTop: spacing.lg, minHeight: 48, justifyContent: "center", paddingHorizontal: spacing.xl },
-  retryText: { color: colors.text, fontSize: 14, fontWeight: "800" },
-  pressed: { opacity: 0.78, transform: [{ scale: 0.985 }] },
+  screen: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+  content: {
+    paddingBottom: spacing.xxl,
+    paddingHorizontal: 24,
+    paddingTop: spacing.md,
+  },
+  topBar: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  brand: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  backButton: {
+    justifyContent: "center",
+    minHeight: 44,
+    paddingLeft: spacing.md,
+  },
+  backText: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "700",
+  },
+  hero: {
+    marginTop: 58,
+  },
+  eyebrow: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 11,
+    fontWeight: "800",
+    letterSpacing: 1.3,
+  },
+  title: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 35,
+    fontWeight: "800",
+    letterSpacing: -1.2,
+    lineHeight: 40,
+    marginTop: spacing.md,
+  },
+  copy: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 15,
+    lineHeight: 23,
+    marginTop: spacing.md,
+    maxWidth: 340,
+  },
+  previewNote: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.lg,
+  },
+  sectionHeader: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: spacing.sm,
+    marginTop: spacing.section,
+  },
+  sectionTitle: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 13,
+    fontWeight: "800",
+    letterSpacing: 0.2,
+  },
+  sectionRule: {
+    backgroundColor: colors.line,
+    flex: 1,
+    height: 1,
+    marginLeft: spacing.md,
+  },
+  mealRow: {
+    alignItems: "center",
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    flexDirection: "row",
+    marginBottom: spacing.sm,
+    minHeight: 82,
+    overflow: "hidden",
+    paddingRight: spacing.lg,
+  },
+  mealAccent: {
+    backgroundColor: colors.accent,
+    height: "100%",
+    marginRight: spacing.md,
+    width: 4,
+  },
+  mealCopy: {
+    flex: 1,
+    paddingVertical: spacing.md,
+    paddingRight: spacing.md,
+  },
+  mealName: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "800",
+    lineHeight: 20,
+  },
+  mealMeta: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.xs,
+  },
+  mealEnergy: {
+    alignItems: "flex-end",
+  },
+  energyValue: {
+    color: colors.accent,
+    fontFamily,
+    fontSize: 17,
+    fontWeight: "800",
+  },
+  energyLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    marginTop: 2,
+  },
+  state: {
+    alignItems: "center",
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.section,
+  },
+  stateTitle: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 18,
+    fontWeight: "800",
+    textAlign: "center",
+  },
+  stateText: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: spacing.sm,
+    textAlign: "center",
+  },
+  retryButton: {
+    alignItems: "center",
+    borderColor: colors.line,
+    borderRadius: 14,
+    borderWidth: 1,
+    justifyContent: "center",
+    marginTop: spacing.lg,
+    minHeight: 48,
+    paddingHorizontal: spacing.xl,
+  },
+  retryText: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 13,
+    fontWeight: "800",
+  },
+  pressed: {
+    opacity: 0.82,
+    transform: [{ scale: 0.985 }],
+  },
 });
