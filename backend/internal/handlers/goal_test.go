@@ -93,7 +93,7 @@ func TestGoalHandlerSavesPresetGoal(t *testing.T) {
 
 func TestGoalHandlerPersonalizesPresetFromProfile(t *testing.T) {
 	store := &fakeGoalStore{goals: map[string]contracts.Goal{}}
-	request := authenticatedRequest("PUT", `{"mode":"preset","preset":"cutting","caloriesKcal":1800,"proteinG":120,"profile":{"age":30,"weightKg":80,"gender":"male"}}`, "user-1")
+	request := authenticatedRequest("PUT", `{"mode":"preset","preset":"cutting","profile":{"age":30,"weightKg":80,"gender":"male"}}`, "user-1")
 
 	got, err := (GoalHandler{Store: store}).Handle(context.Background(), request)
 	if err != nil {
