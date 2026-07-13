@@ -235,14 +235,14 @@
 **Description:** Connect meal detail to logging and add a progress view for daily and weekly calorie/protein totals, with optional More Options macros when configured.
 
 **Acceptance criteria:**
-- [ ] User can log a selected meal with selected servings.
-- [ ] Daily and weekly progress updates after logging.
-- [ ] Optional macro progress appears only when configured.
+- [x] User can log a selected meal with selected servings.
+- [x] Daily and weekly progress updates after logging.
+- [x] Optional macro progress appears only when configured.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Manual check in Expo dev server.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Manual check in Expo dev server.
 
 **Dependencies:** Task 10
 

@@ -35,7 +35,7 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 - [x] Task 8: Implement menu browse and meal detail API
 - [x] Task 9: Implement mobile menu browse, serving adjustment, and nutrition display
 - [x] Task 10: Implement meal logging and progress API
-- [ ] Task 11: Implement mobile meal logging and daily/weekly progress
+- [x] Task 11: Implement mobile meal logging and daily/weekly progress
 
 ### Checkpoint: Core User Loop
 
