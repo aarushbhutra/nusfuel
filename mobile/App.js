@@ -5,39 +5,76 @@ import GoalSavedScreen from "./src/screens/GoalSavedScreen.js";
 import GoalSetupScreen from "./src/screens/GoalSetupScreen.js";
 import MealDetailScreen from "./src/screens/MealDetailScreen.js";
 import MenuBrowseScreen from "./src/screens/MenuBrowseScreen.js";
+import ProgressScreen from "./src/screens/ProgressScreen.js";
 import { putGoal } from "./src/lib/api/goals.js";
+import { postMealLog } from "./src/lib/api/progress.js";
+import { createPreviewMealLog } from "./src/lib/progress.js";
 
 export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL }) {
   const [authenticated, setAuthenticated] = useState(false);
   const [savedGoal, setSavedGoal] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [screen, setScreen] = useState("saved");
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+  const [localLogs, setLocalLogs] = useState([]);
 
   if (!authenticated) {
     return <AuthEntryScreen onContinue={() => setAuthenticated(true)} />;
   }
 
   if (savedGoal) {
-    if (menuOpen && selectedMenuItem) {
-      return <MealDetailScreen item={selectedMenuItem} onBack={() => setSelectedMenuItem(null)} />;
+    if (screen === "detail" && selectedMenuItem) {
+      return (
+        <MealDetailScreen
+          item={selectedMenuItem}
+          onBack={() => setScreen("menu")}
+          onLog={async (servingQuantity) => {
+            if (apiBaseUrl && authSession?.accessToken) {
+              return postMealLog(
+                { menuItemId: selectedMenuItem.id, servingQuantity },
+                { accessToken: authSession.accessToken, baseUrl: apiBaseUrl },
+              );
+            }
+            const log = createPreviewMealLog(selectedMenuItem, servingQuantity);
+            setLocalLogs((current) => [...current, log]);
+            return log;
+          }}
+          onViewProgress={() => setScreen("progress")}
+        />
+      );
     }
-    if (menuOpen) {
+    if (screen === "menu") {
       return (
         <MenuBrowseScreen
           apiBaseUrl={apiBaseUrl}
           authSession={authSession}
-          onBack={() => setMenuOpen(false)}
-          onSelect={setSelectedMenuItem}
+          onBack={() => setScreen("saved")}
+          onSelect={(item) => {
+            setSelectedMenuItem(item);
+            setScreen("detail");
+          }}
+        />
+      );
+    }
+    if (screen === "progress") {
+      return (
+        <ProgressScreen
+          apiBaseUrl={apiBaseUrl}
+          authSession={authSession}
+          goal={savedGoal}
+          logs={localLogs}
+          onBack={() => setScreen("saved")}
         />
       );
     }
     return (
       <GoalSavedScreen
         goal={savedGoal}
-        onBrowse={() => setMenuOpen(true)}
+        onBrowse={() => setScreen("menu")}
+        onProgress={() => setScreen("progress")}
         onEdit={() => {
-          setMenuOpen(false);
+          setScreen("saved");
           setSelectedMenuItem(null);
+          setLocalLogs([]);
           setSavedGoal(null);
         }}
       />

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  ActivityIndicator,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -14,10 +15,31 @@ import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 const SERVING_STEP = 0.5;
 const MIN_SERVINGS = 0.5;
 
-export default function MealDetailScreen({ item, onBack }) {
+export default function MealDetailScreen({ item, onBack, onLog, onViewProgress }) {
   const { colors, styles } = useTheme(createStyles);
   const [servings, setServings] = useState(1);
+  const [logging, setLogging] = useState(false);
+  const [logged, setLogged] = useState(false);
+  const [logError, setLogError] = useState("");
   const nutrition = useMemo(() => scaleNutrition(item.nutrition, servings), [item.nutrition, servings]);
+
+  const logMeal = async () => {
+    setLogging(true);
+    setLogError("");
+    try {
+      await onLog(servings);
+      setLogged(true);
+    } catch (error) {
+      setLogError(error instanceof Error ? error.message : "Could not log this meal.");
+    } finally {
+      setLogging(false);
+    }
+  };
+
+  const changeServings = (next) => {
+    setServings(next);
+    setLogged(false);
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -62,7 +84,7 @@ export default function MealDetailScreen({ item, onBack }) {
               accessibilityLabel="Decrease serving quantity"
               accessibilityRole="button"
               disabled={servings <= MIN_SERVINGS}
-              onPress={() => setServings((value) => Math.max(MIN_SERVINGS, value - SERVING_STEP))}
+              onPress={() => changeServings(Math.max(MIN_SERVINGS, servings - SERVING_STEP))}
               style={({ pressed }) => [styles.stepButton, servings <= MIN_SERVINGS && styles.disabled, pressed && styles.pressed]}
             >
               <Text style={styles.stepText}>-</Text>
@@ -71,7 +93,7 @@ export default function MealDetailScreen({ item, onBack }) {
             <Pressable
               accessibilityLabel="Increase serving quantity"
               accessibilityRole="button"
-              onPress={() => setServings((value) => value + SERVING_STEP)}
+              onPress={() => changeServings(servings + SERVING_STEP)}
               style={({ pressed }) => [styles.stepButton, pressed && styles.pressed]}
             >
               <Text style={styles.stepText}>+</Text>
@@ -87,6 +109,25 @@ export default function MealDetailScreen({ item, onBack }) {
           <NutritionRow label="Carbohydrate" value={`${formatNumber(nutrition.carbohydrateG)} g`} />
           <NutritionRow label="Sugar" value={`${formatNumber(nutrition.sugarG)} g`} last />
         </View>
+
+        <Pressable
+          accessibilityRole="button"
+          disabled={logging || logged}
+          onPress={logMeal}
+          style={({ pressed }) => [styles.primaryButton, (logging || logged) && styles.disabledButton, pressed && styles.pressed]}
+        >
+          {logging ? <ActivityIndicator color={colors.accentText} /> : <Text style={styles.primaryButtonText}>{logged ? "Meal logged" : "Log this meal"}</Text>}
+        </Pressable>
+        {logged && onViewProgress ? (
+          <Pressable
+            accessibilityRole="button"
+            onPress={onViewProgress}
+            style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
+          >
+            <Text style={styles.progressButtonText}>View daily progress</Text>
+          </Pressable>
+        ) : null}
+        {logError ? <Text style={styles.logError}>{logError}</Text> : null}
 
         {item.allergens?.incomplete ? (
           <View style={styles.warning}>
@@ -346,6 +387,42 @@ const createStyles = (colors) => StyleSheet.create({
     borderWidth: 1,
     marginTop: spacing.lg,
     padding: spacing.lg,
+  },
+  primaryButton: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: radiusLarge,
+    justifyContent: "center",
+    marginTop: spacing.xl,
+    minHeight: 56,
+  },
+  primaryButtonText: {
+    color: colors.accentText,
+    fontFamily,
+    fontSize: 15,
+    fontWeight: "800",
+  },
+  progressButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 48,
+    marginTop: spacing.sm,
+  },
+  progressButtonText: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "800",
+  },
+  logError: {
+    color: colors.danger,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.sm,
+  },
+  disabledButton: {
+    opacity: 0.6,
   },
   warningTitle: {
     color: colors.warningTitle,

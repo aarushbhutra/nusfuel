@@ -2,7 +2,7 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
-export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
+export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress }) {
   const { styles } = useTheme(createStyles);
 
   return (
@@ -52,6 +52,15 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse }) {
               style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
             >
               <Text style={styles.primaryButtonText}>Browse Techno Edge</Text>
+            </Pressable>
+          ) : null}
+          {onProgress ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={onProgress}
+              style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.progressButtonText}>View progress</Text>
             </Pressable>
           ) : null}
           <Pressable
@@ -220,6 +229,21 @@ const createStyles = (colors) => StyleSheet.create({
     fontFamily,
     fontSize: 14,
     fontWeight: "700",
+  },
+  progressButton: {
+    alignItems: "center",
+    borderColor: colors.line,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    justifyContent: "center",
+    minHeight: 48,
+    marginTop: spacing.sm,
+  },
+  progressButtonText: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "800",
   },
   pressed: {
     opacity: 0.82,

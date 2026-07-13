@@ -64,7 +64,9 @@ export type MealLog = {
   nutritionTotal: Nutrition;
 };
 
-export type ProgressNutrition = Nutrition & {
+export type ProgressNutrition = {
+  energyKcal: number;
+  proteinG: number;
   totalFatG?: number;
   carbohydrateG?: number;
   sugarG?: number;

@@ -19,6 +19,11 @@ test("mobile TypeScript contracts expose API JSON fields", () => {
     "gender",
     "confidence",
     "allergenWarnings",
+    "period",
+    "startDate",
+    "endDate",
+    "consumed",
+    "remaining",
   ]) {
     assert.match(typeSource, new RegExp(`${field}[?]?:`));
   }
