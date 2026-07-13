@@ -64,6 +64,21 @@ export type MealLog = {
   nutritionTotal: Nutrition;
 };
 
+export type ProgressNutrition = Nutrition & {
+  totalFatG?: number;
+  carbohydrateG?: number;
+  sugarG?: number;
+};
+
+export type Progress = {
+  period: "daily" | "weekly";
+  startDate: string;
+  endDate: string;
+  goal: Goal;
+  consumed: ProgressNutrition;
+  remaining: ProgressNutrition;
+};
+
 export type Recommendation = {
   rank: number;
   menuItemId: string;
