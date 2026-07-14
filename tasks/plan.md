@@ -47,16 +47,16 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 
 ### Phase 3: Recommendations and Search
 
-- [ ] Task 12: Implement deterministic recommendation endpoint
+- [x] Task 12: Implement deterministic recommendation endpoint
 - [ ] Task 13: Add mobile recommendation cards
 - [ ] Task 14: Implement Bedrock natural-language filter extraction
 - [ ] Task 15: Add mobile natural-language search
 
 ### Checkpoint: Recommendations
 
-- [ ] Recommendation endpoint returns up to three stored Techno Edge meals
-- [ ] Allergen and dietary filters run before ranking
-- [ ] Optional macro targets affect ranking only if present
+- [x] Recommendation endpoint returns up to three stored Techno Edge meals
+- [x] Allergen and dietary filters run before ranking
+- [x] Optional macro targets affect ranking only if present
 - [ ] Natural-language search cannot return meals or facts absent from storage
 
 ### Phase 4: Deployment and Release Gate

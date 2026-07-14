@@ -34,7 +34,7 @@ func TestAPIHandlerRoutesGoalsAndMenuRequests(t *testing.T) {
 
 func TestAPIHandlerRejectsUnknownRoutes(t *testing.T) {
 	api := NewAPIHandler(&fakeGoalStore{}, &fakeMenuStore{})
-	got, err := api.Handle(context.Background(), menuRequest("GET", "/recommendations", "user-1"))
+	got, err := api.Handle(context.Background(), menuRequest("GET", "/unknown", "user-1"))
 	if err != nil {
 		t.Fatalf("route request: %v", err)
 	}

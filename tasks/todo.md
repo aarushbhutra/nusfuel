@@ -259,13 +259,13 @@
 **Description:** Add backend recommendations based on stored menu data and the user's remaining daily/weekly targets. Allergen and dietary filters must run before ranking.
 
 **Acceptance criteria:**
-- [ ] Endpoint returns up to three stored Techno Edge meals.
-- [ ] Allergen and dietary exclusions run before scoring.
-- [ ] Missing allergen data creates a warning in the response.
+- [x] Endpoint returns up to three stored Techno Edge meals.
+- [x] Allergen and dietary exclusions run before scoring.
+- [x] Missing allergen data creates a warning in the response.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run ranking tests for calorie/protein fit, optional macro fit, outlet relevance, and variety.
+- [x] Run `go test ./...`.
+- [x] Run ranking tests for calorie/protein fit, optional macro fit, outlet relevance, and variety.
 
 **Dependencies:** Tasks 4, 10
 

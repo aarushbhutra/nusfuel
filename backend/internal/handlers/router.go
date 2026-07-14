@@ -6,10 +6,11 @@ import (
 )
 
 type APIHandler struct {
-	Goals    GoalHandler
-	Menu     MenuHandler
-	MealLogs *MealLogHandler
-	Progress *ProgressHandler
+	Goals           GoalHandler
+	Menu            MenuHandler
+	MealLogs        *MealLogHandler
+	Progress        *ProgressHandler
+	Recommendations *RecommendationHandler
 }
 
 func NewAPIHandler(goals GoalStore, menu MenuStore, mealLogStores ...MealLogStore) APIHandler {
@@ -20,6 +21,7 @@ func NewAPIHandler(goals GoalStore, menu MenuStore, mealLogStores ...MealLogStor
 	if len(mealLogStores) > 0 && mealLogStores[0] != nil {
 		api.MealLogs = &MealLogHandler{Store: mealLogStores[0], Menu: menu}
 		api.Progress = &ProgressHandler{Goals: goals, Logs: mealLogStores[0]}
+		api.Recommendations = &RecommendationHandler{Goals: goals, Menu: menu, Logs: mealLogStores[0]}
 	}
 	return api
 }
@@ -40,6 +42,11 @@ func (h APIHandler) Handle(ctx context.Context, request Request) (Response, erro
 			return response(500, map[string]string{"error": "internal server error"})
 		}
 		return h.Progress.Handle(ctx, request)
+	case request.RawPath == "/recommendations":
+		if h.Recommendations == nil {
+			return response(500, map[string]string{"error": "internal server error"})
+		}
+		return h.Recommendations.Handle(ctx, request)
 	default:
 		return response(404, map[string]string{"error": "not found"})
 	}
