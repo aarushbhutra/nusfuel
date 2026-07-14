@@ -282,14 +282,14 @@
 **Description:** Show up to three recommended meals with nutrition impact, source/confidence metadata, and incomplete allergen warnings.
 
 **Acceptance criteria:**
-- [ ] Recommendation cards show meal, stall, nutrition, and fit reason.
-- [ ] Incomplete allergen warnings are visible.
-- [ ] User can open a recommended meal detail and log it.
+- [x] Recommendation cards show meal, stall, nutrition, and fit reason.
+- [x] Incomplete allergen warnings are visible.
+- [x] User can open a recommended meal detail and log it.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Manual check in Expo dev server.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Manual check in Expo dev server.
 
 **Dependencies:** Task 12
 

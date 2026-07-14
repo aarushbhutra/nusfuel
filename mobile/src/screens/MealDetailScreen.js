@@ -15,7 +15,7 @@ import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 const SERVING_STEP = 0.5;
 const MIN_SERVINGS = 0.5;
 
-export default function MealDetailScreen({ item, onBack, onLog, onViewProgress }) {
+export default function MealDetailScreen({ item, onBack, onLog, onViewProgress, backLabel = "Back to menu" }) {
   const { colors, styles } = useTheme(createStyles);
   const [servings, setServings] = useState(1);
   const [logging, setLogging] = useState(false);
@@ -47,12 +47,12 @@ export default function MealDetailScreen({ item, onBack, onLog, onViewProgress }
         <View style={styles.topBar}>
           <Text style={styles.brand}>NUSFuel</Text>
           <Pressable
-            accessibilityLabel="Back to Techno Edge menu"
+            accessibilityLabel={backLabel}
             accessibilityRole="button"
             onPress={onBack}
             style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
           >
-            <Text style={styles.backText}>Back to menu</Text>
+            <Text style={styles.backText}>{backLabel}</Text>
           </Pressable>
         </View>
 

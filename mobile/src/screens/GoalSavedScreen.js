@@ -2,7 +2,7 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
-export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress }) {
+export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, onRecommendations }) {
   const { styles } = useTheme(createStyles);
 
   return (
@@ -61,6 +61,15 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress }) 
               style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
             >
               <Text style={styles.progressButtonText}>View progress</Text>
+            </Pressable>
+          ) : null}
+          {onRecommendations ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={onRecommendations}
+              style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.progressButtonText}>View recommendations</Text>
             </Pressable>
           ) : null}
           <Pressable

@@ -60,3 +60,27 @@ export const PREVIEW_MENU = Object.freeze([
     },
   },
 ]);
+
+export const PREVIEW_RECOMMENDATIONS = Object.freeze([
+  {
+    rank: 1,
+    menuItemId: PREVIEW_MENU[1].id,
+    fitReason: "Protein-forward fit for your remaining daily target.",
+    nutritionImpact: PREVIEW_MENU[1].nutrition,
+    allergenWarnings: [],
+  },
+  {
+    rank: 2,
+    menuItemId: PREVIEW_MENU[0].id,
+    fitReason: "Balanced energy and protein for your next meal.",
+    nutritionImpact: PREVIEW_MENU[0].nutrition,
+    allergenWarnings: [],
+  },
+  {
+    rank: 3,
+    menuItemId: PREVIEW_MENU[2].id,
+    fitReason: "A close energy fit, with an allergen check needed.",
+    nutritionImpact: PREVIEW_MENU[2].nutrition,
+    allergenWarnings: ["Allergen data incomplete: check with the stall before ordering."],
+  },
+]);
