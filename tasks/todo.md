@@ -301,18 +301,18 @@
 
 **Estimated scope:** M
 
-## Task 14: Implement Bedrock natural-language filter extraction
+## Task 14: Implement DeepSeek V4 Flash natural-language filter extraction
 
-**Description:** Add backend-only Bedrock integration that converts natural-language meal requests into validated structured filters. The filters are then applied to stored Techno Edge meals.
+**Description:** Add backend-only DeepSeek V4 Flash integration in the Railway service that calls `https://api.deepseek.com/anthropic` with `DEEPSEEK_API_KEY`, converts natural-language meal requests into validated structured filters, and applies the filters to stored Techno Edge meals.
 
 **Acceptance criteria:**
-- [ ] Bedrock output is parsed and validated before use.
-- [ ] Invalid or unsupported model output falls back to deterministic search behavior.
-- [ ] AI cannot create meals, facts, allergens, or nutrition values.
+- [x] DeepSeek output is parsed and validated before use.
+- [x] Invalid or unsupported model output falls back to deterministic search behavior.
+- [x] AI cannot create meals, facts, allergens, or nutrition values.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run handler tests with mocked Bedrock responses.
+- [x] Run `go test ./...`.
+- [x] Run handler tests with mocked DeepSeek responses.
 
 **Dependencies:** Tasks 8, 12
 

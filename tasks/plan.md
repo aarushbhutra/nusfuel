@@ -49,7 +49,7 @@ Build a mobile-only Expo app backed by AWS-hosted Go Lambdas for Techno Edge mea
 
 - [x] Task 12: Implement deterministic recommendation endpoint
 - [x] Task 13: Add mobile recommendation cards
-- [ ] Task 14: Implement Bedrock natural-language filter extraction
+- [x] Task 14: Implement DeepSeek V4 Flash natural-language filter extraction
 - [ ] Task 15: Add mobile natural-language search
 
 ### Checkpoint: Recommendations
