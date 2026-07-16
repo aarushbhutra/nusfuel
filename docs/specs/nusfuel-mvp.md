@@ -4,7 +4,7 @@
 
 NUSFuel is a mobile-only nutrition companion for gym-focused NUS students. The MVP covers Techno Edge and its stalls. It lets a user set calorie and protein goals, optionally add fat, carbohydrate, and sugar targets under “More options,” log one-serving meals with adjustable quantities, view progress, and receive three grounded meal recommendations.
 
-The backend is cloud-hosted from the first implementation. AI interprets natural-language meal requests, but recommendations and nutrition facts must come from stored menu data.
+The backend is cloud-hosted on Railway from the first implementation. AI interprets natural-language meal requests through DeepSeek V4 Flash's Anthropic-compatible API, but recommendations and nutrition facts must come from stored menu data.
 
 ## Product Requirements
 
@@ -42,14 +42,14 @@ structured dietary/allergen filters
 - Navigation: React Navigation
 - Client data fetching: TanStack Query
 - Local UI state: Zustand
-- API: Amazon API Gateway + AWS Lambda
-- Backend: Go with AWS SDK for Go v2
-- Authentication: Amazon Cognito
-- Primary database: Amazon DynamoDB
-- AI: Amazon Bedrock through a backend-only Lambda integration
-- Menu seed/source files: one repository JSON file per Techno Edge stall during MVP, uploaded to AWS later
-- Observability: Amazon CloudWatch
-- Infrastructure: Terraform
+- API: Railway public Go service
+- Backend: Go; use DeepSeek's Anthropic-compatible API directly
+- Authentication: backend-issued JWTs backed by Railway PostgreSQL user records
+- Primary database: Railway PostgreSQL
+- AI: DeepSeek V4 Flash through `https://api.deepseek.com/anthropic`, called only by the Railway service with `DEEPSEEK_API_KEY`
+- Menu seed/source files: one repository JSON file per Techno Edge stall during MVP, loaded by the service
+- Observability: Railway deployment/runtime logs and structured application logs
+- Hosting: Railway service plus Railway PostgreSQL; no AWS hosting infrastructure
 - Testing: Go `testing`, Vitest, React Native Testing Library, and optional Playwright/device smoke tests
 
 Redis is not required for the first vertical slice. Add it only after baseline latency/read measurements justify cache complexity.
@@ -64,8 +64,9 @@ Mobile test:  npm run mobile:test
 Mobile lint:  npm run mobile:lint
 Backend test: go test ./...
 Backend lint: golangci-lint run
-Terraform:    terraform -chdir=infra plan
-Deploy:       terraform -chdir=infra apply
+Railway status: railway status
+Railway logs:   railway logs --latest --lines 100
+Deploy:         Railway GitHub deployment or railway up
 ```
 
 ## Project Structure
@@ -76,12 +77,12 @@ mobile/src/screens/     App screens and navigation targets
 mobile/src/components/  Reusable UI components
 mobile/src/lib/         API client, query hooks, and local state
 mobile/src/types/       Shared mobile-facing types
-backend/cmd/             Lambda entrypoints
+backend/cmd/             HTTP API entrypoint
 backend/internal/        Go modules for auth, menus, logs, goals, and recommendations
-backend/internal/ai/     Bedrock intent extraction and grounded explanation
-backend/internal/store/  DynamoDB access
+backend/internal/ai/     DeepSeek intent extraction and grounded explanation
+backend/internal/store/  PostgreSQL and seed-menu access
 backend/tests/           Backend unit and integration tests
-infra/                   Terraform AWS resources
+infra/                   Legacy AWS Terraform baseline; do not apply
 data/                    Techno Edge seed menu data
 docs/ideas/              Product ideation artifacts
 docs/specs/              Specifications and living contracts
@@ -116,11 +117,11 @@ Conventions:
 ## Testing Strategy
 
 - Unit tests cover serving scaling, goal presets, custom-goal validation, recommendation ranking, allergen exclusion, and AI-filter validation.
-- API integration tests run against DynamoDB Local or an isolated test table.
+- API integration tests run against an isolated PostgreSQL database.
 - Mobile component tests cover goal setup, meal detail/serving changes, meal logging, progress summaries, and recommendation rendering.
 - One end-to-end smoke path must cover sign-in, set goal, find Techno Edge meal, change servings, log meal, and receive recommendations.
 - Every bug fix adds one regression test.
-- Before implementation is considered complete: backend tests, mobile tests, lint, Terraform validation, and the smoke path pass.
+- Before implementation is considered complete: backend tests, mobile tests, lint, Railway deployment health check, and the smoke path pass.
 
 ## Boundaries
 
@@ -134,7 +135,7 @@ Conventions:
 
 ### Ask first
 
-- Adding a new AWS service or paid dependency.
+- Adding an AI provider other than the approved DeepSeek integration, or a paid dependency.
 - Changing the menu, goal, or meal-log data contracts.
 - Expanding beyond mobile or Techno Edge.
 - Adding medical, body-transformation, or safety guarantees.
@@ -146,7 +147,7 @@ Conventions:
 - Treat missing allergen information as safe.
 - Return AI-generated meals or nutrition values that are absent from storage.
 - Remove failing tests to make a build pass.
-- Deploy infrastructure without reviewing the Terraform plan.
+- Deploy before reviewing Railway service settings, variables, and health-check status.
 
 ## Success Criteria
 
@@ -157,7 +158,7 @@ Conventions:
 - The recommendation endpoint returns up to three available, dietary-compatible meals ranked by target fit.
 - Natural-language search produces validated structured filters and retrieves only stored Techno Edge meals.
 - Incomplete allergen data produces a visible warning.
-- The backend is deployed to AWS through Terraform with authenticated API access and CloudWatch logs.
+- The backend is deployed to Railway with authenticated API access, Railway PostgreSQL, structured logs, and a passing health check.
 - Automated tests cover the core domain rules and the end-to-end smoke path passes.
 
 ## Open Questions
@@ -165,5 +166,5 @@ Conventions:
 - What exact calorie/protein defaults should the three presets use?
 - Should optional targets affect ranking immediately or only progress display?
 - What minimum nutrition/allergen confidence is required before a meal can be recommended?
-- Which Bedrock model and AWS region fit the budget and latency target?
+- What per-request token cap and monthly budget fit DeepSeek V4 Flash?
 - What is the menu update process after the initial repository seed files?
