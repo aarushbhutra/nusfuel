@@ -8,6 +8,7 @@ import (
 type APIHandler struct {
 	Goals           GoalHandler
 	Menu            MenuHandler
+	Search          *NaturalLanguageSearchHandler
 	MealLogs        *MealLogHandler
 	Progress        *ProgressHandler
 	Recommendations *RecommendationHandler
@@ -32,6 +33,11 @@ func (h APIHandler) Handle(ctx context.Context, request Request) (Response, erro
 		return h.Goals.Handle(ctx, request)
 	case request.RawPath == "/menu" || strings.HasPrefix(request.RawPath, "/menu/"):
 		return h.Menu.Handle(ctx, request)
+	case request.RawPath == "/search":
+		if h.Search == nil {
+			return response(500, map[string]string{"error": "internal server error"})
+		}
+		return h.Search.Handle(ctx, request)
 	case request.RawPath == "/meal-logs":
 		if h.MealLogs == nil {
 			return response(500, map[string]string{"error": "internal server error"})
