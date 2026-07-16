@@ -61,6 +61,15 @@ export const PREVIEW_MENU = Object.freeze([
   },
 ]);
 
+export function filterPreviewMenu(query) {
+  const keywords = typeof query === "string"
+    ? query.toLowerCase().match(/[a-z0-9]+/g)?.filter((keyword) => keyword.length > 2) ?? []
+    : [];
+  return PREVIEW_MENU.filter((item) => keywords.some((keyword) => (
+    `${item.name} ${item.stall}`.toLowerCase().includes(keyword)
+  )));
+}
+
 export const PREVIEW_RECOMMENDATIONS = Object.freeze([
   {
     rank: 1,

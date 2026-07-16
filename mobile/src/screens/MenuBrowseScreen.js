@@ -6,11 +6,13 @@ import {
   SectionList,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
+import { searchMeals } from "../lib/api/search.js";
 import { getMenu } from "../lib/api/menu.js";
-import { PREVIEW_MENU } from "../lib/menuPreview.js";
+import { filterPreviewMenu, PREVIEW_MENU } from "../lib/menuPreview.js";
 import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
 export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, onBack }) {
@@ -19,6 +21,11 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
   const [items, setItems] = useState(preview ? PREVIEW_MENU : []);
   const [loading, setLoading] = useState(!preview);
   const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [searchItems, setSearchItems] = useState(null);
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState("");
+  const [searchNote, setSearchNote] = useState("");
 
   const loadMenu = useCallback(async () => {
     if (preview) {
@@ -44,6 +51,44 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
     loadMenu();
   }, [loadMenu]);
 
+  const runSearch = useCallback(async () => {
+    const mealRequest = query.trim();
+    setSearchError("");
+    setSearchNote("");
+    setSearchItems(null);
+    if (!mealRequest) {
+      setSearchItems([]);
+      setSearchNote("Tell us what you feel like eating, then search stored Techno Edge meals.");
+      return;
+    }
+
+    setSearching(true);
+    try {
+      const result = preview
+        ? { items: filterPreviewMenu(mealRequest), usedFallback: true }
+        : await searchMeals(mealRequest, {
+          accessToken: authSession.accessToken,
+          baseUrl: apiBaseUrl,
+        });
+      const matches = Array.isArray(result.items) ? result.items : [];
+      setSearchItems(matches);
+      setSearchNote(matches.length
+        ? result.usedFallback ? "Showing stored keyword matches." : `${matches.length} stored meal${matches.length === 1 ? "" : "s"} found.`
+        : "No stored Techno Edge meals match that request. Try a meal, ingredient, or stall.");
+    } catch (searchFailure) {
+      setSearchError(searchFailure instanceof Error ? searchFailure.message : "Could not search stored meals.");
+    } finally {
+      setSearching(false);
+    }
+  }, [apiBaseUrl, authSession, preview, query]);
+
+  const clearSearch = () => {
+    setQuery("");
+    setSearchError("");
+    setSearchItems(null);
+    setSearchNote("");
+  };
+
   const sections = useMemo(() => {
     const grouped = new Map();
     for (const item of items) {
@@ -54,6 +99,9 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
     }
     return [...grouped].map(([title, data]) => ({ title, data }));
   }, [items]);
+  const visibleSections = searchItems === null
+    ? sections
+    : searchItems.length ? [{ title: "Search results", data: searchItems }] : [];
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -76,6 +124,18 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
                 style={({ pressed }) => [styles.retryButton, pressed && styles.pressed]}
               >
                 <Text style={styles.retryText}>Try again</Text>
+              </Pressable>
+            </View>
+          ) : searchItems !== null ? (
+            <View style={styles.state}>
+              <Text style={styles.stateTitle}>No stored match yet.</Text>
+              <Text style={styles.stateText}>{searchNote}</Text>
+              <Pressable
+                accessibilityRole="button"
+                onPress={clearSearch}
+                style={({ pressed }) => [styles.retryButton, pressed && styles.pressed]}
+              >
+                <Text style={styles.retryText}>Browse full menu</Text>
               </Pressable>
             </View>
           ) : (
@@ -107,7 +167,50 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
                 Browse stored meals by stall. Open one to see the full nutrition record and adjust servings.
               </Text>
             </View>
-            {preview ? <Text style={styles.previewNote}>Preview menu. Connected data appears here when signed in.</Text> : null}
+            <View style={styles.searchBox}>
+              <Text style={styles.searchLabel}>FIND A MEAL</Text>
+              <View style={styles.searchRow}>
+                <TextInput
+                  accessibilityHint="Searches stored Techno Edge meals only."
+                  accessibilityLabel="Describe the meal you want"
+                  editable={!searching}
+                  onChangeText={setQuery}
+                  onSubmitEditing={runSearch}
+                  placeholder="e.g. high-protein fish without peanuts"
+                  placeholderTextColor={colors.muted}
+                  returnKeyType="search"
+                  style={styles.searchInput}
+                  value={query}
+                />
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ disabled: searching }}
+                  disabled={searching}
+                  onPress={runSearch}
+                  style={({ pressed }) => [styles.searchButton, searching && styles.searchButtonDisabled, pressed && styles.pressed]}
+                >
+                  <Text style={styles.searchButtonText}>{searching ? "Finding" : "Search"}</Text>
+                </Pressable>
+              </View>
+              {searching ? <View style={styles.searching}><ActivityIndicator color={colors.accent} size="small" /><Text style={styles.searchingText}>Searching stored meals.</Text></View> : null}
+              {searchError ? (
+                <View style={styles.searchFeedback}>
+                  <Text style={styles.searchFeedbackText}>{searchError}</Text>
+                  <Pressable accessibilityRole="button" onPress={runSearch} style={({ pressed }) => [styles.clearSearch, pressed && styles.pressed]}>
+                    <Text style={styles.clearSearchText}>Try again</Text>
+                  </Pressable>
+                </View>
+              ) : null}
+              {searchItems?.length ? (
+                <View style={styles.searchFeedback}>
+                  <Text style={styles.searchFeedbackText}>{searchNote}</Text>
+                  <Pressable accessibilityRole="button" onPress={clearSearch} style={({ pressed }) => [styles.clearSearch, pressed && styles.pressed]}>
+                    <Text style={styles.clearSearchText}>Clear search</Text>
+                  </Pressable>
+                </View>
+              ) : null}
+            </View>
+            {preview ? <Text style={styles.previewNote}>Preview menu and search. Connected data appears here when signed in.</Text> : null}
           </View>
         }
         renderItem={({ item }) => <MealRow item={item} onPress={() => onSelect(item)} />}
@@ -117,7 +220,7 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
             <View style={styles.sectionRule} />
           </View>
         )}
-        sections={sections}
+        sections={visibleSections}
         showsVerticalScrollIndicator={false}
         stickySectionHeadersEnabled={false}
       />
@@ -213,6 +316,87 @@ const createStyles = (colors) => StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     marginTop: spacing.lg,
+  },
+  searchBox: {
+    backgroundColor: colors.surface,
+    borderColor: colors.line,
+    borderRadius: radiusLarge,
+    borderWidth: 1,
+    marginTop: spacing.xl,
+    padding: spacing.md,
+  },
+  searchLabel: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 1.1,
+  },
+  searchRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: spacing.sm,
+  },
+  searchInput: {
+    color: colors.text,
+    flex: 1,
+    fontFamily,
+    fontSize: 13,
+    minHeight: 48,
+    minWidth: 0,
+    paddingHorizontal: spacing.md,
+  },
+  searchButton: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: 12,
+    justifyContent: "center",
+    minHeight: 44,
+    paddingHorizontal: spacing.md,
+  },
+  searchButtonDisabled: {
+    opacity: 0.65,
+  },
+  searchButtonText: {
+    color: colors.accentText,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "800",
+  },
+  searching: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: spacing.md,
+  },
+  searchingText: {
+    color: colors.muted,
+    fontFamily,
+    fontSize: 12,
+    marginLeft: spacing.sm,
+  },
+  searchFeedback: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: spacing.md,
+  },
+  searchFeedbackText: {
+    color: colors.muted,
+    flex: 1,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    paddingRight: spacing.sm,
+  },
+  clearSearch: {
+    justifyContent: "center",
+    minHeight: 36,
+  },
+  clearSearchText: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "800",
   },
   sectionHeader: {
     alignItems: "center",
