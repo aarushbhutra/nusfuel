@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Animated,
+  Easing,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -19,7 +21,7 @@ const MACROS = [
   ["Sugar", "sugarG", "g"],
 ];
 
-export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, onBack }) {
+export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, onBack, reducedMotion }) {
   const { colors, styles } = useTheme(createStyles);
   const preview = !apiBaseUrl || !authSession?.accessToken;
   const [period, setPeriod] = useState("daily");
@@ -28,6 +30,7 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
   ));
   const [loading, setLoading] = useState(!preview);
   const [error, setError] = useState("");
+  const energyFill = useRef(new Animated.Value(0)).current;
 
   const loadProgress = useCallback(async () => {
     setLoading(true);
@@ -53,6 +56,28 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
   const macros = progress
     ? MACROS.filter(([, key]) => progress.goal.moreOptions?.[key] !== undefined)
     : [];
+  const energyPercentage = progress
+    ? percent(progress.consumed.energyKcal, progress.goal.caloriesKcal)
+    : 0;
+
+  useEffect(() => {
+    if (reducedMotion) {
+      energyFill.setValue(0);
+    }
+    const animation = Animated.timing(energyFill, {
+      duration: reducedMotion ? 140 : 220,
+      easing: Easing.bezier(0.23, 1, 0.32, 1),
+      toValue: reducedMotion ? 1 : energyPercentage,
+      useNativeDriver: true,
+    });
+    animation.start();
+
+    return () => animation.stop();
+  }, [energyFill, energyPercentage, reducedMotion]);
+
+  const energyFillStyle = reducedMotion
+    ? { opacity: energyFill, transform: [{ scaleX: energyPercentage / 100 }] }
+    : { transform: [{ scaleX: energyFill.interpolate({ inputRange: [0, 100], outputRange: [0, 1] }) }] };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -116,7 +141,7 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
               <Text style={styles.energyValue}>{formatNumber(progress.consumed.energyKcal)}</Text>
               <Text style={styles.energyMeta}>of {formatNumber(progress.goal.caloriesKcal)} kcal</Text>
               <View style={styles.progressTrack}>
-                <View style={[styles.progressFill, { width: `${percent(progress.consumed.energyKcal, progress.goal.caloriesKcal)}%` }]} />
+                <Animated.View style={[styles.progressFill, energyFillStyle]} />
               </View>
               <View style={styles.metricRow}>
                 <Metric label="Protein" value={`${formatNumber(progress.consumed.proteinG)} / ${formatNumber(progress.goal.proteinG)} g`} styles={styles} />
@@ -197,7 +222,7 @@ const createStyles = (colors) => StyleSheet.create({
   energyValue: { color: colors.text, fontFamily, fontSize: 40, fontWeight: "800", letterSpacing: -1.2, marginTop: spacing.md },
   energyMeta: { color: colors.accent, fontFamily, fontSize: 12, fontWeight: "800", marginTop: 2 },
   progressTrack: { backgroundColor: colors.line, borderRadius: 4, height: 8, marginTop: spacing.lg, overflow: "hidden" },
-  progressFill: { backgroundColor: colors.accent, borderRadius: 4, height: "100%" },
+  progressFill: { backgroundColor: colors.accent, borderRadius: 4, height: "100%", transformOrigin: "left center", width: "100%" },
   metricRow: { flexDirection: "row", marginTop: spacing.xl },
   metric: { flex: 1 },
   metricDivider: { backgroundColor: colors.line, marginHorizontal: spacing.lg, width: 1 },

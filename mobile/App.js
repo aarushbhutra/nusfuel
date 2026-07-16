@@ -10,8 +10,10 @@ import RecommendationsScreen from "./src/screens/RecommendationsScreen.js";
 import { putGoal } from "./src/lib/api/goals.js";
 import { postMealLog } from "./src/lib/api/progress.js";
 import { createPreviewMealLog } from "./src/lib/progress.js";
+import { useReducedMotion } from "./src/lib/useReducedMotion.js";
 
 export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL }) {
+  const reducedMotion = useReducedMotion();
   const [authenticated, setAuthenticated] = useState(false);
   const [savedGoal, setSavedGoal] = useState(null);
   const [screen, setScreen] = useState("saved");
@@ -67,6 +69,7 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
           goal={savedGoal}
           logs={localLogs}
           onBack={() => setScreen("saved")}
+          reducedMotion={reducedMotion}
         />
       );
     }
@@ -90,6 +93,7 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
         onBrowse={() => setScreen("menu")}
         onProgress={() => setScreen("progress")}
         onRecommendations={() => setScreen("recommendations")}
+        reducedMotion={reducedMotion}
         onEdit={() => {
           setScreen("saved");
           setSelectedMenuItem(null);

@@ -1,9 +1,32 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated, Easing, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
-export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, onRecommendations }) {
+export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, onRecommendations, reducedMotion }) {
   const { styles } = useTheme(createStyles);
+  const summaryEntrance = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    summaryEntrance.setValue(0);
+    const animation = Animated.timing(summaryEntrance, {
+      duration: reducedMotion ? 140 : 220,
+      easing: Easing.bezier(0.23, 1, 0.32, 1),
+      toValue: 1,
+      useNativeDriver: true,
+    });
+    animation.start();
+
+    return () => animation.stop();
+  }, [reducedMotion, summaryEntrance]);
+
+  const summaryStyle = {
+    opacity: summaryEntrance,
+    transform: [
+      { translateY: reducedMotion ? 0 : summaryEntrance.interpolate({ inputRange: [0, 1], outputRange: [12, 0] }) },
+      { scale: reducedMotion ? 1 : summaryEntrance.interpolate({ inputRange: [0, 1], outputRange: [0.98, 1] }) },
+    ],
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -22,7 +45,7 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, on
             </Text>
           </View>
 
-          <View style={styles.summaryCard}>
+          <Animated.View style={[styles.summaryCard, summaryStyle]}>
             <View style={styles.summaryHeader}>
               <Text style={styles.summaryLabel}>{goal.mode === "custom" ? "CUSTOM TARGET" : "DAILY TARGET"}</Text>
               <View style={styles.savedDot} />
@@ -40,7 +63,7 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, on
                 <Text style={styles.metricUnit}>g</Text>
               </View>
             </View>
-          </View>
+          </Animated.View>
         </View>
 
         <View style={styles.footer}>
