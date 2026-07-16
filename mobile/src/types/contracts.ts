@@ -35,6 +35,11 @@ export type MenuItem = {
   source: Source;
 };
 
+export type NaturalLanguageSearchResponse = {
+  items: MenuItem[];
+  usedFallback: boolean;
+};
+
 export type MacroTargets = {
   totalFatG?: number;
   carbohydrateG?: number;
