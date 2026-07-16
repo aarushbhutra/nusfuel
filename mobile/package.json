@@ -10,8 +10,8 @@
     "lint": "node --check src/index.js"
   },
   "dependencies": {
-    "@expo/metro-runtime": "~57.0.3",
-    "expo": "^57.0.4",
+    "@expo/metro-runtime": "~57.0.5",
+    "expo": "~57.0.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.86.0",
