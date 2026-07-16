@@ -331,14 +331,14 @@
 **Description:** Add a mobile search input that sends natural-language queries to the backend and renders validated stored meal results.
 
 **Acceptance criteria:**
-- [ ] User can search for meal intent in natural language.
-- [ ] Results show only stored Techno Edge meals.
-- [ ] Empty or unsupported queries show a usable fallback state.
+- [x] User can search for meal intent in natural language.
+- [x] Results show only stored Techno Edge meals.
+- [x] Empty or unsupported queries show a usable fallback state.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Manual check in Expo dev server.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Manual check in Expo dev server.
 
 **Dependencies:** Task 14
 

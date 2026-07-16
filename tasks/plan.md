@@ -54,14 +54,14 @@ Status note: completed AWS-specific adapter work remains useful as a behavioral 
 - [ ] Task 12: Rewire deterministic recommendations to the Railway API and PostgreSQL-backed logs
 - [x] Task 13: Add mobile recommendation cards
 - [x] Task 14: Implement DeepSeek V4 Flash natural-language filter extraction
-- [ ] Task 15: Add mobile natural-language search
+- [x] Task 15: Add mobile natural-language search
 
 ### Checkpoint: Recommendations
 
 - [x] Recommendation endpoint returns up to three stored Techno Edge meals
 - [x] Allergen and dietary filters run before ranking
 - [x] Optional macro targets affect ranking only if present
-- [ ] Natural-language search cannot return meals or facts absent from storage
+- [x] Natural-language search cannot return meals or facts absent from storage
 
 ### Phase 4: Railway Deployment and Release Gate
 
