@@ -7,22 +7,30 @@ import MealDetailScreen from "./src/screens/MealDetailScreen.js";
 import MenuBrowseScreen from "./src/screens/MenuBrowseScreen.js";
 import ProgressScreen from "./src/screens/ProgressScreen.js";
 import RecommendationsScreen from "./src/screens/RecommendationsScreen.js";
+import { authenticate } from "./src/lib/api/auth.js";
+import { apiBaseUrl as configuredApiBaseUrl } from "./src/lib/config.js";
 import { putGoal } from "./src/lib/api/goals.js";
 import { postMealLog } from "./src/lib/api/progress.js";
-import { createPreviewMealLog } from "./src/lib/progress.js";
 import { useReducedMotion } from "./src/lib/useReducedMotion.js";
 
-export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL }) {
+export default function App({ apiBaseUrl = configuredApiBaseUrl }) {
   const reducedMotion = useReducedMotion();
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authSession, setAuthSession] = useState(null);
   const [savedGoal, setSavedGoal] = useState(null);
   const [screen, setScreen] = useState("saved");
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [detailBackScreen, setDetailBackScreen] = useState("menu");
-  const [localLogs, setLocalLogs] = useState([]);
 
-  if (!authenticated) {
-    return <AuthEntryScreen onContinue={() => setAuthenticated(true)} />;
+  if (!authSession) {
+    return (
+      <AuthEntryScreen
+        apiBaseUrl={apiBaseUrl}
+        onAuthenticated={async ({ mode, email, password }) => {
+          const session = await authenticate(mode, { email, password }, { baseUrl: apiBaseUrl });
+          setAuthSession(session);
+        }}
+      />
+    );
   }
 
   if (savedGoal) {
@@ -33,15 +41,10 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
           onBack={() => setScreen(detailBackScreen)}
           backLabel={detailBackScreen === "recommendations" ? "Back to recommendations" : "Back to menu"}
           onLog={async (servingQuantity) => {
-            if (apiBaseUrl && authSession?.accessToken) {
-              return postMealLog(
-                { menuItemId: selectedMenuItem.id, servingQuantity },
-                { accessToken: authSession.accessToken, baseUrl: apiBaseUrl },
-              );
-            }
-            const log = createPreviewMealLog(selectedMenuItem, servingQuantity);
-            setLocalLogs((current) => [...current, log]);
-            return log;
+            return postMealLog(
+              { menuItemId: selectedMenuItem.id, servingQuantity },
+              { accessToken: authSession.accessToken, baseUrl: apiBaseUrl },
+            );
           }}
           onViewProgress={() => setScreen("progress")}
         />
@@ -67,7 +70,6 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
           apiBaseUrl={apiBaseUrl}
           authSession={authSession}
           goal={savedGoal}
-          logs={localLogs}
           onBack={() => setScreen("saved")}
           reducedMotion={reducedMotion}
         />
@@ -98,7 +100,6 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
           setScreen("saved");
           setSelectedMenuItem(null);
           setDetailBackScreen("menu");
-          setLocalLogs([]);
           setSavedGoal(null);
         }}
       />
@@ -108,17 +109,11 @@ export default function App({ authSession = null, apiBaseUrl = process.env.EXPO_
   return (
     <GoalSetupScreen
       onSave={async (goal) => {
-        if (apiBaseUrl && authSession?.accessToken) {
-          const saved = await putGoal(goal, {
-            accessToken: authSession.accessToken,
-            baseUrl: apiBaseUrl,
-          });
-          setSavedGoal(saved);
-          return;
-        }
-
-        // ponytail: preview-only local save; replace with Cognito session wiring before production auth.
-        setSavedGoal(goal);
+        const saved = await putGoal(goal, {
+          accessToken: authSession.accessToken,
+          baseUrl: apiBaseUrl,
+        });
+        setSavedGoal(saved);
       }}
     />
   );

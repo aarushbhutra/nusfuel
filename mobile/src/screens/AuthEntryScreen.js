@@ -1,15 +1,35 @@
+import { useState } from "react";
 import {
+  ActivityIndicator,
   Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
 import { fontFamily, radiusLarge, spacing, useTheme } from "../theme.js";
 
-export default function AuthEntryScreen({ onContinue }) {
+export default function AuthEntryScreen({ apiBaseUrl, onAuthenticated }) {
   const { styles } = useTheme(createStyles);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState("register");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const submit = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      await onAuthenticated({ mode, email, password });
+    } catch (authenticationError) {
+      setError(authenticationError instanceof Error ? authenticationError.message : "Could not authenticate. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -29,7 +49,7 @@ export default function AuthEntryScreen({ onContinue }) {
             <Text style={styles.eyebrow}>NUS / TECHNO EDGE</Text>
             <Text style={styles.title}>Eat with a plan.</Text>
             <Text style={styles.copy}>
-              Set a daily target, then choose a stored Techno Edge meal that fits the way you train.
+              Sign in to keep a daily target and your Techno Edge meal logs in one place.
             </Text>
             <View style={styles.editorialMark}>
               <View style={styles.editorialDot} />
@@ -38,34 +58,44 @@ export default function AuthEntryScreen({ onContinue }) {
           </View>
 
           <View style={styles.previewCard}>
-            <Text style={styles.previewLabel}>TODAY&apos;S STARTING POINT</Text>
-            <View style={styles.metricRow}>
-              <View>
-                <Text style={styles.metricLabel}>Energy</Text>
-                <Text style={styles.metricValue}>2,200 kcal</Text>
-              </View>
-              <View style={styles.metricRight}>
-                <Text style={styles.metricLabel}>Protein</Text>
-                <Text style={styles.metricValue}>140 g</Text>
-              </View>
-            </View>
-            <View style={styles.progressTrack}>
-              <View style={styles.progressFill} />
-            </View>
-            <Text style={styles.previewHint}>A clearer starting point for the next meal.</Text>
+            <Text style={styles.previewLabel}>{mode === "register" ? "CREATE YOUR ACCOUNT" : "WELCOME BACK"}</Text>
+            <TextInput
+              accessibilityLabel="Email address"
+              autoCapitalize="none"
+              autoComplete="email"
+              keyboardType="email-address"
+              onChangeText={setEmail}
+              placeholder="you@u.nus.edu"
+              style={styles.input}
+              value={email}
+            />
+            <TextInput
+              accessibilityLabel="Password"
+              autoComplete={mode === "register" ? "new-password" : "current-password"}
+              onChangeText={setPassword}
+              placeholder="At least 8 characters"
+              secureTextEntry
+              style={styles.input}
+              value={password}
+            />
+            {error ? <Text style={styles.error}>{error}</Text> : null}
+            {!apiBaseUrl ? <Text style={styles.error}>Set EXPO_PUBLIC_API_BASE_URL before signing in.</Text> : null}
           </View>
         </View>
 
         <View style={styles.footer}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Start setting a target in NUSFuel preview"
-            onPress={onContinue}
-            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+            accessibilityLabel={mode === "register" ? "Create NUSFuel account" : "Sign in to NUSFuel"}
+            disabled={loading || !apiBaseUrl}
+            onPress={submit}
+            style={({ pressed }) => [styles.button, (loading || !apiBaseUrl) && styles.buttonDisabled, pressed && styles.pressed]}
           >
-            <Text style={styles.buttonText}>Set my target</Text>
+            {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>{mode === "register" ? "Create account" : "Sign in"}</Text>}
           </Pressable>
-          <Text style={styles.helper}>Local preview session</Text>
+          <Pressable accessibilityRole="button" onPress={() => { setMode((current) => current === "register" ? "login" : "register"); setError(""); }} style={styles.modeButton}>
+            <Text style={styles.helper}>{mode === "register" ? "Already have an account? Sign in" : "New to NUSFuel? Create an account"}</Text>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
@@ -182,43 +212,22 @@ const createStyles = (colors) => StyleSheet.create({
     fontWeight: "800",
     letterSpacing: 1.1,
   },
-  metricRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: spacing.lg,
-  },
-  metricRight: {
-    alignItems: "flex-end",
-  },
-  metricLabel: {
-    color: colors.muted,
-    fontFamily,
-    fontSize: 12,
-  },
-  metricValue: {
+  input: {
+    borderBottomColor: colors.line,
+    borderBottomWidth: 1,
     color: colors.text,
     fontFamily,
-    fontSize: 17,
-    fontWeight: "800",
-    marginTop: spacing.xs,
-  },
-  progressTrack: {
-    backgroundColor: colors.line,
-    borderRadius: 2,
-    height: 3,
-    marginTop: spacing.lg,
-    overflow: "hidden",
-  },
-  progressFill: {
-    backgroundColor: colors.accent,
-    height: "100%",
-    width: "58%",
-  },
-  previewHint: {
-    color: colors.muted,
-    fontFamily,
-    fontSize: 11,
+    fontSize: 15,
     marginTop: spacing.md,
+    minHeight: 48,
+    paddingHorizontal: 0,
+  },
+  error: {
+    color: colors.warningText,
+    fontFamily,
+    fontSize: 12,
+    lineHeight: 18,
+    marginTop: spacing.sm,
   },
   footer: {
     paddingBottom: spacing.lg,
@@ -235,6 +244,14 @@ const createStyles = (colors) => StyleSheet.create({
     fontFamily,
     fontSize: 15,
     fontWeight: "800",
+  },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  modeButton: {
+    alignSelf: "center",
+    marginTop: spacing.sm,
+    minHeight: 32,
   },
   helper: {
     color: colors.muted,
