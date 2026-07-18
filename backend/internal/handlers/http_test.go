@@ -83,6 +83,25 @@ func TestHTTPHandlerHealthIsPublic(t *testing.T) {
 	}
 }
 
+func TestHTTPHandlerAllowsBrowserPreflightForGoalSave(t *testing.T) {
+	tokens, _ := auth.NewTokenManager(strings.Repeat("a", 32))
+	handler := NewHTTPHandler(APIHandler{}, AuthHandler{}, tokens, nil)
+	request := httptest.NewRequest(http.MethodOptions, "/goals", nil)
+	request.Header.Set("origin", "http://localhost:8081")
+	request.Header.Set("access-control-request-method", http.MethodPut)
+	request.Header.Set("access-control-request-headers", "authorization, content-type")
+	response := httptest.NewRecorder()
+
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusNoContent {
+		t.Fatalf("preflight status = %d", response.Code)
+	}
+	if response.Header().Get("access-control-allow-methods") != "GET, POST, PUT, OPTIONS" {
+		t.Fatalf("allowed methods = %q", response.Header().Get("access-control-allow-methods"))
+	}
+}
+
 func TestHTTPHandlerLogsRequestIDAndHidesInternalErrors(t *testing.T) {
 	previousLogger := slog.Default()
 	var logs bytes.Buffer

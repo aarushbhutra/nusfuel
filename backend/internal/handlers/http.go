@@ -50,6 +50,7 @@ func (h HTTPHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request
 	writer = trackedWriter
 	writer.Header().Set("access-control-allow-origin", "*")
 	writer.Header().Set("access-control-allow-headers", "authorization, content-type, x-request-id")
+	writer.Header().Set("access-control-allow-methods", "GET, POST, PUT, OPTIONS")
 	if request.Method == http.MethodOptions {
 		writer.WriteHeader(http.StatusNoContent)
 		return
