@@ -42,3 +42,10 @@ func Migrate(ctx context.Context, db *sql.DB) error {
 	}
 	return nil
 }
+
+func validateUserID(userID string) error {
+	if strings.TrimSpace(userID) == "" {
+		return fmt.Errorf("user ID is required")
+	}
+	return nil
+}

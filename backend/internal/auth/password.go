@@ -1,10 +1,31 @@
 package auth
 
 import (
+	"context"
 	"fmt"
+	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 )
+
+type User struct {
+	ID           string
+	Email        string
+	PasswordHash string
+}
+
+type UserStore interface {
+	Create(context.Context, string, string) (User, error)
+	GetByEmail(context.Context, string) (User, bool, error)
+}
+
+func NormalizeEmail(email string) (string, error) {
+	email = strings.ToLower(strings.TrimSpace(email))
+	if len(email) < 3 || len(email) > 254 || !strings.Contains(email, "@") {
+		return "", fmt.Errorf("enter a valid email address")
+	}
+	return email, nil
+}
 
 func HashPassword(password string) (string, error) {
 	if len(password) < 8 || len(password) > 72 {

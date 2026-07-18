@@ -3,39 +3,27 @@ package main
 import (
 	"context"
 	"log"
-	"os"
-	"strings"
+	"net/http"
 
+	"github.com/aarushbhutra/nusfuel/backend/internal/ai"
+	"github.com/aarushbhutra/nusfuel/backend/internal/auth"
+	"github.com/aarushbhutra/nusfuel/backend/internal/config"
 	"github.com/aarushbhutra/nusfuel/backend/internal/handlers"
 	"github.com/aarushbhutra/nusfuel/backend/internal/seed"
 	"github.com/aarushbhutra/nusfuel/backend/internal/store"
-	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 )
 
 func main() {
-	tableName := strings.TrimSpace(os.Getenv("GOALS_TABLE_NAME"))
-	if tableName == "" {
-		log.Fatal("GOALS_TABLE_NAME is required")
-	}
-	mealLogsTableName := strings.TrimSpace(os.Getenv("MEAL_LOGS_TABLE_NAME"))
-	if mealLogsTableName == "" {
-		log.Fatal("MEAL_LOGS_TABLE_NAME is required")
-	}
-
-	awsConfig, err := config.LoadDefaultConfig(context.Background())
+	appConfig, err := config.LoadAppConfig()
 	if err != nil {
-		log.Fatalf("load AWS config: %v", err)
+		log.Fatal(err)
 	}
-
-	goalStore := store.NewDynamoDBGoalStore(dynamodb.NewFromConfig(awsConfig), tableName)
-	mealLogStore := store.NewDynamoDBMealLogStore(dynamodb.NewFromConfig(awsConfig), mealLogsTableName)
-	menuSeedDir := strings.TrimSpace(os.Getenv("MENU_SEED_DIR"))
-	if menuSeedDir == "" {
-		menuSeedDir = "../data/techno-edge"
+	db, err := store.OpenPostgres(context.Background(), appConfig.DatabaseURL)
+	if err != nil {
+		log.Fatal(err)
 	}
-	menuItems, err := seed.LoadTechnoEdgeDir(menuSeedDir)
+	defer db.Close()
+	menuItems, err := seed.LoadTechnoEdgeDir(appConfig.MenuSeedDir)
 	if err != nil {
 		log.Fatalf("load menu seed data: %v", err)
 	}
@@ -44,5 +32,16 @@ func main() {
 		log.Fatalf("create menu store: %v", err)
 	}
 
-	lambda.Start(handlers.NewAPIHandler(goalStore, menuStore, mealLogStore).Handle)
+	tokens, err := auth.NewTokenManager(appConfig.JWTSecret)
+	if err != nil {
+		log.Fatal(err)
+	}
+	goals := store.NewPostgresGoalStore(db)
+	mealLogs := store.NewPostgresMealLogStore(db)
+	users := store.NewPostgresUserStore(db)
+	extractor := ai.NewDeepSeekExtractor(config.LoadOptionalDeepSeekConfig(), nil)
+	api := handlers.NewAPIHandlerWithDeepSeek(goals, menuStore, extractor, mealLogs)
+	handler := handlers.NewHTTPHandler(api, handlers.AuthHandler{Users: users, Tokens: tokens}, tokens, db.PingContext)
+	log.Printf("NUSFuel API listening on :%s", appConfig.Port)
+	log.Fatal(http.ListenAndServe(":"+appConfig.Port, handler))
 }
