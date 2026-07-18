@@ -5,8 +5,10 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/aarushbhutra/nusfuel/backend/internal/auth"
+	"github.com/aarushbhutra/nusfuel/backend/internal/logging"
 )
 
 const maxRequestBodyBytes = 1 << 20
@@ -23,8 +25,31 @@ func NewHTTPHandler(api APIHandler, authHandler AuthHandler, tokens auth.TokenMa
 }
 
 func (h HTTPHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	requestID := strings.TrimSpace(request.Header.Get("x-request-id"))
+	if requestID == "" {
+		requestID = logging.NewRequestID()
+	}
+	writer.Header().Set("x-request-id", requestID)
+	request = request.WithContext(logging.WithRequest(request.Context(), requestID, request.URL.Path))
+	trackedWriter := &statusWriter{ResponseWriter: writer}
+	started := time.Now()
+	defer func() {
+		status := trackedWriter.status
+		if status == 0 {
+			status = http.StatusOK
+		}
+		if status == http.StatusBadRequest {
+			logging.Warn(request.Context(), "request validation failed", "status", status)
+		} else if status == http.StatusUnauthorized {
+			logging.Warn(request.Context(), "authentication failed", "status", status)
+		} else if status >= http.StatusInternalServerError {
+			logging.Error(request.Context(), "request failed", "status", status)
+		}
+		logging.Info(request.Context(), "request completed", "method", request.Method, "status", status, "duration_ms", time.Since(started).Milliseconds())
+	}()
+	writer = trackedWriter
 	writer.Header().Set("access-control-allow-origin", "*")
-	writer.Header().Set("access-control-allow-headers", "authorization, content-type")
+	writer.Header().Set("access-control-allow-headers", "authorization, content-type, x-request-id")
 	if request.Method == http.MethodOptions {
 		writer.WriteHeader(http.StatusNoContent)
 		return
@@ -53,6 +78,23 @@ func (h HTTPHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request
 		return
 	}
 	h.write(writer, result)
+}
+
+type statusWriter struct {
+	http.ResponseWriter
+	status int
+}
+
+func (w *statusWriter) WriteHeader(status int) {
+	w.status = status
+	w.ResponseWriter.WriteHeader(status)
+}
+
+func (w *statusWriter) Write(body []byte) (int, error) {
+	if w.status == 0 {
+		w.WriteHeader(http.StatusOK)
+	}
+	return w.ResponseWriter.Write(body)
 }
 
 func (h HTTPHandler) handleHealth(writer http.ResponseWriter, request *http.Request) {

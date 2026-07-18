@@ -1,8 +1,11 @@
 package handlers
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
+	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -14,6 +17,16 @@ import (
 )
 
 type fakeUserStore struct{ users map[string]auth.User }
+
+type failingGoalStore struct{}
+
+func (failingGoalStore) Get(context.Context, string) (contracts.Goal, bool, error) {
+	return contracts.Goal{}, false, errors.New("database connection details")
+}
+
+func (failingGoalStore) Put(context.Context, string, contracts.Goal) error {
+	return errors.New("database connection details")
+}
 
 func (s *fakeUserStore) Create(_ context.Context, email, passwordHash string) (auth.User, error) {
 	if _, exists := s.users[email]; exists {
@@ -67,5 +80,41 @@ func TestHTTPHandlerHealthIsPublic(t *testing.T) {
 	handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/health", nil))
 	if response.Code != http.StatusOK || response.Body.String() != `{"status":"ok"}` {
 		t.Fatalf("health response = %d %s", response.Code, response.Body.String())
+	}
+}
+
+func TestHTTPHandlerLogsRequestIDAndHidesInternalErrors(t *testing.T) {
+	previousLogger := slog.Default()
+	var logs bytes.Buffer
+	slog.SetDefault(slog.New(slog.NewJSONHandler(&logs, nil)))
+	t.Cleanup(func() { slog.SetDefault(previousLogger) })
+
+	tokens, err := auth.NewTokenManager(strings.Repeat("a", 32))
+	if err != nil {
+		t.Fatalf("new token manager: %v", err)
+	}
+	token, err := tokens.Issue("user-1", "student@example.test")
+	if err != nil {
+		t.Fatalf("issue token: %v", err)
+	}
+	handler := NewHTTPHandler(APIHandler{Goals: GoalHandler{Store: failingGoalStore{}}}, AuthHandler{}, tokens, nil)
+	request := httptest.NewRequest(http.MethodGet, "/goals", nil)
+	request.Header.Set("authorization", "Bearer "+token)
+	request.Header.Set("x-request-id", "request-123")
+	response := httptest.NewRecorder()
+
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusInternalServerError || response.Body.String() != `{"error":"internal server error"}` {
+		t.Fatalf("response = %d %s", response.Code, response.Body.String())
+	}
+	if response.Header().Get("x-request-id") != "request-123" {
+		t.Fatalf("request ID = %q", response.Header().Get("x-request-id"))
+	}
+	if strings.Contains(response.Body.String(), "database connection details") {
+		t.Fatal("internal error leaked to API response")
+	}
+	if !strings.Contains(logs.String(), `"request_id":"request-123"`) || !strings.Contains(logs.String(), `"route":"/goals"`) || !strings.Contains(logs.String(), `"msg":"request failed"`) {
+		t.Fatalf("structured request logs = %s", logs.String())
 	}
 }
