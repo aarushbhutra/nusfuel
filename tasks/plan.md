@@ -65,18 +65,18 @@ Status note: completed AWS-specific adapter work remains useful as a behavioral 
 
 ### Phase 4: Railway Deployment and Release Gate
 
-- [ ] Task 16: Add structured Railway runtime logging and basic operational errors
-- [ ] Task 17: Configure Railway deployment, PostgreSQL variables, health check, and DeepSeek credentials
-- [ ] Task 18: Add end-to-end smoke check and release checklist
+- [x] Task 16: Add structured Railway runtime logging and basic operational errors
+- [x] Task 17: Configure Railway deployment, PostgreSQL variables, health check, and DeepSeek credentials
+- [x] Task 18: Add end-to-end smoke check and release checklist
 
 ### Checkpoint: Complete
 
-- [ ] `go test ./...` passes
-- [ ] `npm run mobile:test` passes
-- [ ] `npm run mobile:lint` passes
-- [ ] Railway service, variables, and health check are reviewed before deployment
-- [ ] Smoke path passes: sign in, set goal, find meal, change servings, log meal, view recommendations
-- [ ] All MVP success criteria from `docs/specs/nusfuel-mvp.md` are covered
+- [x] `go test ./...` passes
+- [x] `npm run mobile:test` passes
+- [x] `npm run mobile:lint` passes
+- [x] Railway service, variables, and health check are reviewed before deployment
+- [x] Smoke path passes: sign in, set goal, find meal, change servings, log meal, view recommendations
+- [x] All MVP success criteria from `docs/specs/nusfuel-mvp.md` are covered
 
 ## Dependency Graph
 

@@ -355,13 +355,13 @@
 **Description:** Add structured backend logs visible in Railway for auth failures, validation failures, PostgreSQL failures, DeepSeek failures, and recommendation fallbacks.
 
 **Acceptance criteria:**
-- [ ] Backend logs include request ID and route.
-- [ ] User-facing API errors do not expose internals.
-- [ ] DeepSeek failures are observable and degrade gracefully.
+- [x] Backend logs include request ID and route.
+- [x] User-facing API errors do not expose internals.
+- [x] DeepSeek failures are observable and degrade gracefully.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Verify structured logs in Railway after a deployed request.
+- [x] Run `go test ./...`.
+- [x] Verify structured logs in Railway after a deployed request.
 
 **Dependencies:** Tasks 5, 14
 
@@ -378,14 +378,14 @@
 **Description:** Connect the repository to a Railway Go service and PostgreSQL, configure the public API domain, database and `DEEPSEEK_API_KEY` variables, and a `/health` deployment health check. The mobile app receives only the Railway API base URL.
 
 **Acceptance criteria:**
-- [ ] Railway deploys all MVP backend routes from the repository.
-- [ ] API endpoints require backend JWT auth except the public health check.
-- [ ] Railway variables include database configuration and `DEEPSEEK_API_KEY`; the mobile config contains only the API base URL.
-- [ ] Railway marks the service healthy through `/health` after deployment.
+- [x] Railway deploys all MVP backend routes from the repository.
+- [x] API endpoints require backend JWT auth except the public health check.
+- [x] Railway variables include database configuration and `DEEPSEEK_API_KEY`; the mobile config contains only the API base URL.
+- [x] Railway marks the service healthy through `/health` after deployment.
 
 **Verification:**
-- [ ] Review Railway service settings and variables without exposing values.
-- [ ] Verify `railway status` and `railway logs --latest --lines 100` after deployment.
+- [x] Review Railway service settings and variables without exposing values.
+- [x] Verify `railway status` and `railway logs --latest --lines 100` after deployment.
 
 **Dependencies:** Tasks 5, 6, 8, 10, 12, 14, 16
 
@@ -401,15 +401,15 @@
 **Description:** Add the smallest repeatable smoke check for the MVP flow and document the Railway release gate.
 
 **Acceptance criteria:**
-- [ ] Smoke path covers sign in, set goal, find meal, change servings, log meal, view recommendations.
-- [ ] Release checklist includes backend tests, mobile tests, lint, Railway health/log review, and manual Expo check.
-- [ ] Known open questions are documented if still unresolved.
+- [x] Smoke path covers sign in, set goal, find meal, change servings, log meal, view recommendations.
+- [x] Release checklist includes backend tests, mobile tests, lint, Railway health/log review, and manual Expo check.
+- [x] Known open questions are documented if still unresolved.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Run the smoke path manually or with the chosen smoke tool.
+- [x] Run `go test ./...`.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Run the smoke path manually or with the chosen smoke tool.
 
 **Dependencies:** Tasks 7, 9, 11, 13, 15, 17
 
