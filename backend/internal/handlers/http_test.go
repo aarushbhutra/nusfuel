@@ -114,7 +114,7 @@ func TestHTTPHandlerLogsRequestIDAndHidesInternalErrors(t *testing.T) {
 	if strings.Contains(response.Body.String(), "database connection details") {
 		t.Fatal("internal error leaked to API response")
 	}
-	if !strings.Contains(logs.String(), `"request_id":"request-123"`) || !strings.Contains(logs.String(), `"route":"/goals"`) || !strings.Contains(logs.String(), `"msg":"request failed"`) {
+	if !strings.Contains(logs.String(), `"request_id":"request-123"`) || !strings.Contains(logs.String(), `"route":"/goals"`) || !strings.Contains(logs.String(), `"msg":"PostgreSQL operation failed"`) || !strings.Contains(logs.String(), `"msg":"request failed"`) {
 		t.Fatalf("structured request logs = %s", logs.String())
 	}
 }

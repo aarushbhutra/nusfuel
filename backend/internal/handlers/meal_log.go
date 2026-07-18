@@ -75,6 +75,7 @@ func (h MealLogHandler) Handle(ctx context.Context, request Request) (Response, 
 		NutritionTotal:  total,
 	}
 	if err := h.Store.Put(ctx, userID, mealLog); err != nil {
+		logPostgresFailure(ctx, "save meal log", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	return response(201, mealLog)
@@ -129,6 +130,7 @@ func (h ProgressHandler) Handle(ctx context.Context, request Request) (Response,
 	start, end := progressWindow(period, now)
 	goal, found, err := h.Goals.Get(ctx, userID)
 	if err != nil {
+		logPostgresFailure(ctx, "get goal for progress", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	if !found {
@@ -136,6 +138,7 @@ func (h ProgressHandler) Handle(ctx context.Context, request Request) (Response,
 	}
 	logs, err := h.Logs.List(ctx, userID, start, end)
 	if err != nil {
+		logPostgresFailure(ctx, "list meal logs for progress", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	consumed, err := domain.AggregateNutrition(logs)

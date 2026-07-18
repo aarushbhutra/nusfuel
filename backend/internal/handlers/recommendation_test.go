@@ -1,12 +1,16 @@
 package handlers
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"log/slog"
+	"strings"
 	"testing"
 	"time"
 
 	"github.com/aarushbhutra/nusfuel/backend/internal/contracts"
+	"github.com/aarushbhutra/nusfuel/backend/internal/logging"
 )
 
 func TestAPIHandlerReturnsRankedRecommendationsAndAllergenWarnings(t *testing.T) {
@@ -94,6 +98,24 @@ func TestRecommendationHandlerUsesRemainingDailyAndWeeklyTargets(t *testing.T) {
 				t.Fatalf("recommendations = %+v, want %s first", recommendations, test.want)
 			}
 		})
+	}
+}
+
+func TestRecommendationHandlerLogsEmptyFallback(t *testing.T) {
+	previousLogger := slog.Default()
+	var logs bytes.Buffer
+	slog.SetDefault(slog.New(slog.NewJSONHandler(&logs, nil)))
+	t.Cleanup(func() { slog.SetDefault(previousLogger) })
+
+	handler := RecommendationHandler{
+		Goals: &fakeGoalStore{goals: map[string]contracts.Goal{"user-1": {Mode: "custom", CaloriesKcal: 500, ProteinG: 30}}},
+		Menu:  &fakeMenuStore{},
+		Logs:  &fakeMealLogStore{},
+	}
+	result, err := handler.Handle(logging.WithRequest(context.Background(), "request-789", "/recommendations"), menuRequest("GET", "/recommendations", "user-1"))
+
+	if err != nil || result.StatusCode != 200 || !strings.Contains(logs.String(), `"request_id":"request-789"`) || !strings.Contains(logs.String(), `"msg":"recommendation fallback"`) {
+		t.Fatalf("result = %+v, err = %v, logs = %s", result, err, logs.String())
 	}
 }
 

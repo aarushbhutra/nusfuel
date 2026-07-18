@@ -1,14 +1,18 @@
 package ai
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/aarushbhutra/nusfuel/backend/internal/config"
 	"github.com/aarushbhutra/nusfuel/backend/internal/contracts"
+	"github.com/aarushbhutra/nusfuel/backend/internal/logging"
 )
 
 func TestDeepSeekExtractorAppliesOnlyValidatedFiltersToStoredMeals(t *testing.T) {
@@ -89,5 +93,22 @@ func TestDeepSeekExtractorFallsBackWhenModelReturnsUnsupportedFilters(t *testing
 	}
 	if len(result.Items) != 1 || result.Items[0].ID != "chicken" {
 		t.Fatalf("items = %+v, want only stored deterministic fallback results", result.Items)
+	}
+}
+
+func TestDeepSeekExtractorLogsDeterministicFallback(t *testing.T) {
+	previousLogger := slog.Default()
+	var logs bytes.Buffer
+	slog.SetDefault(slog.New(slog.NewJSONHandler(&logs, nil)))
+	t.Cleanup(func() { slog.SetDefault(previousLogger) })
+
+	result := NewDeepSeekExtractor(config.DeepSeekConfig{}, nil).Search(
+		logging.WithRequest(context.Background(), "request-456", "/search"),
+		"chicken",
+		[]contracts.MenuItem{{ID: "chicken", Name: "Chicken Rice", Stall: "Western"}},
+	)
+
+	if !result.UsedFallback || !strings.Contains(logs.String(), `"request_id":"request-456"`) || !strings.Contains(logs.String(), `"route":"/search"`) || !strings.Contains(logs.String(), `"msg":"DeepSeek extraction failed; using deterministic search fallback"`) {
+		t.Fatalf("fallback logs = %s", logs.String())
 	}
 }

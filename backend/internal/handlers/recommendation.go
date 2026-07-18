@@ -9,6 +9,7 @@ import (
 
 	"github.com/aarushbhutra/nusfuel/backend/internal/contracts"
 	"github.com/aarushbhutra/nusfuel/backend/internal/domain"
+	"github.com/aarushbhutra/nusfuel/backend/internal/logging"
 )
 
 type RecommendationHandler struct {
@@ -38,6 +39,7 @@ func (h RecommendationHandler) Handle(ctx context.Context, request Request) (Res
 	}
 	goal, found, err := h.Goals.Get(ctx, userID)
 	if err != nil {
+		logPostgresFailure(ctx, "get goal for recommendations", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	if !found {
@@ -51,6 +53,7 @@ func (h RecommendationHandler) Handle(ctx context.Context, request Request) (Res
 	start, end := progressWindow(period, now)
 	logs, err := h.Logs.List(ctx, userID, start, end)
 	if err != nil {
+		logPostgresFailure(ctx, "list meal logs for recommendations", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	consumed, err := domain.AggregateNutrition(logs)
@@ -89,6 +92,9 @@ func (h RecommendationHandler) Handle(ctx context.Context, request Request) (Res
 			recommendation.AllergenWarnings = []string{"Allergen data incomplete: check with the stall before ordering."}
 		}
 		recommendations = append(recommendations, recommendation)
+	}
+	if len(recommendations) == 0 {
+		logging.Warn(ctx, "recommendation fallback", "reason", "no ranked meals", "period", period)
 	}
 	return response(200, recommendations)
 }

@@ -64,6 +64,7 @@ func (h GoalHandler) Handle(ctx context.Context, request Request) (Response, err
 	case "GET":
 		goal, found, err := h.Store.Get(ctx, userID)
 		if err != nil {
+			logPostgresFailure(ctx, "get goal", err)
 			return response(500, map[string]string{"error": "internal server error"})
 		}
 		if !found {
@@ -88,6 +89,7 @@ func (h GoalHandler) Handle(ctx context.Context, request Request) (Response, err
 			return response(400, map[string]string{"error": err.Error()})
 		}
 		if err := h.Store.Put(ctx, userID, goal); err != nil {
+			logPostgresFailure(ctx, "save goal", err)
 			return response(500, map[string]string{"error": "internal server error"})
 		}
 		return response(200, goal)

@@ -14,6 +14,7 @@ import (
 	"github.com/aarushbhutra/nusfuel/backend/internal/config"
 	"github.com/aarushbhutra/nusfuel/backend/internal/contracts"
 	"github.com/aarushbhutra/nusfuel/backend/internal/domain"
+	"github.com/aarushbhutra/nusfuel/backend/internal/logging"
 )
 
 const (
@@ -55,6 +56,7 @@ func (e DeepSeekExtractor) Search(ctx context.Context, query string, items []con
 	catalog := newFilterCatalog(items)
 	filters, err := e.Extract(ctx, query, catalog)
 	if err != nil {
+		logging.Warn(ctx, "DeepSeek extraction failed; using deterministic search fallback", "error", err)
 		filters = fallbackFilters(query, items)
 	}
 	return SearchResult{

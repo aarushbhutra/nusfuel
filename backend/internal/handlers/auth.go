@@ -43,6 +43,7 @@ func (h AuthHandler) Register(ctx context.Context, body string) (Response, error
 		return response(409, map[string]string{"error": "email is already registered"})
 	}
 	if err != nil {
+		logPostgresFailure(ctx, "create user", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	token, err := h.Tokens.Issue(user.ID, user.Email)
@@ -63,6 +64,7 @@ func (h AuthHandler) Login(ctx context.Context, body string) (Response, error) {
 	}
 	user, found, err := h.Users.GetByEmail(ctx, email)
 	if err != nil {
+		logPostgresFailure(ctx, "get user", err)
 		return response(500, map[string]string{"error": "internal server error"})
 	}
 	if !found || !auth.CheckPassword(user.PasswordHash, input.Password) {
