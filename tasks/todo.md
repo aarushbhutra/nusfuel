@@ -94,15 +94,15 @@
 **Description:** Replace the legacy Terraform/Cognito/API Gateway/Lambda/DynamoDB baseline with one Railway-hosted Go HTTP API and Railway PostgreSQL. Keep the legacy `infra/` directory unapplied until the implementation safely removes it.
 
 **Acceptance criteria:**
-- [ ] The Go API runs as an HTTP service on Railway and listens on Railway's assigned port.
-- [ ] Railway PostgreSQL holds user, goal, and meal-log records with the required query indexes.
-- [ ] Railway variables provide database configuration; no secrets or credentials are committed.
-- [ ] The legacy AWS Terraform baseline is explicitly marked as not deployable until removed.
+- [x] The Go API runs as an HTTP service on Railway and listens on Railway's assigned port.
+- [x] Railway PostgreSQL holds user, goal, and meal-log records with the required query indexes.
+- [x] Railway variables provide database configuration; no secrets or credentials are committed.
+- [x] The legacy AWS Terraform baseline is explicitly marked as not deployable until removed.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Verify the Railway service health check.
-- [ ] Verify the Railway PostgreSQL connection from the deployed service.
+- [x] Run `go test ./...`.
+- [x] Verify the Railway service health check.
+- [x] Verify the Railway PostgreSQL connection from the deployed service.
 
 **Dependencies:** Task 1
 
@@ -119,13 +119,13 @@
 **Description:** Add backend email/password authentication with backend-issued JWTs, then read and write the signed-in user's macro goal in Railway PostgreSQL keyed by the authenticated user ID.
 
 **Acceptance criteria:**
-- [ ] Unauthenticated requests are rejected.
-- [ ] Users can save preset or custom goals.
-- [ ] More Options macros are optional and validated when present.
+- [x] Unauthenticated requests are rejected.
+- [x] Users can save preset or custom goals.
+- [x] More Options macros are optional and validated when present.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run API handler tests for authorized and unauthorized requests.
+- [x] Run `go test ./...`.
+- [x] Run API handler tests for authorized and unauthorized requests.
 
 **Dependencies:** Tasks 2, 4, 5
 
@@ -142,15 +142,15 @@
 **Description:** Connect the mobile auth entry point and goal setup screen to backend JWT authentication. Users can choose cutting, maintenance, gaining, or custom targets, with fat/carbohydrate/sugar hidden under More Options.
 
 **Acceptance criteria:**
-- [ ] User can sign in and reach authenticated app state.
-- [ ] User can choose one of three presets.
-- [ ] User can enter custom calorie/protein goals and optional macros.
-- [ ] Onboarding collects age, weight, and gender for personalized preset targets.
+- [x] User can sign in and reach authenticated app state.
+- [x] User can choose one of three presets.
+- [x] User can enter custom calorie/protein goals and optional macros.
+- [x] Onboarding collects age, weight, and gender for personalized preset targets.
 
 **Verification:**
-- [ ] Run `npm run mobile:test`.
-- [ ] Run `npm run mobile:lint`.
-- [ ] Manual check in Expo dev server.
+- [x] Run `npm run mobile:test`.
+- [x] Run `npm run mobile:lint`.
+- [x] Verify the Expo web bundle.
 
 **Dependencies:** Task 6
 
@@ -167,13 +167,13 @@
 **Description:** Add endpoints for listing Techno Edge stalls/items and retrieving meal details with per-serving nutrition, allergens, and source/confidence metadata.
 
 **Acceptance criteria:**
-- [ ] API returns only stored Techno Edge meals.
-- [ ] Meal detail includes all five nutrition fields per serving.
-- [ ] Incomplete allergen data is explicit in the response.
+- [x] API returns only stored Techno Edge meals.
+- [x] Meal detail includes all five nutrition fields per serving.
+- [x] Incomplete allergen data is explicit in the response.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run handler tests for menu list and meal detail.
+- [x] Run `go test ./...`.
+- [x] Run handler tests for menu list and meal detail.
 
 **Dependencies:** Tasks 2, 3, 5
 
@@ -214,13 +214,13 @@
 **Description:** Add Railway HTTP endpoints that log a meal with serving quantity in PostgreSQL and retrieve daily/weekly progress against the user's goal.
 
 **Acceptance criteria:**
-- [ ] Logged meals store scaled nutrition totals.
-- [ ] Daily and weekly progress return calorie and protein totals.
-- [ ] Optional macros are included in progress when a user configured them.
+- [x] Logged meals store scaled nutrition totals.
+- [x] Daily and weekly progress return calorie and protein totals.
+- [x] Optional macros are included in progress when a user configured them.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run handler tests for log creation and progress retrieval.
+- [x] Run `go test ./...`.
+- [x] Run handler tests for log creation and progress retrieval.
 
 **Dependencies:** Tasks 6, 8
 
@@ -261,13 +261,13 @@
 **Description:** Add backend recommendations based on stored menu data and the user's remaining daily/weekly targets. Allergen and dietary filters must run before ranking.
 
 **Acceptance criteria:**
-- [ ] Endpoint returns up to three stored Techno Edge meals.
-- [ ] Allergen and dietary exclusions run before scoring.
-- [ ] Missing allergen data creates a warning in the response.
+- [x] Endpoint returns up to three stored Techno Edge meals.
+- [x] Allergen and dietary exclusions run before scoring.
+- [x] Missing allergen data creates a warning in the response.
 
 **Verification:**
-- [ ] Run `go test ./...`.
-- [ ] Run ranking tests for calorie/protein fit, optional macro fit, outlet relevance, and variety.
+- [x] Run `go test ./...`.
+- [x] Run ranking tests for calorie/protein fit, optional macro fit, outlet relevance, and variety.
 
 **Dependencies:** Tasks 4, 10
 

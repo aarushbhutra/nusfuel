@@ -33,25 +33,25 @@ Build a mobile-only Expo app backed by a Railway-hosted Go API and Railway Postg
 
 Status note: completed AWS-specific adapter work remains useful as a behavioral reference, but it does not satisfy the Railway target. Reopened tasks cover only the HTTP, authentication, and persistence migration; completed domain and UI tasks remain in place.
 
-- [ ] Task 5: Replace the AWS baseline with a Railway HTTP API, PostgreSQL schema, and migration path
-- [ ] Task 6: Replace Cognito claims with backend JWT authentication and PostgreSQL-backed goal persistence
-- [ ] Task 7: Connect mobile onboarding and goal setup to backend JWT authentication
-- [ ] Task 8: Rewire menu browse and meal detail API to the Railway HTTP server
+- [x] Task 5: Replace the AWS baseline with a Railway HTTP API, PostgreSQL schema, and migration path
+- [x] Task 6: Replace Cognito claims with backend JWT authentication and PostgreSQL-backed goal persistence
+- [x] Task 7: Connect mobile onboarding and goal setup to backend JWT authentication
+- [x] Task 8: Rewire menu browse and meal detail API to the Railway HTTP server
 - [x] Task 9: Implement mobile menu browse, serving adjustment, and nutrition display
-- [ ] Task 10: Replace DynamoDB meal logging with PostgreSQL persistence and preserve progress behavior
+- [x] Task 10: Replace DynamoDB meal logging with PostgreSQL persistence and preserve progress behavior
 - [x] Task 11: Implement mobile meal logging and daily/weekly progress
 
 ### Checkpoint: Railway Core User Loop
 
-- [ ] A signed-in user can set a preset or custom goal
-- [ ] A signed-in user can browse Techno Edge meals
-- [ ] Serving quantity changes recalculate all displayed nutrition fields
-- [ ] A signed-in user can log a meal and see updated daily/weekly totals
-- [ ] Backend and mobile tests pass against the Railway-compatible API and PostgreSQL integration setup
+- [x] A signed-in user can set a preset or custom goal
+- [x] A signed-in user can browse Techno Edge meals
+- [x] Serving quantity changes recalculate all displayed nutrition fields
+- [x] A signed-in user can log a meal and see updated daily/weekly totals
+- [x] Backend and mobile tests pass against the Railway-compatible API and PostgreSQL integration setup
 
 ### Phase 3: Recommendations and Search
 
-- [ ] Task 12: Rewire deterministic recommendations to the Railway API and PostgreSQL-backed logs
+- [x] Task 12: Rewire deterministic recommendations to the Railway API and PostgreSQL-backed logs
 - [x] Task 13: Add mobile recommendation cards
 - [x] Task 14: Implement DeepSeek V4 Flash natural-language filter extraction
 - [x] Task 15: Add mobile natural-language search
