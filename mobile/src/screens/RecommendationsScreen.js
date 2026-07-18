@@ -54,7 +54,12 @@ export default function RecommendationsScreen({ apiBaseUrl, authSession, onBack,
     <SafeAreaView style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
-          <Text style={styles.brand}>NUSFuel</Text>
+          <View style={styles.brandLockup}>
+            <View style={styles.brandMark}>
+              <View style={styles.brandDot} />
+            </View>
+            <Text style={styles.brand}>NUSFuel</Text>
+          </View>
           <Pressable
             accessibilityLabel="Back to saved target"
             accessibilityRole="button"
@@ -67,7 +72,7 @@ export default function RecommendationsScreen({ apiBaseUrl, authSession, onBack,
 
         <View style={styles.hero}>
           <Text style={styles.eyebrow}>TODAY / RECOMMENDED</Text>
-          <Text style={styles.title}>A focused next meal.</Text>
+          <Text style={styles.title}>What fits next?</Text>
           <Text style={styles.copy}>Stored Techno Edge meals, ranked against what remains in your daily target.</Text>
         </View>
 
@@ -144,9 +149,12 @@ const createStyles = (colors) => StyleSheet.create({
   content: { paddingBottom: spacing.xxl, paddingHorizontal: 24, paddingTop: spacing.md },
   topBar: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" },
   brand: { color: colors.text, fontFamily, fontSize: 15, fontWeight: "700" },
+  brandLockup: { alignItems: "center", flexDirection: "row" },
+  brandMark: { alignItems: "center", backgroundColor: colors.accent, borderRadius: 8, height: 18, justifyContent: "center", width: 18 },
+  brandDot: { backgroundColor: colors.accentText, borderRadius: 3, height: 6, width: 6 },
   backButton: { justifyContent: "center", minHeight: 44, paddingLeft: spacing.md },
   backText: { color: colors.muted, fontFamily, fontSize: 12, fontWeight: "700" },
-  hero: { marginTop: 48 },
+  hero: { marginTop: 42 },
   eyebrow: { color: colors.accent, fontFamily, fontSize: 11, fontWeight: "800", letterSpacing: 1.2 },
   title: { color: colors.text, fontFamily, fontSize: 34, fontWeight: "800", letterSpacing: -1.1, lineHeight: 39, marginTop: spacing.md },
   copy: { color: colors.muted, fontFamily, fontSize: 14, lineHeight: 21, marginTop: spacing.md, maxWidth: 330 },
@@ -156,7 +164,7 @@ const createStyles = (colors) => StyleSheet.create({
   stateText: { color: colors.muted, fontFamily, fontSize: 13, lineHeight: 19, marginTop: spacing.sm, textAlign: "center" },
   retryButton: { alignItems: "center", borderColor: colors.line, borderRadius: radiusLarge, borderWidth: 1, justifyContent: "center", marginTop: spacing.lg, minHeight: 44, paddingHorizontal: spacing.xl },
   retryText: { color: colors.text, fontFamily, fontSize: 13, fontWeight: "800" },
-  card: { backgroundColor: colors.surface, borderColor: colors.line, borderRadius: radiusLarge, borderWidth: 1, marginTop: spacing.xl, padding: spacing.lg },
+  card: { backgroundColor: colors.surface, borderColor: colors.line, borderRadius: radiusLarge, borderWidth: 1, marginTop: spacing.lg, padding: spacing.lg },
   cardTopLine: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" },
   rank: { color: colors.accent, fontFamily, fontSize: 10, fontWeight: "800", letterSpacing: 1.1 },
   stall: { color: colors.muted, flex: 1, fontFamily, fontSize: 11, marginLeft: spacing.md, textAlign: "right" },

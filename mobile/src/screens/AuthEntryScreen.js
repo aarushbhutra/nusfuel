@@ -59,6 +59,7 @@ export default function AuthEntryScreen({ apiBaseUrl, onAuthenticated }) {
 
           <View style={styles.previewCard}>
             <Text style={styles.previewLabel}>{mode === "register" ? "CREATE YOUR ACCOUNT" : "WELCOME BACK"}</Text>
+            <Text style={styles.inputLabel}>Email</Text>
             <TextInput
               accessibilityLabel="Email address"
               autoCapitalize="none"
@@ -69,6 +70,7 @@ export default function AuthEntryScreen({ apiBaseUrl, onAuthenticated }) {
               style={styles.input}
               value={email}
             />
+            <Text style={[styles.inputLabel, styles.inputLabelSpaced]}>Password</Text>
             <TextInput
               accessibilityLabel="Password"
               autoComplete={mode === "register" ? "new-password" : "current-password"}
@@ -153,7 +155,7 @@ const createStyles = (colors) => StyleSheet.create({
     letterSpacing: 1.2,
   },
   hero: {
-    marginTop: 88,
+    marginTop: 64,
   },
   eyebrow: {
     color: colors.accent,
@@ -202,7 +204,7 @@ const createStyles = (colors) => StyleSheet.create({
     borderColor: colors.line,
     borderRadius: radiusLarge,
     borderWidth: 1,
-    marginTop: 54,
+    marginTop: 36,
     padding: spacing.lg,
   },
   previewLabel: {
@@ -221,6 +223,16 @@ const createStyles = (colors) => StyleSheet.create({
     marginTop: spacing.md,
     minHeight: 48,
     paddingHorizontal: 0,
+  },
+  inputLabel: {
+    color: colors.text,
+    fontFamily,
+    fontSize: 12,
+    fontWeight: "800",
+    marginTop: spacing.lg,
+  },
+  inputLabelSpaced: {
+    marginTop: spacing.md,
   },
   error: {
     color: colors.warningText,

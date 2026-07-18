@@ -2,13 +2,13 @@ import { useMemo } from "react";
 import { Platform, StyleSheet } from "react-native";
 
 const lightColors = Object.freeze({
-  background: "#F5F0E8",
+  background: "#F6F2EB",
   surface: "#FFFDF8",
-  surfaceRaised: "#E9E2D7",
+  surfaceRaised: "#ECE7DE",
   text: "#1F2521",
-  muted: "#667068",
-  line: "#D7CEC2",
-  accent: "#D26A3A",
+  muted: "#5A655E",
+  line: "#D4CBC0",
+  accent: "#C45B32",
   accentText: "#FFF9F2",
   danger: "#B33C32",
   warningBackground: "#FBEDD6",
@@ -24,8 +24,8 @@ export function useTheme(createStyles) {
   return { colors: lightColors, styles, scheme: "light" };
 }
 
-export const radius = 16;
-export const radiusLarge = 20;
+export const radius = 12;
+export const radiusLarge = 14;
 export const radiusPill = 999;
 export const fontFamily = Platform.select({
   ios: "Avenir Next",

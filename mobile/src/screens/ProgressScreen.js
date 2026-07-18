@@ -83,7 +83,12 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
     <SafeAreaView style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
-          <Text style={styles.brand}>NUSFuel</Text>
+          <View style={styles.brandLockup}>
+            <View style={styles.brandMark}>
+              <View style={styles.brandDot} />
+            </View>
+            <Text style={styles.brand}>NUSFuel</Text>
+          </View>
           <Pressable
             accessibilityLabel="Back to saved target"
             accessibilityRole="button"
@@ -96,7 +101,7 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
 
         <View style={styles.hero}>
           <Text style={styles.eyebrow}>PROGRESS / {period.toUpperCase()}</Text>
-          <Text style={styles.title}>Your day, in focus.</Text>
+          <Text style={styles.title}>Keep your day in view.</Text>
           <Text style={styles.copy}>See what is logged, what remains, and how the week is moving.</Text>
         </View>
 
@@ -146,7 +151,7 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
               <View style={styles.metricRow}>
                 <Metric label="Protein" value={`${formatNumber(progress.consumed.proteinG)} / ${formatNumber(progress.goal.proteinG)} g`} styles={styles} />
                 <View style={styles.metricDivider} />
-                <Metric label="Remaining" value={`${formatNumber(progress.remaining.energyKcal)} kcal`} styles={styles} />
+                <Metric label="Remaining" value={remainingLabel(progress.remaining.energyKcal, "kcal")} styles={styles} />
               </View>
             </View>
 
@@ -180,7 +185,7 @@ function NutritionRow({ label, consumed, remaining, unit, styles, prominent }) {
     <View style={styles.nutritionRow}>
       <View>
         <Text style={[styles.nutritionLabel, prominent && styles.nutritionLabelProminent]}>{label}</Text>
-        <Text style={styles.nutritionRemaining}>{formatNumber(remaining)} {unit} remaining</Text>
+        <Text style={[styles.nutritionRemaining, remaining < 0 && styles.nutritionRemainingOver]}>{remainingLabel(remaining, unit)}</Text>
       </View>
       <Text style={[styles.nutritionValue, prominent && styles.nutritionValueProminent]}>{formatNumber(consumed)} {unit}</Text>
     </View>
@@ -189,6 +194,12 @@ function NutritionRow({ label, consumed, remaining, unit, styles, prominent }) {
 
 function formatNumber(value) {
   return Number.isInteger(value) ? value.toLocaleString() : Number(value).toFixed(1);
+}
+
+function remainingLabel(value, unit) {
+  return value < 0
+    ? `${formatNumber(Math.abs(value))} ${unit} over`
+    : `${formatNumber(value)} ${unit} remaining`;
 }
 
 function percent(value, target) {
@@ -200,9 +211,12 @@ const createStyles = (colors) => StyleSheet.create({
   content: { paddingBottom: spacing.xxl, paddingHorizontal: 24, paddingTop: spacing.md },
   topBar: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" },
   brand: { color: colors.text, fontFamily, fontSize: 15, fontWeight: "700" },
+  brandLockup: { alignItems: "center", flexDirection: "row" },
+  brandMark: { alignItems: "center", backgroundColor: colors.accent, borderRadius: 8, height: 18, justifyContent: "center", width: 18 },
+  brandDot: { backgroundColor: colors.accentText, borderRadius: 3, height: 6, width: 6 },
   backButton: { justifyContent: "center", minHeight: 44, paddingLeft: spacing.md },
   backText: { color: colors.muted, fontFamily, fontSize: 12, fontWeight: "700" },
-  hero: { marginTop: 48 },
+  hero: { marginTop: 42 },
   eyebrow: { color: colors.accent, fontFamily, fontSize: 11, fontWeight: "800", letterSpacing: 1.2 },
   title: { color: colors.text, fontFamily, fontSize: 34, fontWeight: "800", letterSpacing: -1.1, lineHeight: 39, marginTop: spacing.md },
   copy: { color: colors.muted, fontFamily, fontSize: 14, lineHeight: 21, marginTop: spacing.md, maxWidth: 330 },
@@ -234,6 +248,7 @@ const createStyles = (colors) => StyleSheet.create({
   nutritionLabel: { color: colors.muted, fontFamily, fontSize: 14 },
   nutritionLabelProminent: { color: colors.text, fontWeight: "800" },
   nutritionRemaining: { color: colors.muted, fontFamily, fontSize: 11, marginTop: spacing.xs },
+  nutritionRemainingOver: { color: colors.danger, fontWeight: "700" },
   nutritionValue: { color: colors.text, fontFamily, fontSize: 14, fontWeight: "700" },
   nutritionValueProminent: { color: colors.accent, fontSize: 16, fontWeight: "800" },
   refreshNote: { color: colors.muted, fontFamily, fontSize: 12, lineHeight: 18, marginTop: spacing.md },

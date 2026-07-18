@@ -33,7 +33,12 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, on
       <View style={styles.page}>
         <View style={styles.content}>
           <View style={styles.topBar}>
-            <Text style={styles.brand}>NUSFuel</Text>
+            <View style={styles.brandLockup}>
+              <View style={styles.brandMark}>
+                <View style={styles.brandDot} />
+              </View>
+              <Text style={styles.brand}>NUSFuel</Text>
+            </View>
             <Text style={styles.fieldNote}>FIELD NOTE 02 / 02</Text>
           </View>
 
@@ -77,23 +82,27 @@ export default function GoalSavedScreen({ goal, onEdit, onBrowse, onProgress, on
               <Text style={styles.primaryButtonText}>Browse Techno Edge</Text>
             </Pressable>
           ) : null}
-          {onProgress ? (
-            <Pressable
-              accessibilityRole="button"
-              onPress={onProgress}
-              style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
-            >
-              <Text style={styles.progressButtonText}>View progress</Text>
-            </Pressable>
-          ) : null}
-          {onRecommendations ? (
-            <Pressable
-              accessibilityRole="button"
-              onPress={onRecommendations}
-              style={({ pressed }) => [styles.progressButton, pressed && styles.pressed]}
-            >
-              <Text style={styles.progressButtonText}>View recommendations</Text>
-            </Pressable>
+          {onProgress || onRecommendations ? (
+            <View style={styles.actionRow}>
+              {onProgress ? (
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={onProgress}
+                  style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}
+                >
+                  <Text style={styles.secondaryButtonText}>Progress</Text>
+                </Pressable>
+              ) : null}
+              {onRecommendations ? (
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={onRecommendations}
+                  style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}
+                >
+                  <Text style={styles.secondaryButtonText}>Picks</Text>
+                </Pressable>
+              ) : null}
+            </View>
           ) : null}
           <Pressable
             accessibilityRole="button"
@@ -132,6 +141,24 @@ const createStyles = (colors) => StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
+  brandLockup: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  brandMark: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: 8,
+    height: 18,
+    justifyContent: "center",
+    width: 18,
+  },
+  brandDot: {
+    backgroundColor: colors.accentText,
+    borderRadius: 3,
+    height: 6,
+    width: 6,
+  },
   fieldNote: {
     color: colors.muted,
     fontFamily,
@@ -140,7 +167,7 @@ const createStyles = (colors) => StyleSheet.create({
     letterSpacing: 1.1,
   },
   hero: {
-    marginTop: 88,
+    marginTop: 64,
   },
   eyebrow: {
     color: colors.accent,
@@ -172,7 +199,7 @@ const createStyles = (colors) => StyleSheet.create({
     borderColor: colors.line,
     borderRadius: radiusLarge,
     borderWidth: 1,
-    marginTop: 56,
+    marginTop: 32,
     padding: spacing.lg,
   },
   summaryHeader: {
@@ -262,16 +289,21 @@ const createStyles = (colors) => StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
   },
-  progressButton: {
+  actionRow: {
+    flexDirection: "row",
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  secondaryButton: {
     alignItems: "center",
     borderColor: colors.line,
     borderRadius: radiusLarge,
     borderWidth: 1,
+    flex: 1,
     justifyContent: "center",
     minHeight: 48,
-    marginTop: spacing.sm,
   },
-  progressButtonText: {
+  secondaryButtonText: {
     color: colors.text,
     fontFamily,
     fontSize: 14,

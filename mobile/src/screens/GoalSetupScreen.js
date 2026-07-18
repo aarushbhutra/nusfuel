@@ -110,7 +110,12 @@ export default function GoalSetupScreen({ onSave }) {
                 <Text style={styles.backText}>Back</Text>
               </Pressable>
             ) : (
-              <Text style={styles.brand}>NUSFuel</Text>
+              <View style={styles.brandLockup}>
+                <View style={styles.brandMark}>
+                  <View style={styles.brandDot} />
+                </View>
+                <Text style={styles.brand}>NUSFuel</Text>
+              </View>
             )}
             <Text style={styles.stepLabel}>STEP {step + 1} OF 4</Text>
           </View>
@@ -240,7 +245,7 @@ export default function GoalSetupScreen({ onSave }) {
           <View style={styles.footer}>
             {saveError ? <Text style={styles.error}>{saveError}</Text> : null}
             {step === 3 ? <Text style={styles.disclaimer}>General nutrition guidance, not medical advice.</Text> : null}
-            <Pressable accessibilityRole="button" disabled={saving} onPress={continueFlow} style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}>
+            <Pressable accessibilityRole="button" disabled={saving} onPress={continueFlow} style={({ pressed }) => [styles.primaryButton, saving && styles.disabledButton, pressed && styles.pressed]}>
               {saving ? <ActivityIndicator color={colors.accentText} /> : <Text style={styles.primaryButtonText}>{step === 3 ? "Save target" : "Continue"}</Text>}
             </Pressable>
           </View>
@@ -316,10 +321,13 @@ const createStyles = (colors) => StyleSheet.create({
   content: { flexGrow: 1, paddingBottom: spacing.lg, paddingHorizontal: 24, paddingTop: spacing.md },
   topBar: { alignItems: "center", flexDirection: "row", justifyContent: "space-between" },
   brand: { color: colors.text, fontFamily, fontSize: 15, fontWeight: "700" },
+  brandLockup: { alignItems: "center", flexDirection: "row" },
+  brandMark: { alignItems: "center", backgroundColor: colors.accent, borderRadius: 8, height: 18, justifyContent: "center", width: 18 },
+  brandDot: { backgroundColor: colors.accentText, borderRadius: 3, height: 6, width: 6 },
   backButton: { justifyContent: "center", minHeight: 44 },
   backText: { color: colors.muted, fontFamily, fontSize: 13, fontWeight: "700" },
   stepLabel: { color: colors.muted, fontFamily, fontSize: 10, fontWeight: "700", letterSpacing: 1.1 },
-  progressTrack: { backgroundColor: colors.line, borderRadius: 2, height: 3, marginTop: spacing.lg, overflow: "hidden" },
+  progressTrack: { backgroundColor: colors.line, borderRadius: 2, height: 4, marginTop: spacing.lg, overflow: "hidden" },
   progressFill: { backgroundColor: colors.accent, height: "100%" },
   stepBody: { flex: 1, justifyContent: "center", paddingBottom: spacing.xxl, paddingTop: spacing.xxl },
   targetBody: { justifyContent: "flex-start" },
@@ -368,6 +376,7 @@ const createStyles = (colors) => StyleSheet.create({
   disclaimer: { color: colors.muted, fontFamily, fontSize: 12, lineHeight: 18, marginBottom: spacing.md, textAlign: "center" },
   primaryButton: { alignItems: "center", backgroundColor: colors.accent, borderRadius: radiusLarge, justifyContent: "center", minHeight: 56 },
   primaryButtonText: { color: colors.accentText, fontFamily, fontSize: 15, fontWeight: "800" },
+  disabledButton: { opacity: 0.6 },
   error: { color: colors.danger, fontFamily, fontSize: 12, lineHeight: 18, marginTop: spacing.sm },
   pressed: { opacity: 0.82, transform: [{ scale: 0.985 }] },
 });

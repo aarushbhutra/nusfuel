@@ -45,7 +45,12 @@ export default function MealDetailScreen({ item, onBack, onLog, onViewProgress, 
     <SafeAreaView style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
-          <Text style={styles.brand}>NUSFuel</Text>
+          <View style={styles.brandLockup}>
+            <View style={styles.brandMark}>
+              <View style={styles.brandDot} />
+            </View>
+            <Text style={styles.brand}>NUSFuel</Text>
+          </View>
           <Pressable
             accessibilityLabel={backLabel}
             accessibilityRole="button"
@@ -87,7 +92,7 @@ export default function MealDetailScreen({ item, onBack, onLog, onViewProgress, 
               onPress={() => changeServings(Math.max(MIN_SERVINGS, servings - SERVING_STEP))}
               style={({ pressed }) => [styles.stepButton, servings <= MIN_SERVINGS && styles.disabled, pressed && styles.pressed]}
             >
-              <Text style={styles.stepText}>-</Text>
+              <Text style={styles.stepText}>−</Text>
             </Pressable>
             <Text accessibilityLabel={`${servings} servings`} style={styles.quantityValue}>{servings}</Text>
             <Pressable
@@ -110,6 +115,15 @@ export default function MealDetailScreen({ item, onBack, onLog, onViewProgress, 
           <NutritionRow label="Sugar" value={`${formatNumber(nutrition.sugarG)} g`} last />
         </View>
 
+        {item.allergens?.incomplete ? (
+          <View style={styles.warning}>
+            <Text style={styles.warningTitle}>Allergen data incomplete</Text>
+            <Text style={styles.warningText}>
+              Some allergen information was not provided. Check with the stall before ordering.
+            </Text>
+          </View>
+        ) : null}
+
         <Pressable
           accessibilityRole="button"
           disabled={logging || logged}
@@ -128,15 +142,6 @@ export default function MealDetailScreen({ item, onBack, onLog, onViewProgress, 
           </Pressable>
         ) : null}
         {logError ? <Text style={styles.logError}>{logError}</Text> : null}
-
-        {item.allergens?.incomplete ? (
-          <View style={styles.warning}>
-            <Text style={styles.warningTitle}>Allergen data incomplete</Text>
-            <Text style={styles.warningText}>
-              Some allergen information was not provided. Check with the stall before ordering.
-            </Text>
-          </View>
-        ) : null}
 
         <View style={styles.sourceBlock}>
           <Text style={styles.sourceLabel}>SOURCE RECORD</Text>
@@ -185,6 +190,24 @@ const createStyles = (colors) => StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
+  brandLockup: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  brandMark: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: 8,
+    height: 18,
+    justifyContent: "center",
+    width: 18,
+  },
+  brandDot: {
+    backgroundColor: colors.accentText,
+    borderRadius: 3,
+    height: 6,
+    width: 6,
+  },
   backButton: {
     justifyContent: "center",
     minHeight: 44,
@@ -197,7 +220,7 @@ const createStyles = (colors) => StyleSheet.create({
     fontWeight: "700",
   },
   hero: {
-    marginTop: 58,
+    marginTop: 48,
   },
   eyebrow: {
     color: colors.accent,

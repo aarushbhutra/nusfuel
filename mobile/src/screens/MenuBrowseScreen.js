@@ -148,7 +148,12 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
         ListHeaderComponent={
           <View>
             <View style={styles.topBar}>
-              <Text style={styles.brand}>NUSFuel</Text>
+              <View style={styles.brandLockup}>
+                <View style={styles.brandMark}>
+                  <View style={styles.brandDot} />
+                </View>
+                <Text style={styles.brand}>NUSFuel</Text>
+              </View>
               {onBack ? (
                 <Pressable
                   accessibilityLabel="Back to saved target"
@@ -162,9 +167,9 @@ export default function MenuBrowseScreen({ apiBaseUrl, authSession, onSelect, on
             </View>
             <View style={styles.hero}>
               <Text style={styles.eyebrow}>TECHNO EDGE / MENU</Text>
-              <Text style={styles.title}>The menu, in view.</Text>
+              <Text style={styles.title}>Choose your next meal.</Text>
               <Text style={styles.copy}>
-                Browse stored meals by stall. Open one to see the full nutrition record and adjust servings.
+                Search by what you feel like eating, or browse stored meals by stall.
               </Text>
             </View>
             <View style={styles.searchBox}>
@@ -238,14 +243,15 @@ function MealRow({ item, onPress }) {
       onPress={onPress}
       style={({ pressed }) => [styles.mealRow, pressed && styles.pressed]}
     >
-      <View style={styles.mealAccent} />
       <View style={styles.mealCopy}>
         <Text style={styles.mealName}>{item.name}</Text>
         <Text style={styles.mealMeta}>{item.serving.quantity} {item.serving.unit} / {item.nutrition.proteinG} g protein</Text>
       </View>
       <View style={styles.mealEnergy}>
-        <Text style={styles.energyValue}>{item.nutrition.energyKcal}</Text>
-        <Text style={styles.energyLabel}>kcal</Text>
+        <View style={styles.energyBadge}>
+          <Text style={styles.energyValue}>{item.nutrition.energyKcal}</Text>
+          <Text style={styles.energyLabel}>kcal</Text>
+        </View>
       </View>
     </Pressable>
   );
@@ -272,6 +278,24 @@ const createStyles = (colors) => StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
+  brandLockup: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  brandMark: {
+    alignItems: "center",
+    backgroundColor: colors.accent,
+    borderRadius: 8,
+    height: 18,
+    justifyContent: "center",
+    width: 18,
+  },
+  brandDot: {
+    backgroundColor: colors.accentText,
+    borderRadius: 3,
+    height: 6,
+    width: 6,
+  },
   backButton: {
     justifyContent: "center",
     minHeight: 44,
@@ -284,7 +308,7 @@ const createStyles = (colors) => StyleSheet.create({
     fontWeight: "700",
   },
   hero: {
-    marginTop: 58,
+    marginTop: 48,
   },
   eyebrow: {
     color: colors.accent,
@@ -426,17 +450,11 @@ const createStyles = (colors) => StyleSheet.create({
     flexDirection: "row",
     marginBottom: spacing.sm,
     minHeight: 82,
-    overflow: "hidden",
     paddingRight: spacing.lg,
-  },
-  mealAccent: {
-    backgroundColor: colors.accent,
-    height: "100%",
-    marginRight: spacing.md,
-    width: 4,
   },
   mealCopy: {
     flex: 1,
+    paddingLeft: spacing.lg,
     paddingVertical: spacing.md,
     paddingRight: spacing.md,
   },
@@ -456,6 +474,14 @@ const createStyles = (colors) => StyleSheet.create({
   },
   mealEnergy: {
     alignItems: "flex-end",
+  },
+  energyBadge: {
+    alignItems: "flex-end",
+    backgroundColor: colors.surfaceRaised,
+    borderRadius: 10,
+    minWidth: 58,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
   },
   energyValue: {
     color: colors.accent,
