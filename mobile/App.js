@@ -1,12 +1,13 @@
 import { useState } from "react";
 
 import AuthEntryScreen from "./src/screens/AuthEntryScreen.js";
-import GoalSavedScreen from "./src/screens/GoalSavedScreen.js";
 import GoalSetupScreen from "./src/screens/GoalSetupScreen.js";
+import HomeScreen from "./src/screens/HomeScreen.js";
 import MealDetailScreen from "./src/screens/MealDetailScreen.js";
 import MenuBrowseScreen from "./src/screens/MenuBrowseScreen.js";
 import ProgressScreen from "./src/screens/ProgressScreen.js";
 import RecommendationsScreen from "./src/screens/RecommendationsScreen.js";
+import { AppFrame } from "./src/components/AppNavigation.js";
 import { authenticate } from "./src/lib/api/auth.js";
 import { apiBaseUrl as configuredApiBaseUrl } from "./src/lib/config.js";
 import { putGoal } from "./src/lib/api/goals.js";
@@ -17,7 +18,7 @@ export default function App({ apiBaseUrl = configuredApiBaseUrl }) {
   const reducedMotion = useReducedMotion();
   const [authSession, setAuthSession] = useState(null);
   const [savedGoal, setSavedGoal] = useState(null);
-  const [screen, setScreen] = useState("saved");
+  const [screen, setScreen] = useState("home");
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
   const [detailBackScreen, setDetailBackScreen] = useState("menu");
 
@@ -41,21 +42,22 @@ export default function App({ apiBaseUrl = configuredApiBaseUrl }) {
           onBack={() => setScreen(detailBackScreen)}
           backLabel={detailBackScreen === "recommendations" ? "Back to recommendations" : "Back to menu"}
           onLog={async (servingQuantity) => {
-            return postMealLog(
+            const result = await postMealLog(
               { menuItemId: selectedMenuItem.id, servingQuantity },
               { accessToken: authSession.accessToken, baseUrl: apiBaseUrl },
             );
+            return result;
           }}
           onViewProgress={() => setScreen("progress")}
         />
       );
     }
+    let activeScreen;
     if (screen === "menu") {
-      return (
+      activeScreen = (
         <MenuBrowseScreen
           apiBaseUrl={apiBaseUrl}
           authSession={authSession}
-          onBack={() => setScreen("saved")}
           onSelect={(item) => {
             setSelectedMenuItem(item);
             setDetailBackScreen("menu");
@@ -65,22 +67,20 @@ export default function App({ apiBaseUrl = configuredApiBaseUrl }) {
       );
     }
     if (screen === "progress") {
-      return (
+      activeScreen = (
         <ProgressScreen
           apiBaseUrl={apiBaseUrl}
           authSession={authSession}
           goal={savedGoal}
-          onBack={() => setScreen("saved")}
           reducedMotion={reducedMotion}
         />
       );
     }
     if (screen === "recommendations") {
-      return (
+      activeScreen = (
         <RecommendationsScreen
           apiBaseUrl={apiBaseUrl}
           authSession={authSession}
-          onBack={() => setScreen("saved")}
           onSelect={(item) => {
             setSelectedMenuItem(item);
             setDetailBackScreen("recommendations");
@@ -89,20 +89,34 @@ export default function App({ apiBaseUrl = configuredApiBaseUrl }) {
         />
       );
     }
+    if (!activeScreen) {
+      activeScreen = (
+        <HomeScreen
+          apiBaseUrl={apiBaseUrl}
+          authSession={authSession}
+          goal={savedGoal}
+          onBrowse={() => setScreen("menu")}
+          onProgress={() => setScreen("progress")}
+          onRecommendations={() => setScreen("recommendations")}
+          onEdit={() => {
+            setScreen("home");
+            setSelectedMenuItem(null);
+            setDetailBackScreen("menu");
+            setSavedGoal(null);
+          }}
+        />
+      );
+    }
     return (
-      <GoalSavedScreen
-        goal={savedGoal}
-        onBrowse={() => setScreen("menu")}
-        onProgress={() => setScreen("progress")}
-        onRecommendations={() => setScreen("recommendations")}
-        reducedMotion={reducedMotion}
-        onEdit={() => {
-          setScreen("saved");
+      <AppFrame
+        activeTab={screen}
+        onNavigate={(nextScreen) => {
           setSelectedMenuItem(null);
-          setDetailBackScreen("menu");
-          setSavedGoal(null);
+          setScreen(nextScreen);
         }}
-      />
+      >
+        {activeScreen}
+      </AppFrame>
     );
   }
 

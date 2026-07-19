@@ -89,14 +89,16 @@ export default function ProgressScreen({ goal, logs, apiBaseUrl, authSession, on
             </View>
             <Text style={styles.brand}>NUSFuel</Text>
           </View>
-          <Pressable
-            accessibilityLabel="Back to saved target"
-            accessibilityRole="button"
-            onPress={onBack}
-            style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
-          >
-            <Text style={styles.backText}>Back to target</Text>
-          </Pressable>
+          {onBack ? (
+            <Pressable
+              accessibilityLabel="Back to today"
+              accessibilityRole="button"
+              onPress={onBack}
+              style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.backText}>Back to today</Text>
+            </Pressable>
+          ) : null}
         </View>
 
         <View style={styles.hero}>
